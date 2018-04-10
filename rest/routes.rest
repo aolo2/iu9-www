@@ -1,0 +1,17 @@
+endpoint = 127.0.0.1:3000
+
+POST 
+<endpoint>/signup
+Basic auth: false
+
+POST
+<endpoint>/restore
+Basic auth: false
+
+GET
+<endpoint>/news
+Basic auth: true
+
+POST
+<endpoint>/news
+Basic auth: true
