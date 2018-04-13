@@ -8,17 +8,13 @@ const routerAuth = express.Router({mergeParams : true})
 routerAuth.use(users.auth_check_middleware)
 
 /* GET */
-
-/* POST */
-router.post('/signup', users.signup)
-router.post('/restore', users.restore)
-
-
-/* GET */
 routerAuth.get('/news', users.get_news)
 
 /* POST */
+router.post('/signup', users.signup)
+router.post('/login', users.login)
 routerAuth.post('/news', users.post_news)
+routerAuth.post('/logout', users.logout)
 
 router.use('/', routerAuth)
 

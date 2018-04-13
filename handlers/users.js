@@ -1,14 +1,16 @@
 const basic_auth = require('basic-auth')
+const uuid = require('uuid/v1')
+const common = require('./common')
 const db = require('../lib/db')
 const security = require('../lib/security')
-const common = require('./common')
+const config = require('../config/config.json')
 
 function signup(req, res) {
   const name = req.body.name
   const pass = req.body.pass
   if (name && pass) {
-    const saltHash = security.saltHashPassword(pass, 10)
-    db.addUser(name, saltHash.hash, saltHash.salt, (err, result) => {
+    const saltHash = security.saltHashPassword(pass, config.salt_length)
+    db.addUser(name, saltHash.hash, saltHash.salt, (err) => {
       if (err) {
         common.send_error_response(res, err.message)
         return
@@ -20,31 +22,7 @@ function signup(req, res) {
   }
 }
 
-function restore(req, res) {
-  // TODO(aolo2)
-}
-
-function get_news(req, res) {
-  db.getNews((err, news) => {
-    if (err) {
-      common.send_error_response(res, err.message)
-      return
-    }
-    common.send_text_response(res, 200, news)
-  })
-}
-
-function post_news(req, res) {
-  db.postNews(() => {
-    common.send_text_response(res, 200) 
-  })
-}
-
-function auth_check_middleware(req, res, next) {
-  if (req.authChecked) {
-    next()
-    return
-  }
+function login(req, res) {
   const user = basic_auth(req)
   if (!user) {
     common.send_bad_login_response(res)
@@ -56,17 +34,89 @@ function auth_check_middleware(req, res, next) {
       return
     }
     if (userDb && security.checkPassword(user.pass, userDb.passwordSalt,  userDb.passwordHash)) {
-      req.userDb = userDb
       req.authChecked = true
-      next()
+
+      const session = uuid()
+      db.openSession(session, (err) => {
+        if (err) {
+          common.send_error_response(res, 'could not open session')
+          return
+        }
+
+        common.send_text_response(res, 200, session)
+      })
+
     } else {
       common.send_bad_login_response(res)
     }
   }) 
 }
 
+function logout(req, res) {
+  if (!req.body.session) {
+    common.send_bad_request_response(res)
+    return
+  }
+
+  db.closeSession(req.body.session, (err) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else {
+      common.send_text_response(res, 200)
+    }
+  })
+}
+
+function get_news(req, res) {
+  db.getNews(common.news_uuid, (err, result) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+      return
+    }
+
+    common.send_json_response(res, result)
+  })
+}
+
+function post_news(req, res) {
+  if (!req.body.news) {
+    common.send_bad_request_response(res)
+    return
+  }
+
+  db.postNews(common.news_uuid, req.body.news, (err) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else {
+      common.send_text_response(res, 200)
+    }
+  })
+}
+
+function auth_check_middleware(req, res, next) {
+  if (req.authChecked) {
+    next()
+    return
+  }
+
+  if (!req.body.session) {
+    common.send_bad_login_response(res)
+    return
+  }
+
+  db.validateSession(req.body.session, (err, result) => {
+    if (err || !result) {
+      common.send_bad_login_response(res)
+    } else {
+      req.authChecked = true
+      next()
+    }
+  })  
+}
+
+module.exports.login = login
+module.exports.logout = logout
 module.exports.signup = signup
-module.exports.restore = restore
 module.exports.get_news = get_news
 module.exports.post_news = post_news
 module.exports.auth_check_middleware = auth_check_middleware

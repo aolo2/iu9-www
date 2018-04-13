@@ -4,10 +4,6 @@ POST
 <endpoint>/signup
 Basic auth: false
 
-POST
-<endpoint>/restore
-Basic auth: false
-
 GET
 <endpoint>/news
 Basic auth: true
