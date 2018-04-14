@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_ROOT=`pwd`
+SCRIPT_ROOT=$(pwd)
 
 MD_FOLDER=markdown
 COMPILED_FOLDER=compiled
@@ -15,10 +15,7 @@ AFTER=after.html
 
 LOG_FOLDER=$SCRIPT_ROOT/logs/pandoc
 
-PAGE_FILENAMES=( enroll index science )
-
 PANDOC_FLAGS="--from=markdown \
---smart \
 --to=html5 \
 --highlight-style=haddock \
 --mathjax \
@@ -34,9 +31,9 @@ echo "[INFO] Running pandoc" `pandoc --version | head -n 1 | cut -d' ' -f 2` # "
 
 date >> $LOG_FOLDER/compile_pages.log
 
-for FILENAME in ${PAGE_FILENAMES[@]}; do \
-    echo -n "[INFO]" $FILENAME.md
-    pandoc $PANDOC_FLAGS $FILENAME.md -o ../$COMPILED_FOLDER/$FILENAME.html 2>> $LOG_FOLDER/compile_pages.log;
+for FILENAME in *.md; do \
+    echo -n "[INFO]" $FILENAME
+    pandoc $PANDOC_FLAGS $FILENAME -o ../$COMPILED_FOLDER/$(echo $FILENAME | sed -e "s/\.md$//").html 2>> $LOG_FOLDER/compile_pages.log;
     rc=$?;
     if [[ $rc != 0 ]];
       then \
@@ -46,7 +43,7 @@ for FILENAME in ${PAGE_FILENAMES[@]}; do \
       popd "$@" > /dev/null;
       exit $rc;
     fi
-    echo " =======>" ../$COMPILED_FOLDER/$FILENAME.html;
+    echo " =======>" ../$COMPILED_FOLDER/$(echo $FILENAME | sed -e "s/\.md$//").html;
 done
 
 echo -n "[INFO]" $IMG_FOLDER

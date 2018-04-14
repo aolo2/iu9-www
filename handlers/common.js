@@ -7,8 +7,10 @@ const error_texts = {
 
 const news_uuid = uuid()
 
-function send_text_response(res, status, msg) {
-  res.set({'Content-Type': 'text/plain'}).status(status).send(msg);
+function send_text_response(res, status, msg, headers) {
+  headers = headers || {}
+  headers['Content-Type'] = 'text/plain'
+  res.set(headers).status(status).send(msg);
 }
 
 function send_json_response(res, json) {

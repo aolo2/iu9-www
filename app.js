@@ -1,17 +1,19 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const routes = require('./routes/routes')
 const app = express()
 
+app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(express.static('public'))
 app.use('/', routes)
 
-app.use((req, res, next) => {
-    const err = new Error('Not Found')
-    err.status = 404
-    next(err)
-})
+// app.use((req, res, next) => {
+//     const err = new Error('Not Found')
+//     err.status = 404
+//     next(err)
+// })
 
 // app.use((err, req, res, next) => {
 //     res.status(err.status || 500)

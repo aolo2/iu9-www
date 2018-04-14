@@ -39,13 +39,12 @@ function login(req, res) {
       const session = uuid()
       db.openSession(session, (err) => {
         if (err) {
-          common.send_error_response(res, 'could not open session')
+          common.send_error_response(res, 'could not open session: ' + err.message)
           return
         }
-
-        common.send_text_response(res, 200, session)
+        res.cookie('SESSIONID', session)
+        common.send_text_response(res, 200, 'OK')
       })
-
     } else {
       common.send_bad_login_response(res)
     }
@@ -53,16 +52,12 @@ function login(req, res) {
 }
 
 function logout(req, res) {
-  if (!req.body.session) {
-    common.send_bad_request_response(res)
-    return
-  }
-
-  db.closeSession(req.body.session, (err) => {
+  db.closeSession(req.cookies.SESSIONID, (err) => {
     if (err) {
       common.send_error_response(res, err.message)
     } else {
-      common.send_text_response(res, 200)
+      res.clearCookie('SESSIONID')
+      common.send_text_response(res, 200, 'OK')
     }
   })
 }
@@ -99,12 +94,12 @@ function auth_check_middleware(req, res, next) {
     return
   }
 
-  if (!req.body.session) {
+  if (!req.cookies.SESSIONID) {
     common.send_bad_login_response(res)
     return
   }
 
-  db.validateSession(req.body.session, (err, result) => {
+  db.validateSession(req.cookies.SESSIONID, (err, result) => {
     if (err || !result) {
       common.send_bad_login_response(res)
     } else {
