@@ -1,7 +1,12 @@
 init = () => {
+
+  console.log(navigator)
+
   let loggedInView = (document.cookie.indexOf('SESSIONID') !== -1)
   let login_link = document.getElementById('login-link')
   let login_form = document.getElementById('login-form')
+
+  console.log(document.cookie)
 
   if (!loggedInView) {
     login_link.innerHTML = 'Войти'
@@ -24,7 +29,7 @@ init = () => {
 
       xhttp.onreadystatechange = () => {
         if (xhttp.readyState === 4) {
-            if (xhttp.status == 200 && xhttp.responseText === 'OK') {
+            if (xhttp.status == 200) {
               window.location.href = 'http://localhost:3000'
             } else if (xhttp.status === 401) {
               document.getElementById('server-message').innerHTML = 'Неверный логин и/или пароль'
@@ -47,7 +52,7 @@ init = () => {
     }
   }
 
-  document.body.style.opacity = 1
+  document.body.style.display = 'block'
 }
 
 window.onload = init

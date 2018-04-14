@@ -19,7 +19,7 @@ body {
   background: white; 
   color: #2e3436;
   position: relative;
-  opacity: 0;
+  display: none;
   /*transition: all 0.5s;*/
 }
 

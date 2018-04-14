@@ -42,8 +42,8 @@ function login(req, res) {
           common.send_error_response(res, 'could not open session: ' + err.message)
           return
         }
-        res.cookie('SESSIONID', session)
-        common.send_text_response(res, 200, 'OK')
+        res.cookie('SESSIONID', session, {maxAge: 86400})
+        common.send_text_response(res, 200)
       })
     } else {
       common.send_bad_login_response(res)
