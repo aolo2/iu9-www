@@ -12,7 +12,6 @@ window.addEventListener('load', () => {
     if (xhttp.readyState === 4) {
       if (xhttp.status === 200) {
         const news_array = JSON.parse(xhttp.responseText)
-        console.log(news_array)
         news_array.forEach((article) => {
          newsfeed.innerHTML += 
          ('<div class="article">' +
@@ -30,7 +29,7 @@ window.addEventListener('load', () => {
   xhttp.open('GET', server + 'news', true)
   xhttp.send()
 
-  if (ui_view <= 0) {
+  if (ui_view <= 1) {
     let publish = document.getElementById('publish')
     let submit_news = document.getElementById('submit-news')
 
@@ -43,9 +42,10 @@ window.addEventListener('load', () => {
       }
     }
 
+   /* document.getElementById('show-hide-publish').onclick = () => {
+      if ()
+    }*/
 
     publish.style.display = 'block'
   }
-
-  document.body.style.display = 'block'
 })

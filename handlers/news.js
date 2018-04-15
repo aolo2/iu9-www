@@ -19,11 +19,11 @@ function post_news(req, res) {
     return
   }
 
-  db.validateSession(req.cookies.SESSIONID, config.roles.post_news, (err, result) => {
-    if (err || !result) {
+  db.validateSession(req.cookies.SESSIONID, config.roles.post_news, (err, user) => {
+    if (err || !user.valid) {
       common.send_bad_login_response(res)
     } else {
-      const author = 'А. А. Олохтонов'
+      const author = (user.last_name + ' ' + user.first_name[0] + '.')
       const timestamp = Date.now()
       const news_html = marked(req.body.news)
       db.postNews(config.news_uuid, {'author': author, 'timestamp': timestamp, 'body': news_html}, (err) => {

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Новости</title>
+  <title>Регистрация</title>
   <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" href="default.css">
   <!--[if lt IE 9]>
@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Pattaya&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
   <script type="text/javascript" src="view.js"></script>
-  <script type="text/javascript" src="news.js"></script>
+  <script type="text/javascript" src="signup.js"></script>
 </head>
 <body>
 <!-- after.html included by pandoc -->
@@ -55,7 +55,7 @@
   <a class="menu-item"
      title="Новости"
      href="news.html">
-     Новости
+    Новости
   </a>
   <a
     class="menu-item"
@@ -79,24 +79,25 @@
 </div>
 </div>
 <header>
-<h1 class="title">Новости</h1>
+<h1 class="title">Регистрация</h1>
 </header>
-<div id="publish">
-<!--   <div style="text-align: center;">
-    <input 
-      type="submit" 
-      value="Добавить новость" 
-      id="show-hide-publish" 
-      style="width: 79%; margin-bottom: 15px;">
-  </div> -->
-  <textarea rows="10" cols="80" id="news-area"></textarea>
-  <div style="text-align: center;">
-    <input type="submit" value="Опубликовать" id="submit-news" style="width: 79%; margin-bottom: 15px">
-  </div>
+<div class="login-form">
+  <span id="server-message" style="text-align:left; margin-bottom: 3px;">
+  </span>
+  <form id="registration-form" onsubmit="signup()">
+    <input type="text" id="last-name" placeholder="Фамилия" required>
+    <input type="text" id="first-name" placeholder="Имя" required>
+    <div class="radio-block">
+      <input type="radio" name="role" value="2" checked>Студент<br>
+      <input type="radio" name="role" value="1">Преподаватель
+    </div>
+    <input type="text" id="login" placeholder="Логин" required>
+    <input type="password" id="password" placeholder="Пароль" required>
+    <div style="text-align: center">
+      <input type="submit" value="Зарегистрироваться">
+    </div>
+  </form>
 </div>
-<div id="newsfeed">
-</div>
-<!-- after.html inclided by pandoc -->
 <div class="footer">
   &copy; Кафедра ИУ-9 МГТУ им. Н.Э.Баумана, 2007—2018.
 </div>

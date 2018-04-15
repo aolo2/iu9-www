@@ -6,11 +6,18 @@ const security = require('../lib/security')
 const config = require('../config/config.json')
 
 function signup(req, res) {
-  const name = req.body.name
-  const pass = req.body.pass
-  if (name && pass) {
-    const saltHash = security.saltHashPassword(pass, config.salt_length)
-    db.addUser(name, saltHash.hash, saltHash.salt, 1, (err) => {
+  const user = {
+    'login': req.body.login,
+    'first_name': req.body.first_name,
+    'last_name': req.body.last_name,
+    'role': req.body.role
+  }
+
+  const raw_pass = req.body.pass
+
+  if (raw_pass && user.login && user.role && user.first_name && user.last_name) {
+    const saltHash = security.saltHashPassword(raw_pass, config.salt_length)
+    db.addUser(user, saltHash.hash, saltHash.salt, (err) => {
       if (err) {
         common.send_error_response(res, err.message)
         return
@@ -35,9 +42,10 @@ function login(req, res) {
     }
     if (userDb && security.checkPassword(user.pass, userDb.passwordSalt, userDb.passwordHash)) {
       req.authChecked = true
-
+      
       const session = uuid()
-      db.openSession(session, userDb.role, (err) => {
+
+      db.openSession(session, userDb, (err) => {
         if (err) {
           common.send_error_response(res, 'could not open session: ' + err.message)
           return
@@ -75,8 +83,8 @@ function auth_check_middleware(req, res, next) {
     return
   }
 
-  db.validateSession(req.cookies.SESSIONID, null, (err, result) => {
-    if (err || !result) {
+  db.validateSession(req.cookies.SESSIONID, null, (err, user) => {
+    if (err || !user.valid) {
       common.send_bad_login_response(res)
     } else {
       req.authChecked = true
