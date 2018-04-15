@@ -112,3 +112,56 @@ h1.title {
   text-align: left;
   margin-bottom: 3px;
 }
+
+input[type=text] {
+  padding: 5px;
+  height: 32px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type=password] {
+  padding: 5px;
+  height: 32px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  padding: 5px 15px; 
+  background: #eeeeee; 
+  border: none;
+  cursor: pointer;
+  height: 32px;
+}
+
+input[type=submit]:hover {
+  background: #dddddd;
+}
+
+textarea {
+  display: block;
+  margin: 0 auto;
+  resize: none;
+  margin-bottom: 15px;
+}
+
+#publish {
+  display: none;
+}
+
+#newsfeed {
+  width: 100%;
+  height: auto;
+}
+
+.article {
+  width: 100%;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.article .article-header {
+  padding-top: 5px;
+  text-align: right;
+  color: #bbbbbb;
+}

@@ -5,8 +5,6 @@ const error_texts = {
   'basic_auth': 'This resource requires basic authentication'
 }
 
-const news_uuid = uuid()
-
 function send_text_response(res, status, msg, headers) {
   headers = headers || {}
   headers['Content-Type'] = 'text/plain'
@@ -29,7 +27,6 @@ function send_error_response(res, message) {
   send_text_response(res, 500, message)
 }
 
-module.exports.news_uuid = news_uuid
 module.exports.send_text_response = send_text_response
 module.exports.send_json_response = send_json_response
 module.exports.send_bad_request_response = send_bad_request_response

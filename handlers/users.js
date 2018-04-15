@@ -10,7 +10,7 @@ function signup(req, res) {
   const pass = req.body.pass
   if (name && pass) {
     const saltHash = security.saltHashPassword(pass, config.salt_length)
-    db.addUser(name, saltHash.hash, saltHash.salt, (err) => {
+    db.addUser(name, saltHash.hash, saltHash.salt, 1, (err) => {
       if (err) {
         common.send_error_response(res, err.message)
         return
@@ -33,16 +33,17 @@ function login(req, res) {
       common.send_bad_login_response(res)
       return
     }
-    if (userDb && security.checkPassword(user.pass, userDb.passwordSalt,  userDb.passwordHash)) {
+    if (userDb && security.checkPassword(user.pass, userDb.passwordSalt, userDb.passwordHash)) {
       req.authChecked = true
 
       const session = uuid()
-      db.openSession(session, (err) => {
+      db.openSession(session, userDb.role, (err) => {
         if (err) {
           common.send_error_response(res, 'could not open session: ' + err.message)
           return
         }
-        res.cookie('SESSIONID', session, {maxAge: 86400})
+        res.cookie('SESSIONID', session, {httpOnly: true, maxAge: 86400 * 1000})
+        res.cookie('UIVIEW', userDb.role, {httpOnly: false, maxAge: 86400 * 1000})
         common.send_text_response(res, 200)
       })
     } else {
@@ -57,32 +58,7 @@ function logout(req, res) {
       common.send_error_response(res, err.message)
     } else {
       res.clearCookie('SESSIONID')
-      common.send_text_response(res, 200, 'OK')
-    }
-  })
-}
-
-function get_news(req, res) {
-  db.getNews(common.news_uuid, (err, result) => {
-    if (err) {
-      common.send_error_response(res, err.message)
-      return
-    }
-
-    common.send_json_response(res, result)
-  })
-}
-
-function post_news(req, res) {
-  if (!req.body.news) {
-    common.send_bad_request_response(res)
-    return
-  }
-
-  db.postNews(common.news_uuid, req.body.news, (err) => {
-    if (err) {
-      common.send_error_response(res, err.message)
-    } else {
+      res.clearCookie('UIVIEW')
       common.send_text_response(res, 200)
     }
   })
@@ -99,7 +75,7 @@ function auth_check_middleware(req, res, next) {
     return
   }
 
-  db.validateSession(req.cookies.SESSIONID, (err, result) => {
+  db.validateSession(req.cookies.SESSIONID, null, (err, result) => {
     if (err || !result) {
       common.send_bad_login_response(res)
     } else {
@@ -112,6 +88,4 @@ function auth_check_middleware(req, res, next) {
 module.exports.login = login
 module.exports.logout = logout
 module.exports.signup = signup
-module.exports.get_news = get_news
-module.exports.post_news = post_news
 module.exports.auth_check_middleware = auth_check_middleware

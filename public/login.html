@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Вход на сайт</title>
+  <title>Авторизация</title>
   <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" href="default.css">
   <!--[if lt IE 9]>
@@ -51,6 +51,11 @@
     href="http://195.19.40.181:3388" target="_blank">
     Учебные материалы
   </a>-->
+  <a class="menu-item"
+     title="Новости"
+     href="news.html">
+    Новости
+  </a>
   <a
     class="menu-item"
     title="Научная работа кафедры"
@@ -73,7 +78,7 @@
 </div>
 </div>
 <header>
-<h1 class="title">Вход на сайт</h1>
+<h1 class="title">Авторизация</h1>
 </header>
 <div class="login-form">
   <span id="server-message" style="text-align:left; margin-bottom: 3px;">
@@ -81,7 +86,9 @@
   <form id="login-form" onsubmit="login()">
     <input type="text" id="login" placeholder="Логин">
     <input type="password" id="password" placeholder="Пароль">   
-    <input type="submit" value="Войти">
+    <div style="text-align: center">
+      <input type="submit" value="Войти">
+    </div>
   </form>
 </div>
 <div class="footer">

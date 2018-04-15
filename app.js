@@ -1,9 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const morgan = require('morgan')
 const routes = require('./routes/routes')
 const app = express()
 
+app.use(morgan('tiny'))
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(express.static('public'))

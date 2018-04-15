@@ -1,14 +1,16 @@
-init = () => {
+const server = 'http://localhost:3000/'
 
-  console.log(navigator)
+window.addEventListener('load', () => {
+  let ui_view = 100
+  
+  if (document.cookie) {
+   ui_view = parseInt(document.cookie.split('=')[1])
+  }
 
-  let loggedInView = (document.cookie.indexOf('SESSIONID') !== -1)
   let login_link = document.getElementById('login-link')
   let login_form = document.getElementById('login-form')
 
-  console.log(document.cookie)
-
-  if (!loggedInView) {
+  if (ui_view === 100) {
     login_link.innerHTML = 'Войти'
     login_link.title = "Войти"
     login_link.onclick = null
@@ -17,7 +19,7 @@ init = () => {
     login_link.title = "Выйти"
     login_link.onclick = () => {
       let xhttp = new XMLHttpRequest()
-      xhttp.open('POST', 'http://localhost:3000/logout', true)
+      xhttp.open('POST', server + 'logout', true)
       xhttp.send()
       return true
     }
@@ -29,8 +31,8 @@ init = () => {
 
       xhttp.onreadystatechange = () => {
         if (xhttp.readyState === 4) {
-            if (xhttp.status == 200) {
-              window.location.href = 'http://localhost:3000'
+            if (xhttp.status === 200) {
+              window.location.href = server + 'news.html'
             } else if (xhttp.status === 401) {
               document.getElementById('server-message').innerHTML = 'Неверный логин и/или пароль'
             } else {
@@ -43,7 +45,7 @@ init = () => {
       const pass = document.getElementById('password').value
 
       if (login && pass) {
-        xhttp.open('POST', 'http://localhost:3000/login', true)
+        xhttp.open('POST', server + 'login', true)
         xhttp.setRequestHeader('Authorization', 'Basic ' + btoa(login + ':' + pass))
         xhttp.send()
       }
@@ -53,6 +55,5 @@ init = () => {
   }
 
   document.body.style.display = 'block'
-}
+})
 
-window.onload = init

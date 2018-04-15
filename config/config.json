@@ -1,6 +1,10 @@
 {
   "redis": {
-    "server": {"host": "127.0.0.1", "port": 6379}
+    "server": {"host": "localhost", "port": 6379}
   },
-  "salt_length": 10
+  "salt_length": 10,
+  "news_uuid": "9e65c8d0-4042-11e8-9b29-53da0f118c35",
+  "roles": {
+    "post_news": "1"
+  }
 }

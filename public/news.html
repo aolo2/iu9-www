@@ -15,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Pattaya&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
   <script type="text/javascript" src="view.js"></script>
+  <script type="text/javascript" src="news.js"></script>
 </head>
 <body>
 <!-- after.html included by pandoc -->
@@ -80,7 +81,14 @@
 <header>
 <h1 class="title">Новости</h1>
 </header>
-
+<div id="publish">
+  <textarea rows="10" cols="80" id="news-area"></textarea>
+  <div style="text-align: center">
+    <input type="submit" value="Опубликовать" id="submit-news">
+  </div>
+</div>
+<div id="newsfeed">
+</div>
 <!-- after.html inclided by pandoc -->
 <div class="footer">
   &copy; Кафедра ИУ-9 МГТУ им. Н.Э.Баумана, 2007—2018.
