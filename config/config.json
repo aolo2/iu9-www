@@ -2,9 +2,9 @@
   "redis": {
     "server": {"host": "localhost", "port": 6379}
   },
-  "salt_length": 10,
-  "news_uuid": "9e65c8d0-4042-11e8-9b29-53da0f118c35",
-  "roles": {
-    "post_news": "1"
-  }
+  "mongo": {
+    "url": "mongodb://localhost:27017",
+    "db_name": "iu"
+  },
+  "salt_length": 10
 }

@@ -24,6 +24,18 @@ window.addEventListener('load', () => {
     }
   }
 
+  // TODO(aolo2): автоматическая генерация меню
+  let abitur_item = document.getElementById('abitur')
+  let abitur_dropdown = document.getElementById('abitur-drop')
+
+  if (abitur_item) {
+    abitur_item.onclick = () => {
+      console.log(abitur_dropdown.style.display)
+      abitur_dropdown.style.display = 
+      (abitur_dropdown.style.display === 'block') ? 'none' : 'block';
+    }
+  }
+
   document.body.style.display = 'block'
 })
 

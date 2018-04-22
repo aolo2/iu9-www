@@ -50,6 +50,7 @@ a.menu-item {
   color: white;
   display: inline-block;
   text-align: center;
+  cursor: pointer;
 }
 
 .menu a.menu-item:hover { background: #729fcf; }
@@ -168,3 +169,27 @@ textarea {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.menu-item .dropdown {
+  position: absolute;
+  top: 34px;
+  display: none;
+}
+
+.dropdown .item {
+  width: 100%;
+  cursor: pointer;
+  background: #3465a4;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 1ex 1em;
+  color: white;
+  text-align: left;
+  position: relative;
+  right: 1em;
+}
+
+.dropdown .item:hover { background: #729fcf; } 
+.dropdown .item:active { background: #3465a4; } 
+.dropdown .item:link { background: #3465a4; } 
+
