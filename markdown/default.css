@@ -193,3 +193,53 @@ textarea {
 .dropdown .item:active { background: #3465a4; } 
 .dropdown .item:link { background: #3465a4; } 
 
+#applications {
+  width: 100%;
+  min-height: 200px;
+  /*border: 1px dotted #eeeeee;*/
+}
+
+#applications .content {
+  border: 1px solid #eeeeee;
+  padding: 10px;
+  width: 40%;
+  margin: 0 auto;
+  display: block;
+  margin-bottom: 15px;
+  /*border-bottom: 1px solid #eeeeee;*/
+}
+
+#applications .content .field {
+  width: 100px;
+  text-align: left;
+  display: inline-block;
+}
+
+#applications .content .value {
+  width: 100px;
+  float: right;
+  text-align: right;
+  display: inline-block;
+}
+
+#applications .content input[type=submit] {
+  margin-top: 15px;
+  width: 40%;
+}
+
+#applications .content input[type=submit]:last-child {
+  float: right;
+}
+
+#manage-link {
+  display: none;
+}
+
+.article .article-header a {
+  /*display: none;*/
+}
+
+.article .article-header a:hover { color: #dddddd; } 
+.article .article-header a:active { color: #bbbbbb; } 
+.article .article-header a:visited { color: #bbbbbb; } 
+.article .article-header a:link { color: #bbbbbb; } 

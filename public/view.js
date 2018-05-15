@@ -1,41 +1,57 @@
-const server = 'http://localhost:3000/'
-
 window.addEventListener('load', () => {
-  let ui_view = 100
-  
-  if (document.cookie) {
-   ui_view = parseInt(document.cookie.split('=')[1])
+  /* Set menu view */
+  /* : Cookies */
+
+  /* Menu hover/click events */
+  let prom_button = document.getElementById('prom')
+  let prom_dropdown = document.getElementById('prom-dropdown')
+  let login_button = document.getElementById('login-button')
+  let login_dropdown = document.getElementById('login-dropdown')
+
+ /* TODO(aolo2): hide popups when clicked outside
+ 
+  const hide_popups = (event) => {
+    if (!hidden(login_dropdown) && event.target.closest('#login-dropdown') === null)
+      show_or_hide(login_dropdown, false)
+    if (!hidden(prom_dropdown) && event.target.closest('#prom-dropdown') === null)
+      show_or_hide(prom_dropdown, false)
+  }*/
+
+  function show_or_hide(item, show) {
+    item.style.display = show ? 'block' : 'none'
   }
 
-  let login_link = document.getElementById('login-link')
-
-  if (ui_view === 100) {
-    login_link.innerHTML = 'Войти'
-    login_link.title = "Войти"
-    login_link.onclick = null
-  } else {
-    login_link.innerHTML = 'Выйти'
-    login_link.title = "Выйти"
-    login_link.onclick = () => {
-      let xhttp = new XMLHttpRequest()
-      xhttp.open('POST', server + 'logout', true)
-      xhttp.send()
-      return true
-    }
+  function hidden(item) {
+    return item.style.display !== 'block'
   }
 
-  // TODO(aolo2): автоматическая генерация меню
-  let abitur_item = document.getElementById('abitur')
-  let abitur_dropdown = document.getElementById('abitur-drop')
-
-  if (abitur_item) {
-    abitur_item.onclick = () => {
-      console.log(abitur_dropdown.style.display)
-      abitur_dropdown.style.display = 
-      (abitur_dropdown.style.display === 'block') ? 'none' : 'block';
-    }
+  /* Dropdowns */
+  if (prom_button) {
+    prom_button.addEventListener('click', () => {
+      if (prom_dropdown) {
+        if (hidden(prom_dropdown)) {
+          show_or_hide(prom_dropdown, true)
+          if (login_dropdown) 
+            show_or_hide(login_dropdown, false)
+        } else {
+          show_or_hide(prom_dropdown, false)
+        }
+      }
+    })
   }
 
-  document.body.style.display = 'block'
+  if (login_button && login_dropdown) {
+    login_button.addEventListener('click', () => {
+      if (hidden(login_dropdown)) {
+        show_or_hide(login_dropdown, true)
+        if (prom_dropdown) 
+          show_or_hide(prom_dropdown, false)
+      } else {
+        show_or_hide(login_dropdown, false)
+      }
+    })
+  }
+  /*************/
+
+  /* Page is ready */
 })
-

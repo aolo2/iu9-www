@@ -2,20 +2,24 @@ const common = require('./common')
 const db = require('../lib/db')
 const security = require('../lib/security')
 const validation = require('../lib/validation')
+
 const uuid = require('uuid/v4')
+const basic_auth = require('basic-auth')
 
 function signup(req, res) {
   const pass = security.saltHashPassword(req.body.pass, 10)
   const user = {
+    'first_name': req.body.first_name, 
+    'last_name': req.body.last_name,
     'login': req.body.login,
     'roles': req.body.roles,
     'passwordHash': pass.hash,
     'passwordSalt': pass.salt
   }
 
-  db.add_user(user, (err) => {
+  db.add_user_application(user, (err) => {
     if (err) {
-      common.send_error_response(res, 'could not create user: ' + err.message)
+      common.send_error_response(res, 'could not create application: ' + err.message)
     } else {
       common.send_text_response(res, 200)
     }
@@ -23,13 +27,14 @@ function signup(req, res) {
 }
 
 function login(req, res) {
-  db.get_user(req.body.login, (err, user_db) => {
+  const user = basic_auth(req)
+  db.get_user(user.name, (err, user_db) => {
     if (err) {
       common.send_error_response(res, 'could not find user: ' + err.message)
       return
     } 
 
-    if (!user_db || !security.checkPassword(req.body.pass, user_db.passwordSalt, user_db.passwordHash)) {
+    if (!user_db || !security.checkPassword(user.pass, user_db.passwordSalt, user_db.passwordHash)) {
       common.send_unauthorized_response(res, 'user not found or the password is incorrect')
       return
     }
@@ -42,7 +47,7 @@ function login(req, res) {
       }
 
       res.cookie('SESSIONID', session_id, {httpOnly: true, maxAge: 86400 * 1000})
-      res.cookie('UIVIEW', user_db.roles, {httpOnly: false, maxAge: 86400 * 1000})
+      res.cookie('UIVIEW', user_db.roles.join(','), {httpOnly: false, maxAge: 86400 * 1000})
       common.send_text_response(res, 200)
     })
   })
@@ -53,17 +58,39 @@ function logout(req, res) {
     if (err) {
       common.send_error_response(res, 'could not close session: ' + err.message)
     } else {
+      res.clearCookie('SESSIONID')
+      res.clearCookie('UIVIEW')
       common.send_text_response(res, 200)
     }
   })
 }
 
 function get_applications(req, res) {
-  common.send_text_response(res, 200)
+  db.get_user_applications((err, applications) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else {
+      common.send_json_response(res, applications)
+    }
+  })
 } 
 
 function approve_application(req, res) {
-  common.send_text_response(res, 200) 
+  db.approve_application(req.body['_id'], (err) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else if (req.body.approve) {
+      db.add_user(req.body, (err) => {
+        if (err) {
+          common.send_error_response(res, err.message)
+        } else {
+          common.send_text_response(res, 200)
+        }
+      })
+    } else {
+      common.send_text_response(res, 200)
+    }
+  })
 }
 
 function edit_profile(req, res) {
@@ -71,8 +98,8 @@ function edit_profile(req, res) {
 }
 
 function access_check_middleware(req, res, next) {
-  const session_id = req.body.session_id //req.cookies.SESSIONID
-
+  const session_id = req.cookies.SESSIONID
+  
   if (!session_id) {
     common.send_unauthorized_response(res)
     return

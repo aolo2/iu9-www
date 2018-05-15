@@ -21,16 +21,16 @@ window.addEventListener('load', () => {
       const last_name = document.getElementById('last-name').value
       const login = document.getElementById('login').value
       const pass = document.getElementById('password').value
-      const role = document.querySelector('input[name="role"]:checked').value
+      const roles = ['admin']
 
-      xhttp.open('POST', server + 'signup', true)
+      xhttp.open('POST', server + 'users/signup', true)
       xhttp.setRequestHeader('Content-type', 'application/json')
       xhttp.send(JSON.stringify({
         'login': login,
         'pass': pass,
         'first_name': first_name,
         'last_name': last_name,
-        'role': role
+        'roles': roles
       }))
     }
   }

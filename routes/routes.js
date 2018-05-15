@@ -26,9 +26,11 @@ routerAuth.patch('/roles', roles.edit_role)
 routerAuth.delete('/roles', roles.delete_role)
 
 /* Новости */
+router.get('/news/public', news.get_public_news)
 routerAuth.get('/news', news.get_news)
+routerAuth.get('/news/edit', news.get_source)
+routerAuth.patch('/news/edit', news.update_source)
 routerAuth.post('/news', news.post_article)
-routerAuth.patch('/news', news.edit_article)
 routerAuth.delete('/news', news.delete_article)
 
 /* Диалоги */

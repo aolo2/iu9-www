@@ -6,7 +6,7 @@ function send_message(req, res) {
 
 function create_dialog(req, res) {
   common.send_text_response(res, 200)
-}
+} 
 
 function delete_dialog(req, res) {
   common.send_text_response(res, 200)

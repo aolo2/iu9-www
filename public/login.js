@@ -20,7 +20,7 @@ window.addEventListener('load', () => {
       const login = document.getElementById('login').value
       const pass = document.getElementById('password').value
 
-      xhttp.open('POST', server + 'login', true)
+      xhttp.open('POST', server + 'users/login', true)
       xhttp.setRequestHeader('Authorization', 'Basic ' + btoa(login + ':' + pass))
       xhttp.send()
 

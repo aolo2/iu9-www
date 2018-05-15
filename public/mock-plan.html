@@ -1,0 +1,130 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="view.js"></script>
+  <link rel="stylesheet" href="mock.css">
+</head>
+<body>
+  <div class="grid">
+    <div><!-- title pad left --></div>
+    <div class="title unselectable">
+      <div><span><a href="mock.html">Главная</a></span></div>
+      <div><span><a href="mock-science.html">Наука</a></span></div>
+      <div><span><a href="mock-news.html">Новости</a></span></div>
+      <div><a id="prom">Абитуриенту<img src="img/zondicons/cheveron-down.svg" height="14px"></a>
+        <div id="prom-dropdown">
+          <a href="mock-apply.html"><div>Поступление</div></a>
+          <a href="mock-work.html"><div>Наши выпускники</div></a>
+          <a href="mock-plan.html"><div>Учебный план</div></a>
+        </div>
+      </div>
+      <div><span><!-- Управление --></span></div>
+      <div id="login-button-div"><a id="login-button"><span><img src="img/zondicons/user.svg" height="13px"> Войти</span></a>
+        <div id="login-dropdown">
+          <form>
+            <input id="login-value" type="text" placeholder="Логин" required>
+            <input id="password-value" type="password" placeholder="Пароль" required>
+            <input id="login-submit" type="submit" value="Авторизоваться">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div><!-- title pad right --></div>
+    <div><!-- pad --></div>
+    <div class="page">
+      <div class="super-title plan">
+        <h1 style="margin-top: 10px">Абитуриенту</h1>
+        <h2>Учебный план</h2>
+      </div>
+      <div class="year" style="margin-top: 2em">
+        <h2>Первый семестр</h2>
+        <div class="courses">
+          <div style="border-right: 4px dashed #cccccc"></div>
+          <div style="margin-left: 5em">
+            <h3>Алгоритмы и структуры данных <img src="img/zondicons/time.svg">144</h3>
+            <p>Maecenas posuere urna a hendrerit porttitor. Suspendisse facilisis risus augue, sed tristique leo congue eget. Nulla ullamcorper, purus in ultricies finibus, leo velit semper leo, vel dictum lorem erat at velit. Ut egestas leo vel ligula ullamcorper vulputate. Nulla vel aliquam eros, non pharetra erat. Лектор: Скоробогатов Сергей Юрьевич. </p>
+            <h3>Основы информатики <img src="img/zondicons/time.svg">180</h3>
+            <p>Ut viverra quam et leo auctor laoreet. Morbi pulvinar viverra dolor vitae laoreet. Sed pellentesque tortor velit, quis interdum dui accumsan sit amet. Nam ipsum nunc, lacinia ut turpis quis, iaculis fringilla lorem. Praesent sit amet auctor ex. Suspendisse nec interdum erat. Fusce et ligula sed sem luctus imperdiet. Лектор: Дубанов Александр Вячеславович.</p>
+            <h3>Математический анализ <img src="img/zondicons/time.svg">214</h3>
+            <p>Nulla varius tincidunt magna et cursus. Vivamus nulla urna, mattis sed sem sit amet, tristique facilisis ante. Donec nec consequat erat, at vestibulum elit. Proin tristique purus ut nibh dapibus, non vestibulum arcu dapibus. Phasellus urna ligula, laoreet quis luctus in, facilisis eget nulla. Лектор: Четвериков Владимир Николаевич.</p>
+            <h3>Линейная алгебра <img src="img/zondicons/time.svg">214</h3>
+            <p>Praesent molestie ultrices rutrum. Nunc porta, lectus ut consequat porttitor, sem quam ultricies dolor, ut sollicitudin magna odio ut magna. Fusce a commodo massa. Лектор: Степанов Дмитрий Анатольевич.</p>
+          </div>
+        </div>
+      </div>
+      <div class="year">
+        <h2>Второй семестр</h2>
+        <div class="courses">
+          <div style="border-right: 4px dashed #cccccc"></div>
+          <div style="margin-left: 5em">
+            <h3>Языки и методы программирования <img src="img/zondicons/time.svg">180</h3>
+            <p>Maecenas posuere urna a hendrerit porttitor. Suspendisse facilisis risus augue, sed tristique leo congue eget. Nulla ullamcorper, purus in ultricies finibus, leo velit semper leo, vel dictum lorem erat at velit. Ut egestas leo vel ligula ullamcorper vulputate. Nulla vel aliquam eros, non pharetra erat.</p>
+            <h3>Дискретная математика  <img src="img/zondicons/time.svg">144</h3>
+            <p>Ut viverra quam et leo auctor laoreet. Morbi pulvinar viverra dolor vitae laoreet. Sed pellentesque tortor velit, quis interdum dui accumsan sit amet. Nam ipsum nunc, lacinia ut turpis quis, iaculis fringilla lorem. Praesent sit amet auctor ex. Suspendisse nec interdum erat. Fusce et ligula sed sem luctus imperdiet.</p>
+            <h3>Математический анализ  <img src="img/zondicons/time.svg">214</h3>
+            <p>Nulla varius tincidunt magna et cursus. Vivamus nulla urna, mattis sed sem sit amet, tristique facilisis ante. Donec nec consequat erat, at vestibulum elit. Proin tristique purus ut nibh dapibus, non vestibulum arcu dapibus. Phasellus urna ligula, laoreet quis luctus in, facilisis eget nulla.</p>
+            <h3>Линейная алгебра  <img src="img/zondicons/time.svg">214</h3>
+            <p>Praesent molestie ultrices rutrum. Nunc porta, lectus ut consequat porttitor, sem quam ultricies dolor, ut sollicitudin magna odio ut magna. Fusce a commodo massa.</p>
+          </div>
+        </div>
+      </div>
+<!--       <div class="year">
+        <h2>Третий семестр</h2>
+        <div class="courses">
+          <div style="border-right: 4px dashed #cccccc"></div>
+          <div style="margin-left: 5em">
+          </div>
+        </div>
+      </div>
+      <div class="year">
+        <h2>Четвертый семестр</h2>
+        <div class="courses">
+          <div style="border-right: 4px dashed #cccccc"></div>
+          <div style="margin-left: 5em">
+          </div>
+        </div>
+      </div>
+      <div class="year">
+        <h2>Пятый семестр</h2>
+        <div class="courses">
+          <div style="border-right: 4px dashed #cccccc"></div>
+          <div style="margin-left: 5em">
+          </div>
+        </div>
+      </div>
+      <div class="year">
+        <h2>Шестой семестр</h2>
+        <div class="courses">
+          <div style="border-right: 4px dashed #cccccc"></div>
+          <div style="margin-left: 5em">
+          </div>
+        </div>
+      </div>
+      <div class="year">
+        <h2>Седьмой семестр</h2>
+        <div class="courses">
+          <div style="border-right: 4px dashed #cccccc"></div>
+          <div style="margin-left: 5em">
+          </div>
+        </div>
+      </div>
+      <div class="year">
+        <h2>Восьмой семестр</h2>
+        <div class="courses">
+          <div style="border-right: 4px dashed #cccccc"></div>
+          <div style="margin-left: 5em">
+          </div>
+        </div>
+      </div>
+      <div class="year" style="margin-bottom: 1em">
+        <h2>Дипломная работа</h2>
+      </div> -->
+    </div>
+    <div><!-- pad --></div>
+    <div><!-- footer pad left --></div>
+    <div class="footer">© Кафедра ИУ-9 МГТУ им. Н.Э.Баумана, 2007—2018.</div>
+    <div><!-- footer pad right --></div>
+  </div>
+</body>
+</html>
