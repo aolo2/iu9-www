@@ -15,69 +15,75 @@ function get_article_source(article_id) {
   xhttp.open('GET', server + 'news/edit', true)
   xhttp.setRequestHeader('Content-type', 'application/json')
   xhttp.send(JSON.stringify({'article_id': article_id}))
-  // return false
+}
+
+function submit_news() {
+  const header = document.getElementById('textarea-header').value
+  const body = document.getElementById('textarea-body').value
+  const is_public = document.getElementById('is-public').checked
+
+  // let xhttp = new XMLHttpRequest()
+  // xhttp.open('POST', 'news', true)
+  // xhttp.send()
+}
+
+function update_submit_button_action(available) {
+  let submit_button = document.getElementById('submit-news')
+  let submit_news_icon = document.getElementById('submit-news-icon')
+
+  if (available) {
+    submit_button.style.color = '#222222'
+    submit_button.style.cursor = 'pointer'
+    submit_news_icon.src = 'img/zondicons/send222.svg'    
+    submit_button.onclick = submit_news
+  } else {
+    submit_button.style.color = '#888888'
+    submit_button.style.cursor = 'default'
+    submit_news_icon.src = 'img/zondicons/sendAAA.svg'
+    submit_button.onclick = () => {}
+  }
+}
+
+function handle_ispublic_checkbox() {
+  const is_public = document.getElementById('is-public').checked
+  let is_public_label = document.getElementById('is-public-label')
+  if (is_public) {
+    is_public_label.style.color = '#222222'
+  } else {
+    is_public_label.style.color = '#888888'
+  }
 }
 
 window.addEventListener('load', () => {
-  let ui_view = 'NONE'
-  let newsfeed = document.getElementById('newsfeed')
-  
-  if (document.cookie) {
-   ui_view = document.cookie.split('=')[1]
-  }
+  let xhttp_news = new XMLHttpRequest()
 
-  let xhttp = new XMLHttpRequest()
-
-  xhttp.onreadystatechange = () => {
-    if (xhttp.readyState === 4) {
-      if (xhttp.status === 200) {
-        const news_array = JSON.parse(xhttp.responseText)
+  xhttp_news.onreadystatechange = () => {
+    if (xhttp_news.readyState === 4) {
+      if (xhttp_news.status === 200) {
+        const news_array = JSON.parse(xhttp_news.responseText)
         news_array.forEach((article) => {
-         newsfeed.innerHTML += 
-         ('<div class="article">' +
-          '<div class="article-header">' +
-          article.author + ' ' +
-          new Date(article.timestamp).toLocaleString() + 
-          ' <a href="#edit" onclick="get_article_source(\'' + article._id + '\')" id="edit-link">редактировать</a> ' +
-          '</div>' +
-          article.html + '</div>')
+          console.log(article)
         })
-      } else if (xhttp.status === 401) {
+      } else if (xhttp_news.status === 401) {
         newsfeed.innerHTML = 'У вас недостаточно прав для просмотра новостей'
       }
     }
   }
 
-  if (ui_view === 'NONE') {
-    xhttp.open('GET', server + 'news/public', true)
-    xhttp.send()
-  } else {
-    xhttp.open('GET', server + 'news', true)
-    xhttp.send()
-  }
+  xhttp_news.open('GET', server + 'news/public', true)
+  xhttp_news.send()
 
-  if (ui_view.includes('admin') || ui_view.includes('editor')) {
-    let publish = document.getElementById('publish')
-    let submit_news = document.getElementById('submit-news')
-    // let edit_link = document.getElementById('edit-link')
+  let textarea_header = document.getElementById('textarea-header')
+  let textarea_body = document.getElementById('textarea-body')
+  let is_public_checkbox = document.getElementById('is-public')
 
-    // if (edit_link) {
-    //   edit_link.style.display = 'inline'
-    // }
+  textarea_header.addEventListener('input', () => {
+    update_submit_button_action(textarea_header.value.length > 0 && textarea_body.value.length > 0)
+  })
 
-    if (submit_news) {
-      submit_news.onclick = () => {
-        xhttp.onreadystatechange = () => { location.reload() }
-        xhttp.open('POST', server + 'news', true)
-        xhttp.setRequestHeader('Content-type', 'application/json')
-        xhttp.send(JSON.stringify({'public': true, 'source': document.getElementById('news-area').value}))
-      }
-    }
+  textarea_body.addEventListener('input', () => {
+    update_submit_button_action(textarea_header.value.length > 0 && textarea_body.value.length > 0)
+  })
 
-   /* document.getElementById('show-hide-publish').onclick = () => {
-      if ()
-    }*/
-
-    publish.style.display = 'block'
-  }
+  is_public_checkbox.onclick = handle_ispublic_checkbox
 })

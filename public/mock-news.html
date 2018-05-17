@@ -3,6 +3,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="view.js"></script>
+  <script type="text/javascript" src="news.js"></script>
   <link rel="stylesheet" href="mock.css">
 </head>
 <body>
@@ -44,51 +45,57 @@
       </div> -->
       <div style="margin-top: 2em">
         <div class="news-form">
-          <textarea placeholder=""></textarea>
+          <h2>Новость</h2>
+          <textarea id="textarea-header" class="header" placeholder="Заголовок" rows="1"></textarea>
+          <textarea id="textarea-body" placeholder="Текст" rows="10"></textarea>
           <div class="publish-button">
-            <span>Отправить <img src="img/zondicons/send.svg" height="14px"></span>
+            <label for="is-public" id="is-public-label">Для всех</label>
+            <input type="checkbox" id="is-public">
+            <span id="submit-news" class="unselectable">Отправить <img id="submit-news-icon" src="img/zondicons/sendAAA.svg" height="14px"></span>
           </div>
         </div>
-        <div class="article">
-          <h2>Собаки<img class="edit-icon" title="Редактировать новость" src="img/zondicons/edit-pencil.svg"><img class="edit-icon" title="Удалить новость" src="img/zondicons/trash.svg"></h2>
-          <div class="footnote">Сайт про русский язык | 23 апреля 2018</div>
-          <p>Если бы наши далекие предки не приручили собак, кошек, коров, лошадей и других животных, мы бы, наверняка, жили совсем иначе. Так, собаки, стали нашими самыми преданными друзьями в мире животных, хотя у волка и собаки общий прародитель. Стоит хорошенько подумать перед тем, как заводить это животное, ведь мы ответственны за тех, кого приручили. За собакой нужен надлежащий уход: выгул, кормление, дрессировка. И это не все, что требуется от хорошего хозяина: ваш друг должен знать, что вы любите его. Не забывайте хвалить и гладить своего питомца просто за то, что он у вас есть.</p>
-        </div>
-        <div class="article">
-          <h2>В кругу семьи<img class="edit-icon" title="Редактировать новость" src="img/zondicons/edit-pencil.svg"><img class="edit-icon" title="Удалить новость" src="img/zondicons/trash.svg"></h2>
-          <div class="footnote">Тот же сайт | 14 марта 2018</div>
-          <p>Никитка родился в большой семье. Будучи ещё совсем маленьким, он любил забираться на печь, свешивать оттуда ноги и слушать разговоры старших.</p>
-          <p>Вечерами в доме собирались все: и мать, и отец, и тётя с дядей, и брат со своей женой. Приходил и дедушка. Уставший после работы в огороде, он, ласково улыбаясь, протягивал внукам по конфетке, отчего в ответ получал радостные возгласы. Тогда-то и разгоралось веселье: пели песни, смеялись, шутили и много разговаривали.</p>
-          <p>Никитка чувствовал себя счастливым, окружённый такой дружной семьёй.</p>
-        </div>
-        <div class="article">
-          <h2>Каштанка. Глава 6<img class="edit-icon" title="Редактировать новость" src="img/zondicons/edit-pencil.svg"><img class="edit-icon" title="Удалить новость" src="img/zondicons/trash.svg"></h2>
-          <div class="footnote">А.П. Чехов | 2 солнце 2032</div>
-          <p>В комнате было тихо, темно и очень душно. Кусались блохи. Тетка раньше никогда не боялась потемок, но теперь почему-то ей стало жутко и захотелось лаять. В соседней комнате громко вздохнул хозяин, потом, немного погодя, в своем сарайчике хрюкнула свинья, и опять все смолкло. Когда думаешь об еде, то на душе становится легче, и Тетка стала думать о том, как она сегодня украла у Федора Тимофеича куриную лапку и спрятала ее в гостиной между шкапом и стеной, где очень много паутины и пыли. Не мешало бы теперь пойти и посмотреть: цела эта лапка или нет? Очень может быть, что хозяин нашел ее и скушал. Но раньше утра нельзя выходить из комнатки — такое правило. Тетка закрыла глаза, чтобы поскорее уснуть, так как она знала по опыту, что чем скорее уснешь, тем скорее наступит утро. Но вдруг недалеко от нее раздался странный крик, который заставил ее вздрогнуть и вскочить на все четыре лапы. Это крикнул Иван Иваныч, и крик его был не болтливый и убедительный, как обыкновенно, а какой-то дикий, пронзительный и неестественный, похожий на скрип отворяемых ворот.</p>
-        </div>
-        <div class="article">
-          <h2>Тссс! Часть 1<img class="edit-icon" title="Редактировать новость" src="img/zondicons/edit-pencil.svg"><img class="edit-icon" title="Удалить новость" src="img/zondicons/trash.svg"></h2>
-          <div class="footnote">А.П. Чехов | 23 апреля 2018</div>
-          <p>На сто­ле ни­чего слу­чай­но­го, буд­нично­го, но всё, каж­дая са­мома­лей­шая без­де­луш­ка, но­сит на се­бе ха­рак­тер об­ду­ман­ности и стро­гой прог­раммы. Бюс­ти­ки и кар­точки ве­ликих пи­сате­лей, ку­ча чер­но­вых ру­копи­сей, том Бе­лин­ско­го с заг­ну­той стра­ницей, за­тылоч­ная кость вмес­то пе­пель­ни­цы, га­зет­ный лист, сло­жен­ный неб­режно, но так, что­бы вид­но бы­ло мес­то, очер­ченное си­ним ка­ран­да­шом, с круп­ной над­писью на по­лях: «Под­ло!» Тут же с де­сяток све­же­очи­нен­ных ка­ран­да­шей и ру­чек с но­выми перь­ями, оче­вид­но по­ложен­ных для то­го, что­бы внеш­ние при­чины и слу­чай­нос­ти, вро­де пор­чи пе­ра, не мог­ли пре­рывать ни на се­кун­ду сво­бод­но­го, твор­ческо­го по­лета...</p>
-          <p>Крас­ну­хин от­ки­дыва­ет­ся на спин­ку крес­ла и, зак­рыв гла­за, пог­ру­жа­ет­ся в об­ду­мыва­ние те­мы. Ему слыш­но, как же­на шле­па­ет туф­ля­ми и ко­лет лу­чину для са­мова­ра. Она еще не сов­сем прос­ну­лась, это вид­но из то­го, что са­мовар­ная крыш­ка и нож то и де­ло ва­лят­ся из рук. Ско­ро до­носит­ся ши­пение са­мова­ра и под­жа­рива­емо­го мя­са. Же­на не пе­рес­та­ет ко­лоть лу­чину и сту­чать око­ло печ­ки зас­лонка­ми, вь­юш­ка­ми и двер­ца­ми. Вдруг Крас­ну­хин вздра­гива­ет, от­кры­ва­ет ис­пу­ган­но гла­за и на­чина­ет ню­хать воз­дух.</p>
-        </div>
-        <div class="article">
-          <h2>Why do we use it?<img class="edit-icon" title="Редактировать новость" src="img/zondicons/edit-pencil.svg"><img class="edit-icon" title="Удалить новость" src="img/zondicons/trash.svg"></h2>
-          <div class="footnote">help@lipsum.com | 14 марта 2018</div>
-          <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-        </div>
-        <div class="article">
-          <h2>Lorem Ipsum<img class="edit-icon" title="Редактировать новость" src="img/zondicons/edit-pencil.svg"><img class="edit-icon" title="Удалить новость" src="img/zondicons/trash.svg"></h2>
-          <div class="footnote">https://www.lipsum.com/feed/html | 2 солнце 2032</div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae scelerisque lectus. Phasellus tristique ac sem ut iaculis. Phasellus commodo blandit turpis, vitae semper massa luctus quis. Nullam sit amet scelerisque orci. Aliquam purus arcu, scelerisque eu erat et, tincidunt ultricies mauris. Pellentesque fermentum pellentesque maximus. Nulla odio justo, convallis sed leo at, hendrerit lobortis neque. Etiam nec maximus turpis. Cras vitae erat auctor, bibendum augue quis, convallis quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at pellentesque libero.</p>
+        <div id="newsfeed">
+        <!--   <div class="article">
+            <h2>Собаки<img class="edit-icon" title="Редактировать новость" src="img/zondicons/edit-pencil.svg"><img class="edit-icon" title="Удалить новость" src="img/zondicons/trash.svg"></h2>
+            <div class="footnote">Сайт про русский язык | 23 апреля 2018</div>
+            <p>Если бы наши далекие предки не приручили собак, кошек, коров, лошадей и других животных, мы бы, наверняка, жили совсем иначе. Так, собаки, стали нашими самыми преданными друзьями в мире животных, хотя у волка и собаки общий прародитель. Стоит хорошенько подумать перед тем, как заводить это животное, ведь мы ответственны за тех, кого приручили. За собакой нужен надлежащий уход: выгул, кормление, дрессировка. И это не все, что требуется от хорошего хозяина: ваш друг должен знать, что вы любите его. Не забывайте хвалить и гладить своего питомца просто за то, что он у вас есть.</p>
+          </div>
+          <div class="article">
+            <h2>В кругу семьи<img class="edit-icon" title="Редактировать новость" src="img/zondicons/edit-pencil.svg"><img class="edit-icon" title="Удалить новость" src="img/zondicons/trash.svg"></h2>
+            <div class="footnote">Тот же сайт | 14 марта 2018</div>
+            <p>Никитка родился в большой семье. Будучи ещё совсем маленьким, он любил забираться на печь, свешивать оттуда ноги и слушать разговоры старших.</p>
+            <p>Вечерами в доме собирались все: и мать, и отец, и тётя с дядей, и брат со своей женой. Приходил и дедушка. Уставший после работы в огороде, он, ласково улыбаясь, протягивал внукам по конфетке, отчего в ответ получал радостные возгласы. Тогда-то и разгоралось веселье: пели песни, смеялись, шутили и много разговаривали.</p>
+            <p>Никитка чувствовал себя счастливым, окружённый такой дружной семьёй.</p>
+          </div>
+          <div class="article">
+            <h2>Каштанка. Глава 6<img class="edit-icon" title="Редактировать новость" src="img/zondicons/edit-pencil.svg"><img class="edit-icon" title="Удалить новость" src="img/zondicons/trash.svg"></h2>
+            <div class="footnote">А.П. Чехов | 2 солнце 2032</div>
+            <p>В комнате было тихо, темно и очень душно. Кусались блохи. Тетка раньше никогда не боялась потемок, но теперь почему-то ей стало жутко и захотелось лаять. В соседней комнате громко вздохнул хозяин, потом, немного погодя, в своем сарайчике хрюкнула свинья, и опять все смолкло. Когда думаешь об еде, то на душе становится легче, и Тетка стала думать о том, как она сегодня украла у Федора Тимофеича куриную лапку и спрятала ее в гостиной между шкапом и стеной, где очень много паутины и пыли. Не мешало бы теперь пойти и посмотреть: цела эта лапка или нет? Очень может быть, что хозяин нашел ее и скушал. Но раньше утра нельзя выходить из комнатки — такое правило. Тетка закрыла глаза, чтобы поскорее уснуть, так как она знала по опыту, что чем скорее уснешь, тем скорее наступит утро. Но вдруг недалеко от нее раздался странный крик, который заставил ее вздрогнуть и вскочить на все четыре лапы. Это крикнул Иван Иваныч, и крик его был не болтливый и убедительный, как обыкновенно, а какой-то дикий, пронзительный и неестественный, похожий на скрип отворяемых ворот.</p>
+          </div>
+          <div class="article">
+            <h2>Тссс! Часть 1<img class="edit-icon" title="Редактировать новость" src="img/zondicons/edit-pencil.svg"><img class="edit-icon" title="Удалить новость" src="img/zondicons/trash.svg"></h2>
+            <div class="footnote">А.П. Чехов | 23 апреля 2018</div>
+            <p>На сто­ле ни­чего слу­чай­но­го, буд­нично­го, но всё, каж­дая са­мома­лей­шая без­де­луш­ка, но­сит на се­бе ха­рак­тер об­ду­ман­ности и стро­гой прог­раммы. Бюс­ти­ки и кар­точки ве­ликих пи­сате­лей, ку­ча чер­но­вых ру­копи­сей, том Бе­лин­ско­го с заг­ну­той стра­ницей, за­тылоч­ная кость вмес­то пе­пель­ни­цы, га­зет­ный лист, сло­жен­ный неб­режно, но так, что­бы вид­но бы­ло мес­то, очер­ченное си­ним ка­ран­да­шом, с круп­ной над­писью на по­лях: «Под­ло!» Тут же с де­сяток све­же­очи­нен­ных ка­ран­да­шей и ру­чек с но­выми перь­ями, оче­вид­но по­ложен­ных для то­го, что­бы внеш­ние при­чины и слу­чай­нос­ти, вро­де пор­чи пе­ра, не мог­ли пре­рывать ни на се­кун­ду сво­бод­но­го, твор­ческо­го по­лета...</p>
+            <p>Крас­ну­хин от­ки­дыва­ет­ся на спин­ку крес­ла и, зак­рыв гла­за, пог­ру­жа­ет­ся в об­ду­мыва­ние те­мы. Ему слыш­но, как же­на шле­па­ет туф­ля­ми и ко­лет лу­чину для са­мова­ра. Она еще не сов­сем прос­ну­лась, это вид­но из то­го, что са­мовар­ная крыш­ка и нож то и де­ло ва­лят­ся из рук. Ско­ро до­носит­ся ши­пение са­мова­ра и под­жа­рива­емо­го мя­са. Же­на не пе­рес­та­ет ко­лоть лу­чину и сту­чать око­ло печ­ки зас­лонка­ми, вь­юш­ка­ми и двер­ца­ми. Вдруг Крас­ну­хин вздра­гива­ет, от­кры­ва­ет ис­пу­ган­но гла­за и на­чина­ет ню­хать воз­дух.</p>
+          </div>
+          <div class="article">
+            <h2>Why do we use it?<img class="edit-icon" title="Редактировать новость" src="img/zondicons/edit-pencil.svg"><img class="edit-icon" title="Удалить новость" src="img/zondicons/trash.svg"></h2>
+            <div class="footnote">help@lipsum.com | 14 марта 2018</div>
+            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+          </div>
+          <div class="article">
+            <h2>Lorem Ipsum<img class="edit-icon" title="Редактировать новость" src="img/zondicons/edit-pencil.svg"><img class="edit-icon" title="Удалить новость" src="img/zondicons/trash.svg"></h2>
+            <div class="footnote">https://www.lipsum.com/feed/html | 2 солнце 2032</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae scelerisque lectus. Phasellus tristique ac sem ut iaculis. Phasellus commodo blandit turpis, vitae semper massa luctus quis. Nullam sit amet scelerisque orci. Aliquam purus arcu, scelerisque eu erat et, tincidunt ultricies mauris. Pellentesque fermentum pellentesque maximus. Nulla odio justo, convallis sed leo at, hendrerit lobortis neque. Etiam nec maximus turpis. Cras vitae erat auctor, bibendum augue quis, convallis quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at pellentesque libero.</p>
+          </div> -->
         </div>
       </div>
-      <div class="page-list">
+      <!-- <div class="page-list">
         <a>1</a>
         <a>2</a>
         <a>3</a>
         <a>4</a>
-      </div>
+      </div> -->
     </div>
     <div><!-- pad --></div>
     <div><!-- footer pad left --></div>

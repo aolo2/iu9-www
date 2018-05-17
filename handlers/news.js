@@ -17,7 +17,6 @@ function get_public_news(req, res) {
 }
 
 function get_source(req, res) {
-  console.log(req.body)
   db.get_article_source(req.body.article_id, (err, article) => {
     if (err) {
       common.send_error_response(res, err.message)
