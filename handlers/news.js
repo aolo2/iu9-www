@@ -7,6 +7,7 @@ function get_news(req, res) {
     if (err) {
       common.send_error_response(res, err.message)
     } else {
+      news.forEach((article) => { article.html = marked(article.markdown) })
       common.send_json_response(res, news)
     }
   })
@@ -17,7 +18,7 @@ function get_public_news(req, res) {
 }
 
 function get_source(req, res) {
-  db.get_article_source(req.body.article_id, (err, article) => {
+  db.get_article_source(req.query.article_id, (err, article) => {
     if (err) {
       common.send_error_response(res, err.message)
     } else {
@@ -39,11 +40,21 @@ function update_source(req, res) {
 }
 
 function post_article(req, res) {
+  if (req.body.article_header.length > 80) {
+    common.send_bad_request_response(res, "max header length (80 chars) exceeded")
+    return
+  }
+
+  if (req.body.article_header.length > 100000) {
+    common.send_bad_request_response(res, "max aricle length (100k chars) exceeded")
+    return
+  }
+
   const article = {
     'markdown': req.body.source,
-    'html': marked(req.body.source),
+    'header': req.body.article_header,
     'timestamp': new Date(),
-    'author': req.user_db.last_name,
+    'author': req.user_db.login,
     'public': req.body.public
   }
 
@@ -60,8 +71,14 @@ function edit_article(req, res) {
   common.send_text_response(res, 200)  
 }
 
-function delete_article(res, res) {
-  common.send_text_response(res, 200)  
+function delete_article(req, res) {
+  db.delete_article(req.body.article_id, (err) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else {
+      common.send_text_response(res, 200)
+    }
+  })
 }
 
 module.exports.get_news = get_news

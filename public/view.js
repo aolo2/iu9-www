@@ -1,4 +1,5 @@
 const server = 'http://localhost:3000/'
+let ui_view = []
 
 function show_or_hide(item, show) {
   item.style.display = show ? 'block' : 'none'
@@ -14,7 +15,7 @@ function login() {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState === 4) {
       if (xhttp.status === 200) {
-        window.location.href = server + 'mock-news.html'
+        window.location.href = server + 'news.html'
       } else if (xhttp.status === 401) {
         document.getElementById('server-message').innerHTML = 'Неверный логин и/или пароль'
       } else {
@@ -52,7 +53,7 @@ function logout() {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState === 4) {
       if (xhttp.status === 200) {
-        window.location.href = server + 'mock.html'
+        window.location.href = server + 'index.html'
       } else if (xhttp.status === 403) {
         document.getElementById('server-message').innerHTML = 'Сессия невалидна'
       } else {
@@ -73,8 +74,6 @@ function login_button_action() {
 
 window.addEventListener('load', () => {
   /* : Cookies */
-  let ui_view = []
-  
   if (document.cookie) {
     ui_view = document.cookie.split('=')[1].split(",")
   }
@@ -83,13 +82,18 @@ window.addEventListener('load', () => {
   let login_button_text = document.getElementById('login-button-text')
   let login_form = document.getElementById('login-form')
   let login_dropdown = document.getElementById('login-dropdown')
+  let news_publish_gui = document.getElementById('news-publish-gui')
 
   if (ui_view.length > 0) {
     /* Logged in */
     if (login_button_text) {
      login_button_text.innerHTML = 'Выйти'
      login_button_action = logout
-   }
+    }
+
+    if (news_publish_gui) {
+      news_publish_gui.style.display = 'block'
+    }
  } else {
   if (login_button_text) { 
     login_button_text.innerHTML = '<img src="img/zondicons/user.svg" height="13px"> Войти' 

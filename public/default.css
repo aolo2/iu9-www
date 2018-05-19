@@ -94,8 +94,8 @@ a:visited {
   background-image: url('img/code_top_crop_blur.jpg');
 }
 
-.grid .page .super-title.apply {
-  background-image: url('img/apply_top_blur.png');
+.grid .page .super-title.enroll {
+  background-image: url('img/enroll_top_blur.png');
 }
 
 .grid .page .super-title.work {
@@ -267,9 +267,10 @@ li {
   resize: none;
   font-family: monospace;
   font-size: 14px;
-  padding: .5em;
+  padding: 0;
   border: 2px solid #eeeeee;
   border-radius: .5em;
+  line-height: 15px;
 }
 
 .page textarea.header {
@@ -469,12 +470,14 @@ li {
 .news-form {
   margin-bottom: 2em;
   padding-bottom: .5em;
-  /*border-bottom: 2px dashed #cccccc;*/
+  padding: 1em;
+  padding-bottom: .7em;
+  background: #f2f2f2;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .news-form textarea {
   border: 2px solid #cccccc;
-  background: #eeeeee;
   color: #222222;
   border-radius: 0;
   padding: .5em;
@@ -741,6 +744,14 @@ li {
   text-transform: none;
   letter-spacing: 0;
   font-size: 12px;
+}
+
+#news-publish-gui {
+  display: none;
+}
+
+.news-form #textarea-body {
+  resize: vertical;
 }
 
 .unselectable {
