@@ -1,4 +1,5 @@
 let textareaInitialHeight = null
+let current_edit_id = null
 
 function get_article_source(article_id, callback) {
   let xhttp = new XMLHttpRequest()
@@ -35,15 +36,20 @@ function submit_news() {
     }
   }
 
-  xhttp.open('POST', 'news', true)
-  xhttp.setRequestHeader('Content-type', 'application/json')
-  xhttp.send(JSON.stringify(
-  {
-    'article_header': header,
+  let payload = {
+    'header': header,
     'source': body,
     'public': is_public
-  })
-  )
+  }
+
+  if (current_edit_id)
+    payload.article_id = current_edit_id
+
+  xhttp.open('POST', 'news', true)
+  xhttp.setRequestHeader('Content-type', 'application/json')
+  xhttp.send(JSON.stringify(payload))
+
+  current_edit_id = null
 }
 
 function update_submit_button_action(available) {
@@ -62,19 +68,6 @@ function update_submit_button_action(available) {
     submit_button.onclick = () => {}
   }
 }
-
-/*function update_textarea_height(textarea) {
-  const want = textarea.scrollHeight
-  const is = textarea.clientHeight
-
-  console.log(want, is, textarea.style.height)
-
-  if (want > is) {
-    textarea.style.height = is + 30
-  } else if (want < textarea.style.height && want >= textareaInitialHeight - 30) {
-    textarea.style.height = want - 30
-  }
-}*/
 
 function handle_ispublic_checkbox() {
   const is_public = document.getElementById('is-public').checked
@@ -109,10 +102,18 @@ function edit_article(article_id) {
     if (err) {
       // TODO(aolo2): handle errors
     } else {
-      let article_dom = document.getElementById(article_id)
-      article_dom.innerHTML = '<textarea rows="10">'
-      + src.markdown
-      + '</textarea>'
+      let edit_header_textarea = document.getElementById('textarea-header')
+      let edit_body_textarea = document.getElementById('textarea-body')
+      let is_public_checkbox = document.getElementById('is-public')
+
+      edit_header_textarea.value = src.header
+      edit_body_textarea.value = src.markdown
+      is_public_checkbox.checked = src.public
+
+      current_edit_id = article_id
+
+      update_submit_button_action(true)
+      handle_ispublic_checkbox()
     }
   })
 }
@@ -153,14 +154,14 @@ window.addEventListener('load', () => {
         news_array.sort((a, b) => b.timestamp.localeCompare(a.timestamp))
         news_array.forEach((article) => {
           newsfeed.innerHTML += (
-            '<div class="article" id="' + article._id + '">'
+            '<div class="article">'
             + '<h2>' + article.header.toLocaleString()
             + gen_edit_button(article._id)
             + gen_delete_button(article._id) + '</h2>'
-            + '<div class="footnote">' 
+            + '<div class="footnote">'
             + ('author' in article ? article.author + ' | ' : '')
             + new Date(article.timestamp).toLocaleString() + '</div>'
-            + '<p>' + article.html + '</p>'
+            + article.html
             + '</div>'
             )
         })
