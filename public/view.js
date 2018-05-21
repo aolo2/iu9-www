@@ -15,7 +15,7 @@ function login() {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState === 4) {
       if (xhttp.status === 200) {
-        window.location.href = server + 'news.html'
+        location.reload()
       } else if (xhttp.status === 401) {
         document.getElementById('server-message').innerHTML = 'Неверный логин и/или пароль'
       } else {
@@ -53,7 +53,7 @@ function logout() {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState === 4) {
       if (xhttp.status === 200) {
-        window.location.href = server + 'index.html'
+        location.reload()
       } else if (xhttp.status === 403) {
         document.getElementById('server-message').innerHTML = 'Сессия невалидна'
       } else {
