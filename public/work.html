@@ -23,11 +23,16 @@
       <div id="login-button-div">
         <a href="#" onclick="login_button_action(); return false;" id="login-button"><span id="login-button-text"><img src="img/zondicons/user.svg" height="13px"> Войти</span></a>
         <div id="login-dropdown">
-          <span id="server-message"></span>
           <form id="login-form">
             <input id="login-value" type="text" placeholder="Логин" required>
             <input id="password-value" type="password" placeholder="Пароль" required>
-            <input id="login-submit" type="submit" value="Авторизоваться">
+            <div id="server-message-div">
+              <span id="server-message"></span>
+            </div>
+            <input id="login-submit" type="submit" value="Вход">
+            <div class="register">
+              <a href="signup.html">Регистрация</a>
+            </div>
           </form>
         </div>
       </div>
@@ -45,7 +50,7 @@
           <img src="img/richard.png" height="150" class="photo">
           <ul>
             <li>Место работы</li>
-            <p><a>GNU</a> — сделал гну</p>
+            <p><a href="http://gnu.org">GNU</a> — сделал гну</p>
             <li>О себе</li>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consequat commodo finibus. Nulla tempus metus nisl, at sollicitudin dolor maximus at. Nulla facilisi. Duis cursus lorem eget risus euismod varius. Mauris pulvinar dolor arcu. Praesent laoreet efficitur finibus. In hac habitasse platea dictumst.</p>
           </ul>

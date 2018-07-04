@@ -9,7 +9,7 @@ const basic_auth = require('basic-auth')
 function signup(req, res) {
   const pass = security.saltHashPassword(req.body.pass, 10)
   const user = {
-    'first_name': req.body.first_name, 
+    'first_name': req.body.first_name,
     'last_name': req.body.last_name,
     'login': req.body.login,
     'roles': req.body.roles,
@@ -32,7 +32,7 @@ function login(req, res) {
     if (err) {
       common.send_error_response(res, 'could not find user: ' + err.message)
       return
-    } 
+    }
 
     if (!user_db || !security.checkPassword(user.pass, user_db.passwordSalt, user_db.passwordHash)) {
       common.send_unauthorized_response(res, 'user not found or the password is incorrect')
@@ -73,7 +73,7 @@ function get_applications(req, res) {
       common.send_json_response(res, applications)
     }
   })
-} 
+}
 
 function approve_application(req, res) {
   db.approve_application(req.body['_id'], (err) => {
@@ -94,12 +94,12 @@ function approve_application(req, res) {
 }
 
 function edit_profile(req, res) {
-  common.send_text_response(res, 200)  
+  common.send_text_response(res, 200)
 }
 
 function access_check_middleware(req, res, next) {
   const session_id = req.cookies.SESSIONID
-  
+
   if (!session_id) {
     common.send_unauthorized_response(res)
     return

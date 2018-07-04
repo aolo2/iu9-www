@@ -23,11 +23,16 @@
       <div id="login-button-div">
         <a href="#" onclick="login_button_action(); return false;" id="login-button"><span id="login-button-text"><img src="img/zondicons/user.svg" height="13px"> Войти</span></a>
         <div id="login-dropdown">
-          <span id="server-message"></span>
           <form id="login-form">
             <input id="login-value" type="text" placeholder="Логин" required>
             <input id="password-value" type="password" placeholder="Пароль" required>
-            <input id="login-submit" type="submit" value="Авторизоваться">
+            <div id="server-message-div">
+              <span id="server-message"></span>
+            </div>
+            <input id="login-submit" type="submit" value="Вход">
+            <div class="register">
+              <a href="signup.html">Регистрация</a>
+            </div>
           </form>
         </div>
       </div>
@@ -40,8 +45,7 @@
         <h2>Поступление</h2>
       </div>
       <div id="programs">
-        <div><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam nec semper arcu, eget molestie sapien. Pellentesque mollis sapien ut tortor hendrerit malesuada. Nullam mollis felis eu risus scelerisque, a interdum libero facilisis. Morbi eu pretium nunc.</p></div>
-        <div><!-- pad --></div>
+    <div class="wide-row"><p>[Приблизительно двадцать-тридцать слов про бакалвариат. Логичнее всего написать то же, что на главной странице, но подробнее. Что-то между кратким обзором и учебным планом.]</p></div>
         <div class="program">
           <div>
             <h2>Бакалавариат</h2>
@@ -77,9 +81,8 @@
           <div class="right"><h3>Математика</h3></div>
           <div></div>
           <div class="right"><h3>Русский язык</h3></div>
-        </div>
-        <div><!-- pad --></div>
-        <div class="program" style="border-left: none; margin-top: 0; border-right: 2px dashed #cccccc; padding-right: 1em; margin-right: 0">
+        </div> 
+ <!--       <div class="program" style="border-left: none; margin-top: 0; border-right: 2px dashed #cccccc; padding-right: 1em; margin-right: 0">
           <div></div>
           <div class="right">
             <h2>Проходные баллы</h2>
@@ -90,9 +93,8 @@
           <div class="right"><h3>2016 год — <i>266</i></h3></div>
           <div></div>
           <div class="right"><h3>2015 год — <i>255</i></h3></div>
-        </div>
-        <div><p>Aenean sit amet eros sed ipsum malesuada posuere. Vestibulum faucibus ante mi, et efficitur lacus egestas eu. Ut non ipsum sed quam pretium dictum et ac orci. Aliquam mauris quam, sagittis id bibendum sit amet, luctus vel magna. Donec nec elit nulla. Ut eget consequat neque, ut elementum felis.</p></div>
-        <div><!-- pad --></div>
+        </div> -->
+        <div class="wide-row"><p>На кафедре ИУ-9 реализуется магистерская программа Компьютерная алгебра, лингвистика и биоинформатика в рамках направления подготовки 01.04.04 «Прикладная математика». [Так же, чуть подробнее о магистратуре, а то есть только крайности: таблица ниже и учебный план.]</p></div>
         <div class="program">
           <div>
             <h2>Магистратура</h2>

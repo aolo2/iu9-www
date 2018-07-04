@@ -1,48 +1,48 @@
 const express = require('express')
 
+const news = require('../handlers/news')
 const users = require('../handlers/users')
 const roles = require('../handlers/roles')
-const news = require('../handlers/news')
-const messages = require('../handlers/messages')
 const events = require('../handlers/events')
+const messages = require('../handlers/messages')
 
 const router = express.Router()
-const routerAuth = express.Router({mergeParams : true})
+const router_auth = express.Router({mergeParams : true})
 
-routerAuth.use(users.access_check_middleware)
+router_auth.use(users.access_check_middleware)
 
 /* Пользователи */
 router.post('/users/signup', users.signup)
 router.post('/users/login', users.login)
-routerAuth.post('/users/logout', users.logout)
-routerAuth.get('/users/applications', users.get_applications)
-routerAuth.post('/users/approve', users.approve_application)
-routerAuth.patch('/users/info', users.edit_profile)
+router_auth.post('/users/logout', users.logout)
+router_auth.get('/users/applications', users.get_applications)
+router_auth.post('/users/approve', users.approve_application)
+router_auth.patch('/users/info', users.edit_profile)
 
 /* Роли */
-routerAuth.get('/roles', roles.get_roles)
-routerAuth.post('/roles', roles.create_role)
-routerAuth.patch('/roles', roles.edit_role)
-routerAuth.delete('/roles', roles.delete_role)
+router_auth.get('/roles', roles.get_roles)
+router_auth.post('/roles', roles.create_role)
+router_auth.patch('/roles', roles.edit_role)
+router_auth.delete('/roles', roles.delete_role)
 
 /* Новости */
 router.get('/news/public', news.get_public_news)
-routerAuth.get('/news', news.get_news)
+router_auth.get('/news', news.get_news)
 router.get('/news/edit', news.get_source)
-routerAuth.post('/news', news.post_article)
-routerAuth.delete('/news', news.delete_article)
+router_auth.post('/news', news.post_article)
+router_auth.delete('/news', news.delete_article)
 
 /* Диалоги */
-routerAuth.post('/messages/im', messages.send_message)
-routerAuth.post('/messages/dialog', messages.create_dialog)
-routerAuth.delete('/messages/dialog', messages.delete_dialog)
+router_auth.post('/messages/im', messages.send_message)
+router_auth.post('/messages/dialog', messages.create_dialog)
+router_auth.delete('/messages/dialog', messages.delete_dialog)
 
 /* События */
-routerAuth.post('/events/create', events.create_event)
-routerAuth.post('/events/start', events.start_event)
-routerAuth.patch('/events', events.edit_event)
-routerAuth.delete('/events', events.delete_event)
+router_auth.post('/events/create', events.create_event)
+router_auth.post('/events/start', events.start_event)
+router_auth.patch('/events', events.edit_event)
+router_auth.delete('/events', events.delete_event)
 
-router.use('/', routerAuth)
+router.use('/', router_auth)
 
 module.exports = router;

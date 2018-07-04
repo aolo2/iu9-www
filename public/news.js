@@ -105,7 +105,9 @@ function edit_article(article_id) {
       let edit_header_textarea = document.getElementById('textarea-header')
       let edit_body_textarea = document.getElementById('textarea-body')
       let is_public_checkbox = document.getElementById('is-public')
+      let edit_form = document.getElementById('news-publish-gui')
 
+      edit_form.style.display = 'block'   
       edit_header_textarea.value = src.header
       edit_body_textarea.value = src.markdown
       is_public_checkbox.checked = src.public

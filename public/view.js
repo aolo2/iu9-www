@@ -15,10 +15,13 @@ function login() {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState === 4) {
       if (xhttp.status === 200) {
+        document.getElementById('server-message-div').style.display = 'none'
         location.reload()
       } else if (xhttp.status === 401) {
+        document.getElementById('server-message-div').style.display = 'block'
         document.getElementById('server-message').innerHTML = 'Неверный логин и/или пароль'
       } else {
+        document.getElementById('server-message-div').style.display = 'block'
         document.getElementById('server-message').innerHTML = 'Ошибка сервиса авторизации'
       }
     }
@@ -38,9 +41,11 @@ function toggle_login_dropdown() {
   let login_dropdown = document.getElementById('login-dropdown')
   let prom_dropdown = document.getElementById('prom-dropdown')
 
+  document.getElementById('server-message-div').style.display = 'none'
+
   if (hidden(login_dropdown)) {
     show_or_hide(login_dropdown, true)
-    if (prom_dropdown) 
+    if (prom_dropdown)
       show_or_hide(prom_dropdown, false)
   } else {
     show_or_hide(login_dropdown, false)
@@ -68,15 +73,24 @@ function logout() {
   return false
 }
 
-function login_button_action() {
-  console.log('123123')
-}
-
 window.addEventListener('load', () => {
   /* : Cookies */
   if (document.cookie) {
     ui_view = document.cookie.split('=')[1].split(",")
   }
+
+
+
+
+  /*console.log(_get_cookies())
+  _request('POST', 'news', {'from': 'now', 'for': 111}, (status, res) => {
+    console.log(status, res)
+  })
+
+  console.log(_css_get('login-button', 'display'))
+  _css_set('login-button', {'display': 'none'})
+  console.log(_css_get('login-button', 'display'))*/
+
 
   let login_button = document.getElementById('login-button')
   let login_button_text = document.getElementById('login-button-text')
@@ -91,12 +105,20 @@ window.addEventListener('load', () => {
      login_button_action = logout
     }
 
+
+
     if (news_publish_gui) {
-      news_publish_gui.style.display = 'block'
+      let show_hide_newsform = document.getElementById('show-hide-newsform')
+      show_hide_newsform.style.display = 'block'
+      show_hide_newsform.onclick = () => {
+        show_or_hide(news_publish_gui, hidden(news_publish_gui))
+      }
+
+      // news_publish_gui.style.display = 'block'
     }
  } else {
-  if (login_button_text) { 
-    login_button_text.innerHTML = '<img src="img/zondicons/user.svg" height="13px"> Войти' 
+  if (login_button_text) {
+    login_button_text.innerHTML = '<img src="img/zondicons/user.svg" height="13px"> Войти'
     login_form.onsubmit = login
   }
 
@@ -110,7 +132,7 @@ let prom_button = document.getElementById('prom')
 let prom_dropdown = document.getElementById('prom-dropdown')
 
  /* TODO(aolo2): hide popups when clicked outside
- 
+
   const hide_popups = (event) => {
     if (!hidden(login_dropdown) && event.target.closest('#login-dropdown') === null)
       show_or_hide(login_dropdown, false)
@@ -124,7 +146,7 @@ let prom_dropdown = document.getElementById('prom-dropdown')
       if (prom_dropdown) {
         if (hidden(prom_dropdown)) {
           show_or_hide(prom_dropdown, true)
-          if (login_dropdown) 
+          if (login_dropdown)
             show_or_hide(login_dropdown, false)
         } else {
           show_or_hide(prom_dropdown, false)
