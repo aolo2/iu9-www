@@ -3,6 +3,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="utils.js"></script>
+  <script type="text/javascript" src="cookies.js"></script>
   <script type="text/javascript" src="view.js"></script>
   <link rel="stylesheet" href="default.css">
 </head>
@@ -22,7 +23,8 @@
       </div>
       <div><span><!-- Управление --></span></div>
       <div id="login-button-div">
-        <a href="#" onclick="login_button_action(); return false;" id="login-button"><span id="login-button-text"><img src="img/zondicons/user.svg" height="13px"> Войти</span></a>
+        <img src="img/zondicons/user.svg" height="13px" id="login-icon-img">
+        <a href="#" onclick="login_button_action(); return false;" id="login-button">Войти</a>
         <div id="login-dropdown">
           <form id="login-form">
             <input id="login-value" type="text" placeholder="Логин" required>

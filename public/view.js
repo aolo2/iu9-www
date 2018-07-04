@@ -1,5 +1,4 @@
 const server = 'http://localhost:3000/'
-let ui_view = []
 
 function show_or_hide(item, show) {
   item.style.display = show ? 'block' : 'none'
@@ -7,34 +6,6 @@ function show_or_hide(item, show) {
 
 function hidden(item) {
   return item.style.display !== 'block'
-}
-
-function login() {
-  let xhttp = new XMLHttpRequest()
-
-  xhttp.onreadystatechange = () => {
-    if (xhttp.readyState === 4) {
-      if (xhttp.status === 200) {
-        document.getElementById('server-message-div').style.display = 'none'
-        location.reload()
-      } else if (xhttp.status === 401) {
-        document.getElementById('server-message-div').style.display = 'block'
-        document.getElementById('server-message').innerHTML = 'Неверный логин и/или пароль'
-      } else {
-        document.getElementById('server-message-div').style.display = 'block'
-        document.getElementById('server-message').innerHTML = 'Ошибка сервиса авторизации'
-      }
-    }
-  }
-
-  const login = document.getElementById('login-value').value
-  const pass = document.getElementById('password-value').value
-
-  xhttp.open('POST', server + 'users/login', true)
-  xhttp.setRequestHeader('Authorization', 'Basic ' + btoa(login + ':' + pass))
-  xhttp.send()
-
-  return false
 }
 
 function toggle_login_dropdown() {
@@ -52,109 +23,60 @@ function toggle_login_dropdown() {
   }
 }
 
-function logout() {
-  let xhttp = new XMLHttpRequest()
+function login() {
+  const login = document.getElementById('login-value').value
+  const pass = document.getElementById('password-value').value
+  const header = {'Authorization': 'Basic ' + btoa(login + ':' + pass)}
 
-  xhttp.onreadystatechange = () => {
-    if (xhttp.readyState === 4) {
-      if (xhttp.status === 200) {
+  let server_message = document.getElementById('server-message')
+
+  _request('POST', 'users/login', header, null,
+    (status, response) => {
+      if (status === 200) {
+        _css_set('server-message-div', {'display': 'none'})
         location.reload()
-      } else if (xhttp.status === 403) {
-        document.getElementById('server-message').innerHTML = 'Сессия невалидна'
+      } else if (status === 401) {
+        _css_set('server-message-div', {'display': 'block'})
+        server_message.innerHTML = 'Неверный логин и/или пароль'
       } else {
-        document.getElementById('server-message').innerHTML = 'Ошибка сервиса авторизации'
+        _css_set('server-message-div', {'display': 'block'})
+        server_message.innerHTML = 'Ошибка сервиса авторизации'
       }
-    }
-  }
+    })
+}
 
-  xhttp.open('POST', server + 'users/logout', true)
-  xhttp.send()
-
-  return false
+function logout() {
+  _request('POST', 'users/logout', null, null,
+    (status, response) => { if (status === 200) location.reload() })
 }
 
 window.addEventListener('load', () => {
-  /* : Cookies */
-  if (document.cookie) {
-    ui_view = document.cookie.split('=')[1].split(",")
-  }
-
-
-
-
-  /*console.log(_get_cookies())
-  _request('POST', 'news', {'from': 'now', 'for': 111}, (status, res) => {
-    console.log(status, res)
-  })
-
-  console.log(_css_get('login-button', 'display'))
-  _css_set('login-button', {'display': 'none'})
-  console.log(_css_get('login-button', 'display'))*/
-
-
   let login_button = document.getElementById('login-button')
-  let login_button_text = document.getElementById('login-button-text')
   let login_form = document.getElementById('login-form')
   let login_dropdown = document.getElementById('login-dropdown')
   let news_publish_gui = document.getElementById('news-publish-gui')
 
-  if (ui_view.length > 0) {
-    /* Logged in */
-    if (login_button_text) {
-     login_button_text.innerHTML = 'Выйти'
-     login_button_action = logout
-    }
-
-
-
-    if (news_publish_gui) {
-      let show_hide_newsform = document.getElementById('show-hide-newsform')
-      show_hide_newsform.style.display = 'block'
-      show_hide_newsform.onclick = () => {
-        show_or_hide(news_publish_gui, hidden(news_publish_gui))
-      }
-
-      // news_publish_gui.style.display = 'block'
-    }
- } else {
-  if (login_button_text) {
-    login_button_text.innerHTML = '<img src="img/zondicons/user.svg" height="13px"> Войти'
+  if (_logged_in()) {
+    login_button.innerHTML = 'Выйти'
+    _css_set('login-icon-img', {'visibility': 'hidden'})
+    login_button_action = logout
+  } else {
+    login_button.innerHTML = 'Войти'
+    _css_set('login-icon-img', {'visibility': 'visible'})
+    login_button_action = toggle_login_dropdown
     login_form.onsubmit = login
   }
 
-  if (login_button && login_dropdown) {
-    login_button_action = toggle_login_dropdown
-  }
-}
+  let prom_button = document.getElementById('prom')
 
-/* Menu hover/click events */
-let prom_button = document.getElementById('prom')
-let prom_dropdown = document.getElementById('prom-dropdown')
-
- /* TODO(aolo2): hide popups when clicked outside
-
-  const hide_popups = (event) => {
-    if (!hidden(login_dropdown) && event.target.closest('#login-dropdown') === null)
-      show_or_hide(login_dropdown, false)
-    if (!hidden(prom_dropdown) && event.target.closest('#prom-dropdown') === null)
-      show_or_hide(prom_dropdown, false)
-  }*/
-
-  /* Dropdowns */
-  if (prom_button) {
-    prom_button.addEventListener('click', () => {
-      if (prom_dropdown) {
-        if (hidden(prom_dropdown)) {
-          show_or_hide(prom_dropdown, true)
-          if (login_dropdown)
-            show_or_hide(login_dropdown, false)
-        } else {
-          show_or_hide(prom_dropdown, false)
-        }
-      }
-    })
-  }
-  /*************/
+  prom_button.addEventListener('click', () => {
+    if (_css_get('prom-dropdown', 'display') !== 'block') {
+      _css_set('prom-dropdown', {'display': 'block'})
+      _css_set('login-dropdown', {'display': 'none'})
+    } else {
+      _css_set('prom-dropdown', {'display': 'none'})
+    }
+  })
 
   /* Page is ready */
   document.body.style.opacity = '1'

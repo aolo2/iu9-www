@@ -28,6 +28,11 @@ function signup(req, res) {
 
 function login(req, res) {
   const user = basic_auth(req)
+
+  if (!user) {
+    common.send_bad_request_response(res)
+  }
+
   db.get_user(user.name, (err, user_db) => {
     if (err) {
       common.send_error_response(res, 'could not find user: ' + err.message)

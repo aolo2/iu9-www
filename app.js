@@ -24,10 +24,10 @@ app.use('/', routes)
 //     next(err)
 // })
 
-app.use((err, req, res, next) => {
-    res.status(err.status || 500)
-      .set('Content-Type', 'text/plain')
-      .send("Internal exception: " + err.message)
-})
+// app.use((err, req, res, next) => {
+//     res.status(err.status || 500)
+//       .set('Content-Type', 'text/plain')
+//       .send("Internal exception: " + err.message)
+// })
 
 app.listen(3000)

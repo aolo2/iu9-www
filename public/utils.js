@@ -1,3 +1,5 @@
+const Methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+
 function _get_cookies() {
   const pairs = document.cookie.split(";")
   let cookies = {}
@@ -12,8 +14,8 @@ function _get_cookies() {
   return cookies
 }
 
-function _request(method, url, data, callback) {
-  if (method in ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']) {
+function _request(method, url, headers, data, callback) {
+  if (Methods.indexOf(method) != -1) {
     let xhttp = new XMLHttpRequest()
 
     xhttp.onreadystatechange = () => {
@@ -31,6 +33,12 @@ function _request(method, url, data, callback) {
     }
 
     xhttp.open(method, url, true)
+
+    if (headers !== null) {
+      Object.keys(headers).forEach((key) => {
+        xhttp.setRequestHeader(key, headers[key]);
+      })
+    }
 
     if (method == 'GET' || data === null) {
       xhttp.send();
@@ -53,4 +61,26 @@ function _css_set(id, properties) {
 
 function _css_get(id, property) {
   return document.getElementById(id).style[property]
+}
+
+function _logged_in() {
+  let ui_view = []
+  if ('UIVIEW' in Cookies) {
+    ui_view = Cookies['UIVIEW'].split(',')
+  } else {
+    return false
+  }
+
+  return ui_view.length > 0
+}
+
+function _logged_in_as(role) {
+  let ui_view = []
+  if ('UIVIEW' in Cookies) {
+    ui_view = Cookies['UIVIEW'].split(',')
+  } else {
+    return false
+  }
+
+  return ui_view.indexOf(role) != -1
 }
