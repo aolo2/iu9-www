@@ -2,43 +2,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="utils.js"></script>
   <script type="text/javascript" src="view.js"></script>
   <script type="text/javascript" src="news.js"></script>
   <link rel="stylesheet" href="default.css">
 </head>
 <body>
-  <div class="grid">
-    <div><!-- title pad left --></div>
-    <div class="title unselectable">
-      <div><span><a href="index.html">Главная</a></span></div>
-      <div><span><a href="science.html">Наука</a></span></div>
-      <div><span><a href="news.html">Новости</a></span></div>
-      <div><span><a id="prom">Абитуриенту<img src="img/zondicons/cheveron-down.svg" height="14px"></a></span>
-        <div id="prom-dropdown">
-          <a href="enroll.html"><div>Поступление</div></a>
-          <a href="work.html"><div>Наши выпускники</div></a>
-          <a href="plan.html"><div>Учебный план</div></a>
-        </div>
-      </div>
-      <div><span><!-- Управление --></span></div>
-      <div id="login-button-div">
-        <a href="#" onclick="login_button_action(); return false;" id="login-button"><span id="login-button-text"><img src="img/zondicons/user.svg" height="13px"> Войти</span></a>
-        <div id="login-dropdown">
-          <form id="login-form">
-            <input id="login-value" type="text" placeholder="Логин" required>
-            <input id="password-value" type="password" placeholder="Пароль" required>
-            <div id="server-message-div">
-              <span id="server-message"></span>
-            </div>
-            <input id="login-submit" type="submit" value="Вход">
-            <div class="register">
-              <a href="signup.html">Регистрация</a>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div><!-- title pad right --></div>
+  <div class="grid" id="page-grid">
     <div><!-- pad --></div>
     <div class="page">
       <div class="super-title news">

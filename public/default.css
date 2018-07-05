@@ -83,7 +83,7 @@ a:visited {
 }
 
 .grid .page .comparison {
-  display: grid;   
+  display: grid;
   grid-template-columns: 1fr 1fr;
   margin-top: 2em;
 }
@@ -258,7 +258,7 @@ li {
 
 .page .calendar div:nth-child(3n) span {
   font-family: 'Bebas Neue';
-  letter-spacing: .5;   
+  letter-spacing: .5;
   font-size: 18px;
 }
 
@@ -306,7 +306,7 @@ textarea:focus {
 .page .submit-news-button span {
   position: relative;
   top: 1em;
-  padding: .5em 1em;  
+  padding: .5em 1em;
   background: #6BB9F0;
   border-radius: .5em;
   cursor: pointer;
@@ -408,9 +408,9 @@ textarea:focus {
 
 #difference {
   border-left: 2px dashed #cccccc;
-  padding-left: 1em; 
+  padding-left: 1em;
   grid-column-start: 2;
-  grid-column-end: 4; 
+  grid-column-end: 4;
   margin-bottom: 3em !important;
 }
 
@@ -501,13 +501,13 @@ textarea:focus {
 
 .news-form .publish-button {
   margin-top: .7em;
-  text-align: right; 
+  text-align: right;
 }
 
 .news-form .publish-button label {
   color: #888888;
   font-family: 'Bebas Neue Book';
-  letter-spacing: 1.2; 
+  letter-spacing: 1.2;
   font-weight: bold;
   font-size: 18px;
   padding-right: 0;
@@ -521,7 +521,7 @@ textarea:focus {
 .news-form .publish-button span {
   color: #888888;
   font-family: 'Bebas Neue Book';
-  letter-spacing: 1.2; 
+  letter-spacing: 1.2;
   font-weight: bold;
   font-size: 18px;
   padding-right: 0;
@@ -538,9 +538,9 @@ textarea:focus {
   grid-template-columns: 2fr auto;
   margin: 1em;
   margin-left: 0;
-  border-left: 2px dashed #cccccc;
-  padding-left: 1em;
-  margin-bottom: 2em;
+  border: 2px dashed #cccccc;
+  padding: 1em;
+  margin-right: 0;
 }
 
 .wide-row {
@@ -565,7 +565,7 @@ textarea:focus {
  font-family: 'Bebas Neue Book';
  font-weight: bold;
  font-size: 18px;
- text-align: right; 
+ text-align: right;
  margin-bottom: 0;
  line-height: 1.5;
  letter-spacing: 1.4;
@@ -604,31 +604,31 @@ textarea:focus {
 
 @font-face {
   font-family: "Bebas Neue";
-  src: url("fonts/BebasNeue Regular.otf") format("opentype"), 
+  src: url("fonts/BebasNeue Regular.otf") format("opentype"),
   url("fonts/BebasNeue Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Bebas Neue Bold";
-  src: url("fonts/BebasNeue Bold.otf") format("opentype"), 
+  src: url("fonts/BebasNeue Bold.otf") format("opentype"),
   url("fonts/BebasNeue Bold.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Bebas Neue Light";
-  src: url("fonts/BebasNeue Light.otf") format("opentype"), 
+  src: url("fonts/BebasNeue Light.otf") format("opentype"),
   url("fonts/BebasNeue Light.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Bebas Neue Book";
-  src: url("fonts/BebasNeue Book.otf") format("opentype"), 
+  src: url("fonts/BebasNeue Book.otf") format("opentype"),
   url("fonts/BebasNeue Book.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Bebas Neue Thin";
-  src: url("fonts/BebasNeue Thin.otf") format("opentype"), 
+  src: url("fonts/BebasNeue Thin.otf") format("opentype"),
   url("fonts/BebasNeue Thin.ttf") format("truetype");
 }
 
@@ -679,7 +679,7 @@ textarea:focus {
 
 #login-dropdown input[type=text],
 #login-dropdown input[type=password] {
-  font-size: 14px;
+  font-size: 12px;
   width: auto;
   font-family: monospace;
   border: none;

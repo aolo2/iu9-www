@@ -2,42 +2,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="utils.js"></script>
   <script type="text/javascript" src="view.js"></script>
   <link rel="stylesheet" href="default.css">
 </head>
 <body>
-  <div class="grid">
-    <div><!-- title pad left --></div>
-    <div class="title unselectable">
-      <div><span><a href="index.html">Главная</a></span></div>
-      <div><span><a href="science.html">Наука</a></span></div>
-      <div><span><a href="news.html">Новости</a></span></div>
-      <div><span><a id="prom">Абитуриенту<img src="img/zondicons/cheveron-down.svg" height="14px"></a></span>
-        <div id="prom-dropdown">
-          <a href="enroll.html"><div>Поступление</div></a>
-          <a href="work.html"><div>Наши выпускники</div></a>
-          <a href="plan.html"><div>Учебный план</div></a>
-        </div>
-      </div>
-      <div><span><!-- Управление --></span></div>
-      <div id="login-button-div">
-        <a href="#" onclick="login_button_action(); return false;" id="login-button"><span id="login-button-text"><img src="img/zondicons/user.svg" height="13px"> Войти</span></a>
-        <div id="login-dropdown">
-          <form id="login-form">
-            <input id="login-value" type="text" placeholder="Логин" required>
-            <input id="password-value" type="password" placeholder="Пароль" required>
-            <div id="server-message-div">
-              <span id="server-message"></span>
-            </div>
-            <input id="login-submit" type="submit" value="Вход">
-            <div class="register">
-              <a href="signup.html">Регистрация</a>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div><!-- title pad right --></div>
+  <div class="grid" id="page-grid">
     <div><!-- pad --></div>
     <div class="page">
       <div class="super-title plan">
@@ -48,15 +18,11 @@
         <h2>Первый семестр</h2>
         <div class="courses">
           <div style="border-right: 4px dashed #cccccc"></div>
-          <div style="margin-left: 5em">
-            <h3>Алгоритмы и структуры данных <img src="img/zondicons/time.svg">144</h3>
-            <p>Maecenas posuere urna a hendrerit porttitor. Suspendisse facilisis risus augue, sed tristique leo congue eget. Nulla ullamcorper, purus in ultricies finibus, leo velit semper leo, vel dictum lorem erat at velit. Ut egestas leo vel ligula ullamcorper vulputate. Nulla vel aliquam eros, non pharetra erat. Лектор: Скоробогатов Сергей Юрьевич. </p>
-            <h3>Основы информатики <img src="img/zondicons/time.svg">180</h3>
-            <p>Ut viverra quam et leo auctor laoreet. Morbi pulvinar viverra dolor vitae laoreet. Sed pellentesque tortor velit, quis interdum dui accumsan sit amet. Nam ipsum nunc, lacinia ut turpis quis, iaculis fringilla lorem. Praesent sit amet auctor ex. Suspendisse nec interdum erat. Fusce et ligula sed sem luctus imperdiet. Лектор: Дубанов Александр Вячеславович.</p>
-            <h3>Математический анализ <img src="img/zondicons/time.svg">214</h3>
-            <p>Nulla varius tincidunt magna et cursus. Vivamus nulla urna, mattis sed sem sit amet, tristique facilisis ante. Donec nec consequat erat, at vestibulum elit. Proin tristique purus ut nibh dapibus, non vestibulum arcu dapibus. Phasellus urna ligula, laoreet quis luctus in, facilisis eget nulla. Лектор: Четвериков Владимир Николаевич.</p>
-            <h3>Линейная алгебра <img src="img/zondicons/time.svg">214</h3>
-            <p>Praesent molestie ultrices rutrum. Nunc porta, lectus ut consequat porttitor, sem quam ultricies dolor, ut sollicitudin magna odio ut magna. Fusce a commodo massa. Лектор: Степанов Дмитрий Анатольевич.</p>
+          <div style="margin-left: 3em">
+            <h3><img src="img/zondicons/time.svg">144 Алгоритмы и структуры данных</h3>
+            <h3><img src="img/zondicons/time.svg">180 Основы информатики</h3>
+            <h3><img src="img/zondicons/time.svg">214 Математический анализ</h3>
+            <h3><img src="img/zondicons/time.svg">214 Линейная алгебра</h3>
           </div>
         </div>
       </div>
@@ -64,15 +30,11 @@
         <h2>Второй семестр</h2>
         <div class="courses">
           <div style="border-right: 4px dashed #cccccc"></div>
-          <div style="margin-left: 5em">
-            <h3>Языки и методы программирования <img src="img/zondicons/time.svg">180</h3>
-            <p>Maecenas posuere urna a hendrerit porttitor. Suspendisse facilisis risus augue, sed tristique leo congue eget. Nulla ullamcorper, purus in ultricies finibus, leo velit semper leo, vel dictum lorem erat at velit. Ut egestas leo vel ligula ullamcorper vulputate. Nulla vel aliquam eros, non pharetra erat.</p>
-            <h3>Дискретная математика  <img src="img/zondicons/time.svg">144</h3>
-            <p>Ut viverra quam et leo auctor laoreet. Morbi pulvinar viverra dolor vitae laoreet. Sed pellentesque tortor velit, quis interdum dui accumsan sit amet. Nam ipsum nunc, lacinia ut turpis quis, iaculis fringilla lorem. Praesent sit amet auctor ex. Suspendisse nec interdum erat. Fusce et ligula sed sem luctus imperdiet.</p>
-            <h3>Математический анализ  <img src="img/zondicons/time.svg">214</h3>
-            <p>Nulla varius tincidunt magna et cursus. Vivamus nulla urna, mattis sed sem sit amet, tristique facilisis ante. Donec nec consequat erat, at vestibulum elit. Proin tristique purus ut nibh dapibus, non vestibulum arcu dapibus. Phasellus urna ligula, laoreet quis luctus in, facilisis eget nulla.</p>
-            <h3>Линейная алгебра  <img src="img/zondicons/time.svg">214</h3>
-            <p>Praesent molestie ultrices rutrum. Nunc porta, lectus ut consequat porttitor, sem quam ultricies dolor, ut sollicitudin magna odio ut magna. Fusce a commodo massa.</p>
+          <div style="margin-left: 3em">
+            <h3><img src="img/zondicons/time.svg">180 Языки и методы программирования</h3>
+            <h3><img src="img/zondicons/time.svg">144 Дискретная математика</h3>
+            <h3><img src="img/zondicons/time.svg">214 Математический анализ</h3>
+            <h3><img src="img/zondicons/time.svg">214 Линейная алгебра</h3>
           </div>
         </div>
       </div>

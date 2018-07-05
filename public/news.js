@@ -1,22 +1,14 @@
-let textareaInitialHeight = null
 let current_edit_id = null
 
 function get_article_source(article_id, callback) {
-  let xhttp = new XMLHttpRequest()
-
-  xhttp.onreadystatechange = () => {
-    if (xhttp.readyState === 4) {
-      if (xhttp.status === 200) {
-        callback(null, JSON.parse(xhttp.responseText))
+  _request('GET', 'news/edit', null, {'article_id': article_id},
+    (status, text) => {
+      if (status === 200) {
+        callback(null, JSON.parse(text))
       } else {
         callback(new Error('could not get source'))
       }
-    }
-  }
-
-  xhttp.open('GET', server + 'news/edit?article_id=' + article_id, true)
-  xhttp.setRequestHeader('Content-type', 'application/json')
-  xhttp.send()
+    })
 }
 
 function submit_news() {
@@ -24,30 +16,23 @@ function submit_news() {
   const body = document.getElementById('textarea-body').value
   const is_public = document.getElementById('is-public').checked
 
-  let xhttp = new XMLHttpRequest()
-
-  xhttp.onreadystatechange = () => {
-    if (xhttp.readyState === 4) {
-      if (xhttp.status === 200) {
-        location.reload()
-      } else {
-        // TODO(aolo2): error, parse
-      }
-    }
-  }
-
-  let payload = {
+  let data = {
     'header': header,
     'source': body,
     'public': is_public
   }
 
   if (current_edit_id)
-    payload.article_id = current_edit_id
+    data.article_id = current_edit_id
 
-  xhttp.open('POST', 'news', true)
-  xhttp.setRequestHeader('Content-type', 'application/json')
-  xhttp.send(JSON.stringify(payload))
+  _request('POST', 'news', {'Content-type': 'application/json'}, data,
+    (status, text) => {
+      if (status === 200) {
+        location.reload()
+      } else {
+        // TODO(aolo2): error, parse
+      }
+    })
 
   current_edit_id = null
 }
@@ -59,7 +44,7 @@ function update_submit_button_action(available) {
   if (available) {
     submit_button.style.color = '#222222'
     submit_button.style.cursor = 'pointer'
-    submit_news_icon.src = 'img/zondicons/send222.svg'    
+    submit_news_icon.src = 'img/zondicons/send222.svg'
     submit_button.onclick = submit_news
   } else {
     submit_button.style.color = '#888888'
@@ -80,25 +65,18 @@ function handle_ispublic_checkbox() {
 }
 
 function delete_article(article_id) {
-  let xhttp = new XMLHttpRequest()
-
-  xhttp.onreadystatechange = () => {
-    if (xhttp.readyState === 4) {
-      if (xhttp.status === 200) {
+  _request('DELETE', 'news', {'Content-type': 'application/json'}, {'article_id': article_id},
+    (status, text) => {
+      if (status === 200) {
         location.reload()
       } else {
         // TODO(aolo2): handle errors
       }
-    }
-  }
-
-  xhttp.open('DELETE', server + 'news', true)
-  xhttp.setRequestHeader('Content-type', 'application/json')
-  xhttp.send(JSON.stringify({'article_id': article_id}))
+    })
 }
 
 function edit_article(article_id) {
-  get_article_source(article_id, function (err, src) {
+  get_article_source(article_id, (err, src) => {
     if (err) {
       // TODO(aolo2): handle errors
     } else {
@@ -107,7 +85,7 @@ function edit_article(article_id) {
       let is_public_checkbox = document.getElementById('is-public')
       let edit_form = document.getElementById('news-publish-gui')
 
-      edit_form.style.display = 'block'   
+      edit_form.style.display = 'block'
       edit_header_textarea.value = src.header
       edit_body_textarea.value = src.markdown
       is_public_checkbox.checked = src.public
@@ -121,7 +99,7 @@ function edit_article(article_id) {
 }
 
 function gen_edit_button(article_id) {
-  if (ui_view.includes('admin') || ui_view.includes('editor')) {
+  if (_logged_in_as('admin')) {
     return (
       '<img class="edit-icon"'
       + 'title="Редактировать новость"'
@@ -133,7 +111,7 @@ function gen_edit_button(article_id) {
 }
 
 function gen_delete_button(article_id) {
-  if (ui_view.includes('admin') || ui_view.includes('editor')) {
+  if (_logged_in_as('admin')) {
     return (
       '<img class="edit-icon"'
       + 'title="Удалить новость"'
@@ -145,14 +123,12 @@ function gen_delete_button(article_id) {
 }
 
 window.addEventListener('load', () => {
-  let xhttp = new XMLHttpRequest()
-  let newsfeed = document.getElementById('newsfeed')
-  textareaInitialHeight = document.getElementById('textarea-body').scrollHeight
+  _request('GET', 'news/public', null, null,
+    (status, response) => {
+      if (status === 200) {
+        let newsfeed = document.getElementById('newsfeed')
+        const news_array = JSON.parse(response)
 
-  xhttp.onreadystatechange = () => {
-    if (xhttp.readyState === 4) {
-      if (xhttp.status === 200) {
-        const news_array = JSON.parse(xhttp.responseText)
         news_array.sort((a, b) => b.timestamp.localeCompare(a.timestamp))
         news_array.forEach((article) => {
           newsfeed.innerHTML += (
@@ -167,14 +143,10 @@ window.addEventListener('load', () => {
             + '</div>'
             )
         })
-      } else if (xhttp.status === 401) {
+      } else if (status === 401) {
         // newsfeed.innerHTML = 'У вас недостаточно прав для просмотра новостей'
       }
-    }
-  }
-
-  xhttp.open('GET', server + 'news/public', true)
-  xhttp.send()
+    })
 
   let textarea_header = document.getElementById('textarea-header')
   let textarea_body = document.getElementById('textarea-body')

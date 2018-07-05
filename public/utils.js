@@ -1,4 +1,6 @@
 const Methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+const server = 'http://localhost:3000/'
+let Cookies = {}
 
 function _get_cookies() {
   const pairs = document.cookie.split(";")
@@ -43,7 +45,6 @@ function _request(method, url, headers, data, callback) {
     if (method == 'GET' || data === null) {
       xhttp.send();
     } else {
-      xhttp.setRequestHeader('Content-type', 'application/json')
       xhttp.send(JSON.stringify(data))
     }
   } else {
@@ -84,3 +85,7 @@ function _logged_in_as(role) {
 
   return ui_view.indexOf(role) != -1
 }
+
+window.addEventListener('load', () => {
+  Cookies = _get_cookies()
+})
