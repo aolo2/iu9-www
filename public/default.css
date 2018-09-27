@@ -10,6 +10,7 @@ body {
   padding: 0;
   margin: 0;
   /*border: 0.1px solid rgba(0, 0, 255, 0.2) !important;*/
+  box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
 .grid {
@@ -275,12 +276,12 @@ li {
 }
 
 .page textarea {
-  border: 2px solid #cccccc;
+  border: 1px solid #cccccc;
   color: #222222;
   border-radius: 0;
   display: block;
   font-size: 15px;
-  font-family: monospace;
+  font-family: 'Ubuntu Mono', monospace;
   width: 100%;
   resize: none;
   padding: .5em;
@@ -293,7 +294,7 @@ li {
 
 textarea:focus {
   outline: none;
-  border: 2px solid #888888;
+  border: 1px solid #888888;
 }
 
 .page .submit-news-button {
@@ -879,6 +880,26 @@ textarea:focus {
 
 #show-hide-newsform:hover {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.editable-textbox {
+  cursor: pointer;
+}
+
+.editable-textbox:hover {
+  background: #eeeeee;
+}
+
+.editui {
+  position: absolute;
+  left: -2em;
+  top: 0.2em;
+  visibility: hidden;
+}
+
+.editui-icon {
+ cursor: pointer;
+ display: block;
 }
 
 .unselectable {

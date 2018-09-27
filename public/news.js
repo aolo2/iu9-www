@@ -151,6 +151,11 @@ window.addEventListener('load', () => {
   let textarea_header = document.getElementById('textarea-header')
   let textarea_body = document.getElementById('textarea-body')
   let is_public_checkbox = document.getElementById('is-public')
+  let news_publish_gui = document.getElementById('news-publish-gui')
+
+  if (_logged_in_as('admin')) {
+    news_publish_gui.style.display = 'block'
+  }
 
   textarea_header.addEventListener('input', () => {
     update_submit_button_action(textarea_header.value.length > 0 && textarea_body.value.length > 0)

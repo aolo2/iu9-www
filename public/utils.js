@@ -1,6 +1,6 @@
-const Methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
-const server = 'http://localhost:3000/'
-let Cookies = {}
+const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+const SERVER = 'http://192.168.1.2:3000/'
+let COOKIES = {}
 
 function _get_cookies() {
   const pairs = document.cookie.split(";")
@@ -17,7 +17,7 @@ function _get_cookies() {
 }
 
 function _request(method, url, headers, data, callback) {
-  if (Methods.indexOf(method) != -1) {
+  if (METHODS.indexOf(method) != -1) {
     let xhttp = new XMLHttpRequest()
 
     xhttp.onreadystatechange = () => {
@@ -34,7 +34,7 @@ function _request(method, url, headers, data, callback) {
       }
     }
 
-    xhttp.open(method, url, true)
+    xhttp.open(method, SERVER + url, true)
 
     if (headers !== null) {
       Object.keys(headers).forEach((key) => {
@@ -61,13 +61,20 @@ function _css_set(id, properties) {
 }
 
 function _css_get(id, property) {
-  return document.getElementById(id).style[property]
+  const element = document.getElementById(id)
+  const style = window.getComputedStyle(element)
+  return style.getPropertyValue(property)
+}
+
+function _get_dim(id) {
+  const rect = document.getElementById(id).getBoundingClientRect()
+  return {'width': Math.round(rect.width), 'height': Math.round(rect.height)}
 }
 
 function _logged_in() {
   let ui_view = []
-  if ('UIVIEW' in Cookies) {
-    ui_view = Cookies['UIVIEW'].split(',')
+  if ('UIVIEW' in COOKIES) {
+    ui_view = COOKIES['UIVIEW'].split(',')
   } else {
     return false
   }
@@ -77,8 +84,8 @@ function _logged_in() {
 
 function _logged_in_as(role) {
   let ui_view = []
-  if ('UIVIEW' in Cookies) {
-    ui_view = Cookies['UIVIEW'].split(',')
+  if ('UIVIEW' in COOKIES) {
+    ui_view = COOKIES['UIVIEW'].split(',')
   } else {
     return false
   }
@@ -87,5 +94,5 @@ function _logged_in_as(role) {
 }
 
 window.addEventListener('load', () => {
-  Cookies = _get_cookies()
+  COOKIES = _get_cookies()
 })

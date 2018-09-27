@@ -12,7 +12,7 @@ function signup(req, res) {
     'first_name': req.body.first_name,
     'last_name': req.body.last_name,
     'login': req.body.login,
-    'roles': req.body.roles,
+    'roles': ['user'], // TODO(aolo2): derive from request
     'passwordHash': pass.hash,
     'passwordSalt': pass.salt
   }
