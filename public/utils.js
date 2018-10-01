@@ -1,5 +1,5 @@
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
-const SERVER = 'http://192.168.1.2:3000/'
+const SERVER = 'http://localhost:3000/'
 let COOKIES = {}
 
 function _get_cookies() {

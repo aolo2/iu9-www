@@ -1,0 +1,193 @@
+body {
+  margin: 5em auto;
+  padding: 0;
+  width: 40%;
+}
+
+.markdown {
+  padding: .5em;
+}
+
+.markdown:hover {
+  background: #eeeeee;
+  cursor: pointer;
+}
+
+.markdown h1 {
+  font-family: 'Bebas Neue';
+  text-transform: uppercase;
+  font-size: 28px;
+  letter-spacing: 2.0;
+  word-spacing: .3em;
+  color: #222222;
+  margin: 0;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.markdown h2 {
+  font-family: 'Bebas Neue';
+  text-transform: uppercase;
+  font-size: 20px;
+  letter-spacing: 1.8;
+  word-spacing: .3em;
+  color: #222222;
+  margin: 0;
+  margin-bottom: .5em;
+}
+
+.markdown h3 {
+  font-family: 'Bebas Neue Book';
+  font-size: 18px;
+  letter-spacing: 1.4;
+  word-spacing: .3em;
+  color: #222222;
+  margin: 0;
+  margin-bottom: .25em;
+}
+
+.markdown h4 {
+
+}
+
+.markdown p {
+  font-family: Arial;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  margin-bottom: 1em;
+  text-align: justify;
+}
+
+.markdown p + ul,
+.markdown p + ol {
+  margin-top: -1em;
+}
+
+.markdown ul,
+.markdown ol {
+  font-family: Arial;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  margin-bottom: 1em;
+}
+
+.markdown ul {
+  list-style: none;
+  position: relative;
+  right: 1em;
+}
+
+.markdown ul li,
+.markdown ol li {
+ padding-bottom: .25em;
+ padding-top: .25em;
+}
+
+.markdown ul li {
+  padding-left: 1.8em;
+  text-align: left;
+  background-image: url("img/zondicons/cheveron-right.svg");
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: 0 5px;
+}
+
+.markdown li ul {
+  margin-bottom: 0;
+}
+
+.markdown pre {
+  padding: 1em;
+  background: #f7fafb;
+  border: 1px solid #e3edf3;
+  border-radius: 3px;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+.markdown pre code {
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 15px;
+  color: #888888;
+}
+
+.editbox {
+  position: relative;
+  margin-bottom: 2em;
+}
+
+.editbox .edit-ui {
+  position: absolute;
+}
+
+.editbox .edit-ui.rhs {
+  right: -2em;
+}
+
+.editbox .edit-ui.lhs {
+  left: -2em;
+}
+
+.editbox .edit-ui .icon {
+  height: 16px;
+  margin-bottom: .5em;
+  display: block;
+  cursor: pointer;
+}
+
+.editbox textarea {
+  border: 1px solid #cccccc;
+  color: #222222;
+  display: block;
+  font-size: 15px;
+  font-family: 'Ubuntu Mono', monospace;
+  width: 100%;
+  resize: none;
+  padding: .5em;
+  line-height: 15px;
+}
+
+textarea:focus {
+  outline: none;
+  border: 1px solid #888888;
+}
+
+.initially-hidden {
+  visibility: hidden !important;
+}
+
+.initially-disabled {
+  display: none !important;
+}
+
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("fonts/BebasNeue Regular.otf") format("opentype"),
+  url("fonts/BebasNeue Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Bebas Neue Bold";
+  src: url("fonts/BebasNeue Bold.otf") format("opentype"),
+  url("fonts/BebasNeue Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Bebas Neue Light";
+  src: url("fonts/BebasNeue Light.otf") format("opentype"),
+  url("fonts/BebasNeue Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Bebas Neue Book";
+  src: url("fonts/BebasNeue Book.otf") format("opentype"),
+  url("fonts/BebasNeue Book.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Bebas Neue Thin";
+  src: url("fonts/BebasNeue Thin.otf") format("opentype"),
+  url("fonts/BebasNeue Thin.ttf") format("truetype");
+}

@@ -1,0 +1,76 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="include/showdownjs/showdown.js"></script>
+  <script type="text/javascript" src="editbox.js"></script>
+  <link rel="stylesheet" href="markdown.css">
+</head>
+<body>
+  <div class="editbox">
+    <div class="edit-ui rhs initially-disabled">
+      <img src="img/zondicons/edit-pencil.svg" class="icon" onclick="toggle_mode(this.parentNode)">
+      <img src="img/zondicons/checkmark.svg" class="icon" onclick="submit_text(this.parentNode)">
+    </div>
+    <div class="markdown" onclick="toggle_ui(this.parentNode)">
+      <!-- <h1>Это что такое</h1> -->
+      <h2>Заголовок 1</h2>
+      <p>Мы готовим разработчиков математического и программного обеспечения для высокотехнологичных областей техники и современных информационных технологий с уклоном в высокоэффективное программирование, предусматривающее углубленные знания алгоритмов, технологий компиляции и оптимизации программного кода, особенностей создания многопоточных, параллельных и распределенных приложений.</p>
+      <h3>Подзаголовок 1.1</h3>
+      <p>Депутаты Госдумы в третьем окончательном чтении приняли закон об изменениях пенсионной системы. Из 415 парламентариев, присутствовавших на заседании, "за" проголосовали 332, против принятия закона выступили 83 депутата.</p>
+      <p>Проверим как работает маркированный список. Вот варианты:
+        <ul>
+          <li>Он работает</li>
+          <li>Он не работает</li>
+          <li>Третий пункт? Так можно? Константа дивана??
+            <ul>
+              <li>Херак!</li>
+              <li>Вложенный список</li>
+            </ul>
+          </li>
+        </ul></p>
+        <h3>Подзаголовок 1.2</h3>
+        <p>По словам Володина, в профильный комитет Госдумы поступило 286 поправок по поводу дальнейшего совершенствования пенсионной системы. Вячеслав Володин добавил, что второе чтение проекта по пенсионным изменениям запланировано на текущей неделе.</p>
+      </div>
+      <textarea class="edit-area initially-disabled"></textarea>
+    </div>
+
+    <div class="editbox">
+      <div class="edit-ui lhs initially-disabled">
+        <img src="img/zondicons/edit-pencil.svg" class="icon" onclick="toggle_mode(this.parentNode)">
+        <img src="img/zondicons/checkmark.svg" class="icon" onclick="submit_text(this.parentNode)">
+      </div>
+      <div class="markdown" onclick="toggle_ui(this.parentNode)">
+        <h2>Заголовок какой-то другой</h2>
+        <p>А тут будет листинг, потому что надо проверить как выглядит код + надо бы конечно подсветку замутить.. и еще переходничок под новый разъем. Наушники мы тоже в комплект не кладем</p>
+
+        <p>Проверим как работает теперь уже нумерованный список. Вот варианты:
+          <ol>
+            <li>Он работает</li>
+            <li>Он не работает</li>
+            <li>Третий пункт? Так можно? Константа дивана??</li>
+            <ol>
+              <li>Херак!</li>
+              <li>Вложенный список</li>
+            </ol>
+          </ol></p>
+        </div>
+        <textarea class="edit-area initially-disabled"></textarea>
+      </div>
+
+      <div class="editbox">
+       <div class="edit-ui rhs initially-disabled">
+        <img src="img/zondicons/edit-pencil.svg" class="icon" onclick="toggle_mode(this.parentNode)">
+        <img src="img/zondicons/checkmark.svg" class="icon" onclick="submit_text(this.parentNode)">
+      </div>
+      <div class="markdown" onclick="toggle_ui(this.parentNode)">
+        <h2>Заголовок 2</h2>
+        <p>Мы готовим разработчиков математического и программного обеспечения для высокотехнологичных областей техники и современных информационных технологий с уклоном в высокоэффективное программирование, предусматривающее углубленные знания алгоритмов, технологий компиляции и оптимизации программного кода, особенностей создания многопоточных, параллельных и распределенных приложений.</p>
+        <h3>Подзаголовок 2.1</h3>
+        <p>Депутаты Госдумы в третьем окончательном чтении приняли закон об изменениях пенсионной системы. Из 415 парламентариев, присутствовавших на заседании, "за" проголосовали 332, против принятия закона выступили 83 депутата.</p>
+        <h3>Подзаголовок 2.2</h3>
+        <p>По словам Володина, в профильный комитет Госдумы поступило 286 поправок по поводу дальнейшего совершенствования пенсионной системы. Вячеслав Володин добавил, что второе чтение проекта по пенсионным изменениям запланировано на текущей неделе.</p>
+      </div>
+      <textarea class="edit-area initially-disabled"></textarea>
+    </div>
+  </body>
+  </html>

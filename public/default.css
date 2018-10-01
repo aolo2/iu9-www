@@ -2,10 +2,6 @@ html, body {
   height: 100%;
 }
 
-body {
-  opacity: 0;
-}
-
 * {
   padding: 0;
   margin: 0;
@@ -393,7 +389,8 @@ textarea:focus {
   margin-right: .5em;
 }
 
-#about {
+/* #about */
+#editbox_1 {
   grid-column-start: 1;
   grid-column-end: 3;
   border-right: 2px dashed #cccccc;
@@ -407,7 +404,8 @@ textarea:focus {
   /*background-image: url('img/about_pic.png');*/
 }
 
-#difference {
+/* #difference */
+#editbox_2 {
   border-left: 2px dashed #cccccc;
   padding-left: 1em;
   grid-column-start: 2;
@@ -415,32 +413,33 @@ textarea:focus {
   margin-bottom: 3em !important;
 }
 
-#difference ul {
+#editbox_2 ul {
   list-style: none;
   margin-top: .5em;
 }
 
-#difference ul li {
+#editbox_2 ul li {
   margin-bottom: 1.5em;
 }
 
-#difference ul li a {
+#editbox_2 ul li a {
   font-weight: normal;
   text-decoration: underline;
 }
 
-#difference ul li:last-child {
+#editbox_2 ul li:last-child {
   margin-bottom: 0;
 }
 
-#difference ul li img {
+#editbox_2 ul li img {
   height: 16px;
   position: relative;
   top: 2px;
   margin-right: 1em;
 }
 
-#comparison {
+/* #comparison */
+#editbox_3 {
   border-right: 2px dashed #cccccc;
   padding-right: 1em;
   grid-column-start: 1;
@@ -900,6 +899,12 @@ textarea:focus {
 .editui-icon {
  cursor: pointer;
  display: block;
+ margin-bottom: .5em;
+}
+
+.rhs-ui {
+  left: auto;
+  right: -2em;
 }
 
 .unselectable {
@@ -909,4 +914,8 @@ textarea:focus {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.inititally-hidden {
+  visibility: hidden;
 }

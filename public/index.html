@@ -16,34 +16,35 @@
         <h2>Теоретическая информатика и компьютерные технологии</h2>
       </div>
       <div id="introduction">
-        <div id="about">
+        <div id="editbox_1" style="position: relative;" class="editable-textbox" onclick="on_editbox_click(this.id)">
           <h2>О кафедре</h2>
-          <div style="position: relative; margin-bottom: 1em;">
-            <div class="editui" id="editui_1">
-              <img src="img/zondicons/edit-pencil.svg" height="16" class="editui-icon" id="editui_edit_1" onclick="on_edit_button_click(this.id)">
-            </div>
-            <p class="editable-textbox" id="editbox_1" onclick="on_editbox_click(this.id)">Мы готовим разработчиков математического и программного обеспечения для высокотехнологичных областей техники и современных информационных технологий с уклоном в <em>высокоэффективное программирование</em>, предусматривающее углубленные знания алгоритмов, технологий <em>компиляции и оптимизации</em> программного кода, особенностей создания <em>многопоточных, параллельных и распределенных</em> приложений.</p>
+          <div class="editui" id="editui_1">
+            <img src="img/zondicons/edit-pencil.svg" height="16" class="editui-icon" id="editui_edit_1" onclick="on_edit_button_click(this.id)">
+            <img src="img/zondicons/checkmark.svg" height="16" class="editui-icon inititally-hidden" id="editui_submit_1" onclick="on_submit_button_click(this.id)">
           </div>
-          <div style="position: relative;">
-            <div class="editui" id="editui_2">
-              <img src="img/zondicons/edit-pencil.svg" height="16" class="editui-icon" id="editui_edit_2" onclick="on_edit_button_click(this.id)">
-            </div>
-            <p class="editable-textbox" id="editbox_2" onclick="on_editbox_click(this.id)">Учебные планы предусматривают <em>фундаментальную математическую подготовку</em>, близкую к базовой математической подготовке на физико-математических специальностях классических университетов. Дополнительно, студенты знакомятся с рядом предметных областей, в которых активно используются новейшие достижения математики и программирования, включая <em>лингвистику, биоинформатику и молекулярное моделирование</em>.
-            </p>
-          </div>
+          <p>Мы готовим разработчиков математического и программного обеспечения для высокотехнологичных областей техники и современных информационных технологий с уклоном в <em>высокоэффективное программирование</em>, предусматривающее углубленные знания алгоритмов, технологий <em>компиляции и оптимизации</em> программного кода, особенностей создания <em>многопоточных, параллельных и распределенных</em> приложений.</p>
+          <p>Учебные планы предусматривают <em>фундаментальную математическую подготовку</em>, близкую к базовой математической подготовке на физико-математических специальностях классических университетов. Дополнительно, студенты знакомятся с рядом предметных областей, в которых активно используются новейшие достижения математики и программирования, включая <em>лингвистику, биоинформатику и молекулярное моделирование</em>.
+          </p>
         </div>
-        <div id="about-photo"></div>
         <div></div>
-        <div id="difference">
+        <div id="editbox_2" style="position: relative;" class="editable-textbox" onclick="on_editbox_click(this.id)">
           <h2>Особенности подготовки</h2>
+          <div class="editui rhs-ui" id="editui_2">
+            <img src="img/zondicons/edit-pencil.svg" height="16" class="editui-icon" id="editui_edit_2" onclick="on_edit_button_click(this.id)">
+            <img src="img/zondicons/checkmark.svg" height="16" class="editui-icon inititally-hidden" id="editui_submit_2" onclick="on_submit_button_click(this.id)">
+          </div>
           <ul>
             <li><img src="img/zondicons/cheveron-outline-right-444.svg">Усиленное изучение алгоритмов осуществляется с первых дней обучения. [Более конкретное предложение, описывающее всю серьезность ситацации. А именно: приблизительный объем практических заданий по программированию в первом и втором семестрах]</li>
             <li><img src="img/zondicons/cheveron-outline-right-444.svg"><a href="plan.html">Учебные планы</a> по математике первых двух курсов близки к учебным планам общей математической подготовки механико-математического факультета и соответствуют учебным планам факультета ВМиК МГУ им. М.В. Ломоносова. Основные математические курсы читают выпускники и сотрудники механико-математического факультета МГУ</li>
             <li><img src="img/zondicons/cheveron-outline-right-444.svg">С первого курса вырабатывается практический навык быстрого и эффективного изучения языков и парадигм программирования. [Более конкретное предложение о количестве языков, изучаемых на курсах, особенно на первом]</li>
           </ul>
         </div>
-        <div id="comparison">
+        <div id="editbox_3" style="position: relative;"  class="editable-textbox" onclick="on_editbox_click(this.id)">
           <h2>Отличия от аналогичных программ</h2>
+          <div class="editui" id="editui_3">
+            <img src="img/zondicons/edit-pencil.svg" height="16" class="editui-icon" id="editui_edit_3" onclick="on_edit_button_click(this.id)">
+            <img src="img/zondicons/checkmark.svg" height="16" class="editui-icon inititally-hidden" id="editui_submit_3" onclick="on_submit_button_click(this.id)">
+          </div>
           <h3 style="margin-top: .5em">Других ВУЗов</h3>
           <p>Значительное влияние традиций инженерного образования МГТУ им Баумана; ориентация программы бакалавриата на <em>системное программирование и конструирование компиляторов</em>; углублённая подготовка в области компьютерной лингвистики, био- и хемоинформатики в магистратуре.</p>
           <h3>Других кафедр факультета ИУ</h3>
