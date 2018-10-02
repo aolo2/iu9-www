@@ -6,12 +6,12 @@
   <link rel="stylesheet" href="markdown.css">
 </head>
 <body>
-  <div class="editbox">
-    <div class="edit-ui rhs initially-disabled">
-      <img src="img/zondicons/edit-pencil.svg" class="icon" onclick="toggle_mode(this.parentNode)">
-      <img src="img/zondicons/checkmark.svg" class="icon" onclick="submit_text(this.parentNode)">
+  <div class="editbox" id="edbox#1">
+    <div class="edit-ui lhs initially-disabled">
+      <img src="img/zondicons/edit-pencil.svg" class="icon" onclick="EditBox.toggleMode(this.parentNode)">
+      <img src="img/zondicons/save-disk.svg" class="icon" onclick="EditBox.submitUpdate(this.parentNode)">
     </div>
-    <div class="markdown" onclick="toggle_ui(this.parentNode)">
+    <div class="markdown" onclick="EditBox.toggleUi(this.parentNode)">
       <!-- <h1>Это что такое</h1> -->
       <h2>Заголовок 1</h2>
       <p>Мы готовим разработчиков математического и программного обеспечения для высокотехнологичных областей техники и современных информационных технологий с уклоном в высокоэффективное программирование, предусматривающее углубленные знания алгоритмов, технологий компиляции и оптимизации программного кода, особенностей создания многопоточных, параллельных и распределенных приложений.</p>
@@ -32,14 +32,17 @@
         <p>По словам Володина, в профильный комитет Госдумы поступило 286 поправок по поводу дальнейшего совершенствования пенсионной системы. Вячеслав Володин добавил, что второе чтение проекта по пенсионным изменениям запланировано на текущей неделе.</p>
       </div>
       <textarea class="edit-area initially-disabled"></textarea>
+      <div class="loading initially-disabled">
+        Загрузка...
+      </div>
     </div>
 
-    <div class="editbox">
+    <div class="editbox" id="edbox#2">
       <div class="edit-ui lhs initially-disabled">
-        <img src="img/zondicons/edit-pencil.svg" class="icon" onclick="toggle_mode(this.parentNode)">
-        <img src="img/zondicons/checkmark.svg" class="icon" onclick="submit_text(this.parentNode)">
+        <img src="img/zondicons/edit-pencil.svg" class="icon" onclick="EditBox.toggleMode(this.parentNode)">
+        <img src="img/zondicons/save-disk.svg" class="icon" onclick="EditBox.submitUpdate(this.parentNode)">
       </div>
-      <div class="markdown" onclick="toggle_ui(this.parentNode)">
+      <div class="markdown" onclick="EditBox.toggleUi(this.parentNode)">
         <h2>Заголовок какой-то другой</h2>
         <p>А тут будет листинг, потому что надо проверить как выглядит код + надо бы конечно подсветку замутить.. и еще переходничок под новый разъем. Наушники мы тоже в комплект не кладем</p>
 
@@ -55,14 +58,17 @@
           </ol></p>
         </div>
         <textarea class="edit-area initially-disabled"></textarea>
+        <div class="loading initially-disabled">
+        Загрузка...
+      </div>
       </div>
 
-      <div class="editbox">
-       <div class="edit-ui rhs initially-disabled">
-        <img src="img/zondicons/edit-pencil.svg" class="icon" onclick="toggle_mode(this.parentNode)">
-        <img src="img/zondicons/checkmark.svg" class="icon" onclick="submit_text(this.parentNode)">
+      <div class="editbox" id="edbox#3">
+       <div class="edit-ui lhs initially-disabled">
+        <img src="img/zondicons/edit-pencil.svg" class="icon" onclick="EditBox.toggleMode(this.parentNode)">
+        <img src="img/zondicons/save-disk.svg" class="icon" onclick="EditBox.submitUpdate(this.parentNode)">
       </div>
-      <div class="markdown" onclick="toggle_ui(this.parentNode)">
+      <div class="markdown" onclick="EditBox.toggleUi(this.parentNode)">
         <h2>Заголовок 2</h2>
         <p>Мы готовим разработчиков математического и программного обеспечения для высокотехнологичных областей техники и современных информационных технологий с уклоном в высокоэффективное программирование, предусматривающее углубленные знания алгоритмов, технологий компиляции и оптимизации программного кода, особенностей создания многопоточных, параллельных и распределенных приложений.</p>
         <h3>Подзаголовок 2.1</h3>
@@ -71,6 +77,9 @@
         <p>По словам Володина, в профильный комитет Госдумы поступило 286 поправок по поводу дальнейшего совершенствования пенсионной системы. Вячеслав Володин добавил, что второе чтение проекта по пенсионным изменениям запланировано на текущей неделе.</p>
       </div>
       <textarea class="edit-area initially-disabled"></textarea>
+      <div class="loading initially-disabled">
+        Загрузка...
+      </div>
     </div>
   </body>
   </html>

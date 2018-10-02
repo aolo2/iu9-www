@@ -4,6 +4,7 @@ const news = require('../handlers/news')
 const users = require('../handlers/users')
 const roles = require('../handlers/roles')
 const events = require('../handlers/events')
+const editbox = require('../handlers/editbox')
 const messages = require('../handlers/messages')
 
 const router = express.Router()
@@ -42,6 +43,9 @@ router_auth.post('/events/create', events.create_event)
 router_auth.post('/events/start', events.start_event)
 router_auth.patch('/events', events.edit_event)
 router_auth.delete('/events', events.delete_event)
+
+/* Редактирование текста */
+router.get('/editbox/source', editbox.getSource)
 
 router.use('/', router_auth)
 

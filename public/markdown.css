@@ -137,6 +137,17 @@ body {
   cursor: pointer;
 }
 
+.editbox .loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Ubuntu Mono', monospace;
+}
+
+/*.editbox .loading .icon {
+
+}*/
+
 .editbox textarea {
   border: 1px solid #cccccc;
   color: #222222;
