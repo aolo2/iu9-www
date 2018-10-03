@@ -4,12 +4,13 @@
   <script type="text/javascript" src="include/showdownjs/showdown.js"></script>
   <script type="text/javascript" src="editbox.js"></script>
   <link rel="stylesheet" href="markdown.css">
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 </head>
 <body>
   <div class="editbox" id="edbox#1">
     <div class="edit-ui lhs initially-disabled">
       <img src="img/zondicons/edit-pencil.svg" class="icon" onclick="EditBox.toggleMode(this.parentNode)">
-      <img src="img/zondicons/save-disk.svg" class="icon" onclick="EditBox.submitUpdate(this.parentNode)">
+      <img src="img/zondicons/save-disk.svg" class="icon" onclick="EditBox.submitUpdate(this.parentNode.parentNode)">
     </div>
     <div class="markdown" onclick="EditBox.toggleUi(this.parentNode)">
       <!-- <h1>Это что такое</h1> -->

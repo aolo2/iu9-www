@@ -71,11 +71,11 @@ const EditBox = {
     'EDIT_IN_PROGRESS': 2
   }),
 
-  toggleMode: (edit_ui) => {
-    let editbox = edit_ui.parentNode,
+  toggleMode: (editUi) => {
+    let editbox = editUi.parentNode,
     boxId = editbox.id,
     box = EditBox.ACTIVE_EDITS[boxId],
-    icon = edit_ui.children[0],
+    icon = editUi.children[0],
     rendered = editbox.children[1],
     area = editbox.children[2],
     loading = editbox.children[3],
@@ -100,11 +100,17 @@ const EditBox = {
       // NOTE(aolo2): markdown is being edited, get from dict
       if ('markdown' in box) {
         renderedClasses.add('initially-disabled')
+        area.value = EditBox.ACTIVE_EDITS[boxId].markdown
+
         showArea(box.markdown)
       } else {
         _css_set(loading, renderedDim)
         renderedClasses.add('initially-disabled')
         loadingClasses.remove('initially-disabled')
+
+        area.addEventListener('input', () => {
+          EditBox.ACTIVE_EDITS[boxId].markdown = area.value
+        })
 
         _request('GET', 'editbox/source', null, {'boxId': btoa(boxId)}, (status, response) => {
           if (status === 200) {
@@ -126,6 +132,26 @@ const EditBox = {
   },
 
   submitUpdate: (editbox) => {
+    let area = editbox.children[2],
+    markdown = area.value,
+    editUi = editbox.children[0],
+    icon = editUi.children[0],
+    rendered = editbox.children[1],
+    renderedClasses = rendered.classList,
+    areaClasses = area.classList,
+    box = EditBox.ACTIVE_EDITS[editbox.id]
+
+    _request('POST', 'editbox/source', {'Content-type': 'application/json'}, {'boxId': btoa(editbox.id), 'md': markdown}, (status, response) => {
+      if (status === 200) {
+        icon.src = 'img/zondicons/edit-pencil.svg'
+        areaClasses.add('initially-disabled')
+        renderedClasses.remove('initially-disabled')
+        rendered.innerHTML = EditBox.converter.makeHtml(area.value)
+        box.status = status.UI_SHOWN
+      } else {
+        // TODO(aolo2): error handling
+      }
+    })
   },
 
   toggleUi: (editbox) => {

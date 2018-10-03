@@ -46,6 +46,7 @@ router_auth.delete('/events', events.delete_event)
 
 /* Редактирование текста */
 router.get('/editbox/source', editbox.getSource)
+router.post('/editbox/source', editbox.updateSource)
 
 router.use('/', router_auth)
 

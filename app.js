@@ -8,11 +8,11 @@ const path = require('path')
 
 const routes = require('./routes/routes')
 
-const access_log_stream = fs.createWriteStream(path.join(__dirname, 'logs/access.log'))
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs/access.log'))
 const app = express()
 
 app.use(helmet())
-app.use(morgan('dev', {stream: access_log_stream}))
+app.use(morgan('dev', {stream: accessLogStream}))
 app.use(cookieParser())
 app.use(bodyParser.json({limit: '5mb'}))
 app.use(express.static('public'))
