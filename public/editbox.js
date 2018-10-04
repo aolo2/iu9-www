@@ -133,21 +133,28 @@ const EditBox = {
 
   submitUpdate: (editbox) => {
     let area = editbox.children[2],
-    markdown = area.value,
     editUi = editbox.children[0],
     icon = editUi.children[0],
     rendered = editbox.children[1],
     renderedClasses = rendered.classList,
     areaClasses = area.classList,
-    box = EditBox.ACTIVE_EDITS[editbox.id]
+    loadingClasses = editbox.children[3].classList
 
-    _request('POST', 'editbox/source', {'Content-type': 'application/json'}, {'boxId': btoa(editbox.id), 'md': markdown}, (status, response) => {
+    renderedClasses.add('initially-disabled')
+    areaClasses.add('initially-disabled')
+    loadingClasses.remove('initially-disabled')
+
+    _request('POST', 'editbox/source', {'Content-type': 'application/json'}, {'boxId': btoa(editbox.id), 'md': area.value}, (status, response) => {
       if (status === 200) {
+
         icon.src = 'img/zondicons/edit-pencil.svg'
+        loadingClasses.add('initially-disabled')
         areaClasses.add('initially-disabled')
+        editUi.classList.add('initially-disabled')
         renderedClasses.remove('initially-disabled')
+
         rendered.innerHTML = EditBox.converter.makeHtml(area.value)
-        box.status = status.UI_SHOWN
+        EditBox.ACTIVE_EDITS[editbox.id].status = EditBox.EDIT_STATUS.UI_HIDDEN
       } else {
         // TODO(aolo2): error handling
       }

@@ -120,6 +120,7 @@ body {
 
 .editbox .edit-ui {
   position: absolute;
+  top: .5em;
 }
 
 .editbox .edit-ui.rhs {
@@ -135,6 +136,11 @@ body {
   margin-bottom: .5em;
   display: block;
   cursor: pointer;
+  /*transition: filter .25s;*/
+}
+
+.editbox .edit-ui .icon:hover {
+  filter: brightness(50%);
 }
 
 .editbox .loading {
@@ -143,10 +149,6 @@ body {
   align-items: center;
   font-family: 'Ubuntu Mono', monospace;
 }
-
-/*.editbox .loading .icon {
-
-}*/
 
 .editbox textarea {
   border: 1px solid #cccccc;
