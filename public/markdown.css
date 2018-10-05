@@ -34,6 +34,7 @@ body {
   color: #222222;
   margin: 0;
   margin-bottom: .5em;
+  line-height: 1.125;
 }
 
 .markdown h3 {
@@ -44,6 +45,7 @@ body {
   color: #222222;
   margin: 0;
   margin-bottom: .25em;
+  line-height: 1.25;
 }
 
 .markdown h4 {
@@ -121,6 +123,7 @@ body {
 .editbox .edit-ui {
   position: absolute;
   top: .5em;
+  /*border: 1px solid #eeeeee;*/
 }
 
 .editbox .edit-ui.rhs {
@@ -148,6 +151,8 @@ body {
   justify-content: center;
   align-items: center;
   font-family: 'Ubuntu Mono', monospace;
+  min-height: 120px;
+  color: #aaaaaa;
 }
 
 .editbox textarea {

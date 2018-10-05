@@ -2,6 +2,11 @@ const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
 const SERVER = 'http://localhost:3000/'
 let COOKIES = {}
 
+const UI_HTML = '<div class="edit-ui lhs initially-disabled">\n<img src="img/zondicons/edit-pencil.svg" class="icon" onclick="EditBox.toggleMode(this.parentNode)">\n<img src="img/zondicons/save-disk.svg" class="icon" onclick="EditBox.submitUpdate(this.parentNode.parentNode)">\n</div>',
+MARDKOWN_HTML = '<div class="markdown" onclick="EditBox.toggleUi(this.parentNode)">',
+AREA_HTML = '<textarea class="edit-area initially-disabled"></textarea>',
+LOADING_HTML = ' <div class="loading initially-disabled">Загрузка...</div>'
+
 // TODO(aolo2): убрать
 function cl(a) {
   console.log(a)
@@ -26,6 +31,7 @@ function _get_dim(item) {
   return {'width': Math.round(rect.width), 'height': Math.round(rect.height)}
 }
 
+// TODO(aolo2): убрать
 function _request(method, url, headers, data, callback) {
   if (METHODS.indexOf(method) != -1) {
     let xhttp = new XMLHttpRequest()
@@ -86,8 +92,6 @@ const EditBox = {
     renderedDim = _get_dim(rendered)
 
     if (box.status === status.UI_SHOWN) {
-      // TODO: loading
-
       let showArea = (md) => {
         _css_set(area, renderedDim)
         area.value = md
@@ -143,6 +147,7 @@ const EditBox = {
     renderedClasses.add('initially-disabled')
     areaClasses.add('initially-disabled')
     loadingClasses.remove('initially-disabled')
+    editUi.classList.add('initially-disabled')
 
     _request('POST', 'editbox/source', {'Content-type': 'application/json'}, {'boxId': btoa(editbox.id), 'md': area.value}, (status, response) => {
       if (status === 200) {
@@ -150,7 +155,6 @@ const EditBox = {
         icon.src = 'img/zondicons/edit-pencil.svg'
         loadingClasses.add('initially-disabled')
         areaClasses.add('initially-disabled')
-        editUi.classList.add('initially-disabled')
         renderedClasses.remove('initially-disabled')
 
         rendered.innerHTML = EditBox.converter.makeHtml(area.value)
@@ -183,6 +187,43 @@ const EditBox = {
   }
 }
 
+function htmlToElement(html) {
+  var template = document.createElement('template')
+  html = html.trim()
+  template.innerHTML = html
+  return template.content.firstChild
+}
+
 window.addEventListener('load', () => {
   EditBox.converter.setOption('noHeaderId', true)
+
+
+  let boxes = document.getElementsByClassName('editbox')
+  Array.prototype.forEach.call(boxes, (box) => {
+    box.appendChild(htmlToElement(UI_HTML))
+    box.appendChild(htmlToElement(MARDKOWN_HTML))
+    box.appendChild(htmlToElement(AREA_HTML))
+    box.appendChild(htmlToElement(LOADING_HTML))
+
+    let ui = box.children[0],
+    md = box.children[1],
+    area = box.children[2],
+    loading = box.children[3]
+
+    // NOTE(aolo2): hide md untill loaded
+    md.classList.add('initially-disabled')
+    ui.classList.add('initially-disabled')
+    area.classList.add('initially-disabled')
+    loading.classList.remove('initially-disabled')
+
+    _request('GET', 'editbox', null, {'boxId': btoa(box.id)}, (status, response) => {
+      if (status === 200) {
+        md.innerHTML = JSON.parse(response).md
+        md.classList.remove('initially-disabled')
+        loading.classList.add('initially-disabled')
+      } else {
+        // TODO(aolo2): error handling
+      }
+    })
+  })
 })

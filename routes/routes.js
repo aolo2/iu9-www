@@ -45,6 +45,7 @@ router_auth.patch('/events', events.edit_event)
 router_auth.delete('/events', events.delete_event)
 
 /* Редактирование текста */
+router.get('/editbox', editbox.getHTML)
 router.get('/editbox/source', editbox.getSource)
 router.post('/editbox/source', editbox.updateSource)
 
