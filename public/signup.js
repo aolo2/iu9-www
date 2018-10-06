@@ -16,7 +16,7 @@ function apply_for_registration() {
   _request('POST', 'users/signup', {'Content-type': 'application/json'}, data,
     (status, response) => {
       if (status === 200) {
-        window.location.href = server
+        window.location.href = SERVER
       } else if (status === 400) {
         document.getElementById('server-message').innerHTML = 'Поля заполнены неверно'
       } else {
