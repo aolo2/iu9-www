@@ -2,9 +2,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="include/showdownjs/showdown.js"></script>
   <script type="text/javascript" src="utils.js"></script>
   <script type="text/javascript" src="view.js"></script>
+  <script type="text/javascript" src="editbox.js"></script>
   <link rel="stylesheet" href="default.css">
+  <link rel="stylesheet" href="markdown.css">
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 </head>
 <body>
   <div class="grid" id="page-grid">
@@ -15,7 +19,11 @@
         <h2>Поступление</h2>
       </div>
       <div id="programs">
-        <div class="wide-row"><p>[Приблизительно двадцать-тридцать слов про бакалвариат. Логичнее всего написать то же, что на главной странице, но подробнее. Что-то между кратким обзором и учебным планом.]</p></div>
+        <div class="editbox lhs" id="edbox_10"></div>
+        <div class="editbox rhs" id="edbox_12"></div>
+        <div><!-- pad --></div>
+        <div class="editbox lhs" id="edbox_11"></div>
+      <!--   <div class="wide-row"><p>[Приблизительно двадцать-тридцать слов про бакалвариат. Логичнее всего написать то же, что на главной странице, но подробнее. Что-то между кратким обзором и учебным планом.]</p></div>
         <div class="program">
           <div>
             <h2>Бакалавариат</h2>
@@ -57,7 +65,7 @@
           <div>
             <h2>Магистратура</h2>
           </div>
-          <div><!-- pad --></div>
+          <div></div>
           <div>
             <h3><img src="img/zondicons/time.svg">Длительность обучения</h3>
           </div>
@@ -85,7 +93,8 @@
           <div></div>
           <div class="right" style="margin-top: -35px;"><h3>Дифференциальные уравнения</h3></div>
         </div>
-        <div class="wide-row"><p>Вопросы можно задавать Скоробогатову Сергею Юрьевичу или Голубкову Артёму Юрьевичу по адресу: <code>iu9@bmstu.ru</code></p></div>
+        <div class="wide-row"><p>Вопросы можно задавать Скоробогатову Сергею Юрьевичу или Голубкову Артёму Юрьевичу по адресу: <code>iu9@bmstu.ru</code></p>
+        </div> -->
       </div>
     </div>
     <div><!-- pad --></div>

@@ -101,7 +101,6 @@
 
 .markdown ul li {
   padding-left: 1.8em;
-  text-align: justify;
   background-image: url("img/zondicons/cheveron-right.svg");
   background-repeat: no-repeat;
   background-size: 16px;
@@ -137,12 +136,12 @@
   position: absolute;
 }
 
-.editbox .edit-ui.rhs {
-  right: -2em;
+.editbox.lhs .edit-ui {
+  left: -2em;
 }
 
-.editbox .edit-ui.lhs {
-  left: -2em;
+.editbox.rhs .edit-ui {
+  right: -2em;
 }
 
 .editbox .edit-ui .icon {

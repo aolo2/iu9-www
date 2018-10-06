@@ -12,8 +12,10 @@ function getSource(req, res) {
     db.getEditboxSource(req.query.boxId, (err, doc) => {
         if (err) {
             common.send_error_response(res, err.message)
-        } else {
+        } else if (doc) {
             common.send_json_response(res, {'md': req.render ? marked(doc.markdown) : doc.markdown})
+        } else {
+            common.send_not_found_response(res)
         }
     })
 }

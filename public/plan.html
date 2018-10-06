@@ -2,9 +2,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="include/showdownjs/showdown.js"></script>
   <script type="text/javascript" src="utils.js"></script>
   <script type="text/javascript" src="view.js"></script>
+  <script type="text/javascript" src="editbox.js"></script>
   <link rel="stylesheet" href="default.css">
+  <link rel="stylesheet" href="markdown.css">
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 </head>
 <body>
   <div class="grid" id="page-grid">
@@ -14,81 +18,23 @@
         <h1 style="margin-top: 10px">Абитуриенту</h1>
         <h2>Учебный план</h2>
       </div>
-      <div class="year" style="margin-top: 2em">
-        <h2>Первый семестр</h2>
-        <div class="courses">
-          <div style="border-right: 4px dashed #cccccc"></div>
-          <div style="margin-left: 3em">
-            <h3><img src="img/zondicons/time.svg">144 Алгоритмы и структуры данных</h3>
-            <h3><img src="img/zondicons/time.svg">180 Основы информатики</h3>
-            <h3><img src="img/zondicons/time.svg">214 Математический анализ</h3>
-            <h3><img src="img/zondicons/time.svg">214 Линейная алгебра</h3>
-          </div>
-        </div>
+      <div id="plan">
+        <div class="markdown no-edit span2"><h1>I курс</h1></div>
+        <div class="editbox lhs" id="edbox_17"></div>
+        <div class="editbox rhs" id="edbox_18"></div>
+
+        <div class="markdown no-edit span2"><h1>II курс</h1></div>
+        <div class="editbox lhs" id="edbox_19"></div>
+        <div class="editbox rhs" id="edbox_20"></div>
+
+        <div class="markdown no-edit span2"><h1>III курс</h1></div>
+        <div class="editbox lhs" id="edbox_21"></div>
+        <div class="editbox rhs" id="edbox_22"></div>
+
+        <div class="markdown no-edit span2"><h1>IV курс</h1></div>
+        <div class="editbox lhs" id="edbox_23"></div>
+        <div class="editbox rhs" id="edbox_24"></div>
       </div>
-      <div class="year">
-        <h2>Второй семестр</h2>
-        <div class="courses">
-          <div style="border-right: 4px dashed #cccccc"></div>
-          <div style="margin-left: 3em">
-            <h3><img src="img/zondicons/time.svg">180 Языки и методы программирования</h3>
-            <h3><img src="img/zondicons/time.svg">144 Дискретная математика</h3>
-            <h3><img src="img/zondicons/time.svg">214 Математический анализ</h3>
-            <h3><img src="img/zondicons/time.svg">214 Линейная алгебра</h3>
-          </div>
-        </div>
-      </div>
-<!--       <div class="year">
-        <h2>Третий семестр</h2>
-        <div class="courses">
-          <div style="border-right: 4px dashed #cccccc"></div>
-          <div style="margin-left: 5em">
-          </div>
-        </div>
-      </div>
-      <div class="year">
-        <h2>Четвертый семестр</h2>
-        <div class="courses">
-          <div style="border-right: 4px dashed #cccccc"></div>
-          <div style="margin-left: 5em">
-          </div>
-        </div>
-      </div>
-      <div class="year">
-        <h2>Пятый семестр</h2>
-        <div class="courses">
-          <div style="border-right: 4px dashed #cccccc"></div>
-          <div style="margin-left: 5em">
-          </div>
-        </div>
-      </div>
-      <div class="year">
-        <h2>Шестой семестр</h2>
-        <div class="courses">
-          <div style="border-right: 4px dashed #cccccc"></div>
-          <div style="margin-left: 5em">
-          </div>
-        </div>
-      </div>
-      <div class="year">
-        <h2>Седьмой семестр</h2>
-        <div class="courses">
-          <div style="border-right: 4px dashed #cccccc"></div>
-          <div style="margin-left: 5em">
-          </div>
-        </div>
-      </div>
-      <div class="year">
-        <h2>Восьмой семестр</h2>
-        <div class="courses">
-          <div style="border-right: 4px dashed #cccccc"></div>
-          <div style="margin-left: 5em">
-          </div>
-        </div>
-      </div>
-      <div class="year" style="margin-bottom: 1em">
-        <h2>Дипломная работа</h2>
-      </div> -->
     </div>
     <div><!-- pad --></div>
     <div><!-- footer pad left --></div>

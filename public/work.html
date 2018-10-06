@@ -2,9 +2,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="include/showdownjs/showdown.js"></script>
   <script type="text/javascript" src="utils.js"></script>
   <script type="text/javascript" src="view.js"></script>
+  <script type="text/javascript" src="editbox.js"></script>
   <link rel="stylesheet" href="default.css">
+  <link rel="stylesheet" href="markdown.css">
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 </head>
 <body>
   <div class="grid" id="page-grid">
@@ -15,45 +19,12 @@
         <h2>Наши выпускники</h2>
       </div>
       <div id="workplaces">
-        <div class="person-info">
-          <h2>Ричард Столлман</h2>
-          <img src="img/richard.png" height="150" class="photo">
-          <ul>
-            <li>Место работы</li>
-            <p><a href="http://gnu.org">GNU</a> — сделал гну</p>
-            <li>О себе</li>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consequat commodo finibus. Nulla tempus metus nisl, at sollicitudin dolor maximus at. Nulla facilisi. Duis cursus lorem eget risus euismod varius. Mauris pulvinar dolor arcu. Praesent laoreet efficitur finibus. In hac habitasse platea dictumst.</p>
-          </ul>
-        </div>
-        <div class="person-info">
-          <h2>Дудин Роман</h2>
-          <img src="img/roma.png" height="150" class="photo">
-          <ul>
-            <li>Место работы</li>
-            <p><a href="https://www.drweb.ru/">ООО "Доктор Веб"</a> — аналитик-паук</p>
-            <li>О себе</li>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consequat commodo finibus. Nulla tempus metus nisl, at sollicitudin dolor maximus at. Nulla facilisi. Duis cursus lorem eget risus euismod varius. Mauris pulvinar dolor arcu. Praesent laoreet efficitur finibus. In hac habitasse platea dictumst.</p>
-        </div>
-        <div class="person-info">
-          <h2>Олохтонов Алексей</h2>
-          <img src="img/lesha.png" height="150" class="photo">
-          <ul>
-            <li>Место работы</li>
-            <p><a href="http://www.norsi-trans.ru">ЗАО "Норси-Транс"</a> — инженер-программист</p>
-            <li>О себе</li>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consequat commodo finibus. Nulla tempus metus nisl, at sollicitudin dolor maximus at. Nulla facilisi. Duis cursus lorem eget risus euismod varius. Mauris pulvinar dolor arcu. Praesent laoreet efficitur finibus. In hac habitasse platea dictumst.</p>
-          </ul>
-        </div>
-        <div class="person-info">
-          <h2>Васина Мария</h2>
-          <img src="img/masha.png" height="150" class="photo">
-          <ul>
-            <li>Место работы</li>
-            <p><a>ОАО "Гештальт"</a> — эксперт по закртытию</p>
-            <li>О себе</li>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consequat commodo finibus. Nulla tempus metus nisl, at sollicitudin dolor maximus at. Nulla facilisi. Duis cursus lorem eget risus euismod varius. Mauris pulvinar dolor arcu. Praesent laoreet efficitur finibus. In hac habitasse platea dictumst.</p>
-          </ul>
-        </div>
+        <div><img src="img/richard.png" class="photo"></div>
+        <div class="editbox lhs" id="edbox_13"></div>
+        <div><img src="img/roma.png" class="photo"></div>
+        <div class="editbox lhs" id="edbox_14"></div>
+        <div><img src="img/lesha.png" class="photo"></div>
+        <div class="editbox lhs" id="edbox_15"></div>
       </div>
     </div>
     <div><!-- pad --></div>
