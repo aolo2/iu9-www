@@ -1,21 +1,18 @@
-function login() {
-  const login = document.getElementById('login-value').value
-  const pass = document.getElementById('password-value').value
-  const header = {'Authorization': 'Basic ' + btoa(login + ':' + pass)}
-
-  let server_message = document.getElementById('server-message')
+function login(form) {
+  let serverMessage = document.getElementById('server-message'),
+  header = {'Authorization': 'Basic ' + btoa(form.children[0].value + ':' + form.children[1].value)}
 
   _request('POST', 'users/login', header, null,
     (status, response) => {
       if (status === 200) {
-        _css_set('server-message-div', {'display': 'none'})
+        _css_set(serverMessage, {'display': 'none'})
         location.reload()
       } else if (status === 401) {
-        _css_set('server-message-div', {'display': 'block'})
-        server_message.innerHTML = 'Неверный логин и/или пароль'
+        _css_set(serverMessage, {'display': 'block'})
+        serverMessage.innerHTML = 'Неверный логин и/или пароль'
       } else {
-        _css_set('server-message-div', {'display': 'block'})
-        server_message.innerHTML = 'Ошибка сервиса авторизации'
+        _css_set(serverMessage, {'display': 'block'})
+        serverMessage.innerHTML = 'Ошибка сервиса авторизации'
       }
     })
 
@@ -35,14 +32,15 @@ window.addEventListener('load', () => {
     if (status !== 200) {
       document.write('something went wrong :(')
     } else {
-      page_grid.innerHTML = text + page_grid.innerHTML
-
+      setTimeout(() => page_grid.innerHTML = text + page_grid.innerHTML, 1000) // TODO: объединить клиентский js
+/*
       let login_button = document.getElementById('login-button')
       let login_form = document.getElementById('login-form')
       let login_dropdown = document.getElementById('login-dropdown')
       let news_publish_gui = document.getElementById('news-publish-gui')
 
-      /* Login button */
+
+      // Login button
       if (_logged_in()) {
         login_button.innerHTML = 'Выйти'
         _css_set('login-icon-img', {'visibility': 'hidden'})
@@ -50,6 +48,7 @@ window.addEventListener('load', () => {
       } else {
         login_button.innerHTML = 'Войти'
         _css_set('login-icon-img', {'visibility': 'visible'})
+
         login_button_action = () => {
           if (_css_get('login-dropdown', 'display') !== 'block') {
             _css_set('login-dropdown', {'display': 'block'})
@@ -58,10 +57,10 @@ window.addEventListener('load', () => {
             _css_set('login-dropdown', {'display': 'none'})
           }
         }
-        login_form.onsubmit = login
+
       }
 
-      /* Dropdowns */
+      // Dropdowns
       let prom_button = document.getElementById('prom')
       prom_button.addEventListener('click', () => {
         if (_css_get('prom-dropdown', 'display') !== 'block') {
@@ -70,10 +69,7 @@ window.addEventListener('load', () => {
         } else {
           _css_set('prom-dropdown', {'display': 'none'})
         }
-      })
+      })*/
     }
-
-    /* Page is ready */
-    document.body.style.opacity = '1'
   })
 })

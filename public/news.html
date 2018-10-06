@@ -2,10 +2,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="include/showdownjs/showdown.js"></script>
   <script type="text/javascript" src="utils.js"></script>
   <script type="text/javascript" src="view.js"></script>
   <script type="text/javascript" src="news.js"></script>
+  <script type="text/javascript" src="editbox.js"></script>
   <link rel="stylesheet" href="default.css">
+  <link rel="stylesheet" href="markdown.css">
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 </head>
 <body>
   <div class="grid" id="page-grid">
@@ -14,21 +18,36 @@
       <div class="super-title news">
         <h1 style="margin-top: 22px">Новости</h1>
       </div>
-      <div style="margin-top: 2em">
-      <img id="show-hide-newsform" src="img/zondicons/compose.svg" height="20">
-      <div class="news-form" id="news-publish-gui">
-          <!-- <h2>Новость</h2> -->
-          <textarea id="textarea-header" maxlength="80" class="header" placeholder="Заголовок" rows="1"></textarea>
-          <textarea id="textarea-body" placeholder="Текст" rows="10"></textarea>
-          <div class="publish-button">
-            <label for="is-public" id="is-public-label" class="unselectable">Для всех</label>
-            <input type="checkbox" id="is-public">
-            <span id="submit-news" class="unselectable">Отправить <img id="submit-news-icon" src="img/zondicons/sendAAA.svg" height="14px"></span>
-          </div>
+      <!-- <img id="show-hide-newsform" src="img/zondicons/compose.svg" height="20"> -->
+      <div class="news-gui">
+        <input type="text" class="news-header" placeholder="Заголовок">
+        <div class="news-text">
+          <textarea placeholder="Текст новости"></textarea>
         </div>
-        <div id="newsfeed">
+        <div class="news-submit">
+          <p>Целевая аудитория:</p>
+          <div class="option">
+            <label>
+              <input type="radio" name="audience" value="1">
+              Преподаватели
+            </label>
+          </div>
+          <div class="option">
+            <label>
+              <input type="radio" name="audience"  value="1">
+              Студенты
+            </label>
+          </div>
+          <div class="option">
+            <label>
+              <input type="radio" name="audience" value="1">
+              Все
+            </label>
+          </div>
+          <input type="submit" value="Отправить">
         </div>
       </div>
+      <div id="newsfeed"></div>
       <!-- <div class="page-list">
         <a>1</a>
         <a>2</a>

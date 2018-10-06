@@ -6,14 +6,16 @@ html, body {
   padding: 0;
   margin: 0;
   /*border: 0.1px solid rgba(0, 0, 255, 0.2) !important;*/
+  /*-webkit-box-sizing: border-box;*/
   box-sizing: border-box;
-  -webkit-box-sizing: border-box;
 }
+
 .grid {
   display: grid;
   grid-template-columns: 1fr 1000px 1fr;
-  grid-template-rows: 1fr 25fr 1fr;
+  grid-template-rows: 40px 25fr 50px;
   height: 100%;
+  min-width: 1100px;
 }
 
 .grid .title {
@@ -52,12 +54,6 @@ html, body {
 
 #login-button-div {
   text-align: right;
-}
-
-a {
-  font-weight: bold;
-  cursor: pointer;
-  text-decoration: none;
 }
 
 a:link {
@@ -231,18 +227,10 @@ li {
 }
 
 .page .calendar {
-  margin-top: 1em;
+  margin-top: 2em;
   margin-bottom: 2em;
   display: grid;
   grid-template-columns: 5fr 1fr 2fr;
-}
-
-.page .calendar div {
-  padding-top: 2em;
-}
-
-.page .calendar div:first-child, .page .calendar div:nth-child(3) {
-  padding-top: .5em;
 }
 
 .page .calendar div:nth-child(3n) {
@@ -390,67 +378,35 @@ textarea:focus {
 }
 
 /* #about */
-#editbox_1 {
+#edbox_1 {
   grid-column-start: 1;
   grid-column-end: 3;
-  border-right: 2px dashed #cccccc;
-  padding-right: 1em;
-  margin-bottom: 3em !important;
-}
-
-#about-photo {
-  margin-bottom: 3em;
-  /*margin-left: 1em;*/
-  /*background-image: url('img/about_pic.png');*/
+  /*border-right: 2px dashed #cccccc;*/
+  /*padding-right: 1em;*/
+  /*margin-bottom: 3em !important;*/
 }
 
 /* #difference */
-#editbox_2 {
-  border-left: 2px dashed #cccccc;
-  padding-left: 1em;
+#edbox_2 {
+  /*border-left: 2px dashed #cccccc;*/
+  /*padding-left: 1em;*/
   grid-column-start: 2;
   grid-column-end: 4;
-  margin-bottom: 3em !important;
+  /*margin-bottom: 3em !important;*/
 }
 
-#editbox_2 ul {
-  list-style: none;
-  margin-top: .5em;
-}
-
-#editbox_2 ul li {
-  margin-bottom: 1.5em;
-}
-
-#editbox_2 ul li a {
-  font-weight: normal;
-  text-decoration: underline;
-}
-
-#editbox_2 ul li:last-child {
-  margin-bottom: 0;
-}
-
-#editbox_2 ul li img {
-  height: 16px;
-  position: relative;
-  top: 2px;
-  margin-right: 1em;
-}
-
-/* #comparison */
-#editbox_3 {
-  border-right: 2px dashed #cccccc;
-  padding-right: 1em;
+#edbox_3 {
+  /*border-right: 2px dashed #cccccc;*/
+  /*padding-right: 1em;*/
   grid-column-start: 1;
   grid-column-end: 3;
-  margin-bottom: 1em !important;
+  /*margin-bottom: 1em !important;*/
 }
 
 .page .article {
   margin-bottom: 2em;
-  border-left: 2px dashed #cccccc;
-  padding-left: 1em;
+  /*border-left: 2px dashed #cccccc;*/
+  /*padding-left: 1em;*/
 }
 
 .page .article h2 img {
@@ -484,47 +440,6 @@ textarea:focus {
 
 .page .event {
   margin-top: 2em;
-}
-
-.news-form {
-  margin-bottom: 2em;
-  padding-bottom: .5em;
-  padding: 1em;
-  padding-bottom: .7em;
-  background: #f2f2f2;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.news-form h2 {
-  margin-bottom: .3em;
-}
-
-.news-form .publish-button {
-  margin-top: .7em;
-  text-align: right;
-}
-
-.news-form .publish-button label {
-  color: #888888;
-  font-family: 'Bebas Neue Book';
-  letter-spacing: 1.2;
-  font-weight: bold;
-  font-size: 18px;
-  padding-right: 0;
-  cursor: pointer;
-}
-
-.news-form .publish-button input {
-  margin-right: 1em;
-}
-
-.news-form .publish-button span {
-  color: #888888;
-  font-family: 'Bebas Neue Book';
-  letter-spacing: 1.2;
-  font-weight: bold;
-  font-size: 18px;
-  padding-right: 0;
 }
 
 #programs {
@@ -602,34 +517,8 @@ textarea:focus {
   top: 2px;
 }
 
-@font-face {
-  font-family: "Bebas Neue";
-  src: url("fonts/BebasNeue Regular.otf") format("opentype"),
-  url("fonts/BebasNeue Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Bebas Neue Bold";
-  src: url("fonts/BebasNeue Bold.otf") format("opentype"),
-  url("fonts/BebasNeue Bold.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Bebas Neue Light";
-  src: url("fonts/BebasNeue Light.otf") format("opentype"),
-  url("fonts/BebasNeue Light.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Bebas Neue Book";
-  src: url("fonts/BebasNeue Book.otf") format("opentype"),
-  url("fonts/BebasNeue Book.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Bebas Neue Thin";
-  src: url("fonts/BebasNeue Thin.otf") format("opentype"),
-  url("fonts/BebasNeue Thin.ttf") format("truetype");
+#prom img:hover {
+  /*filter: brightness(50%);*/
 }
 
 #prom-dropdown {
@@ -757,7 +646,7 @@ textarea:focus {
 }
 
 #news-publish-gui {
-  display: none;
+  /*display: none;*/
 }
 
 .news-form #textarea-body {
@@ -874,37 +763,85 @@ textarea:focus {
   box-sizing: content-box;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  display: none;
+  /*display: none;*/
 }
 
 #show-hide-newsform:hover {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
-.editable-textbox {
-  cursor: pointer;
+.title a {
+  font-weight: bold;
+  text-decoration: none;
 }
 
-.editable-textbox:hover {
-  background: #eeeeee;
+.news-gui {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 5fr;
+  min-height: 250px;
+  margin-top: 2em;
+  /*background: #eeeeee;*/
+  padding-bottom: 2em;
+  border-bottom: 2px #cccccc dashed;
 }
 
-.editui {
+.news-gui .news-text {
+  height: 100%;
+  padding-right: 1em;
+}
+
+.news-gui .news-text textarea {
+  height: 100%;
+}
+
+.news-gui .news-submit {
+  position: relative;
+  background: #eee;
+}
+
+.news-gui .news-submit .option {
+  display: block;
+}
+
+.news-gui input {
+  /*display: block;*/
+  /*margin-left: auto;*/
+  /*margin-right: 0;*/
+  border: 1px solid #cccccc;
+}
+
+.news-gui input.news-header {
+  width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.news-gui input[type=submit] {
+  background: none;
+  border: none;
+  font-family: 'Bebas Neue Book';
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 1.2;
   position: absolute;
-  left: -2em;
-  top: 0.2em;
-  visibility: hidden;
+  bottom: 1em;
 }
 
-.editui-icon {
- cursor: pointer;
- display: block;
- margin-bottom: .5em;
+.news-gui input[type=text] {
+  margin-bottom: 1em;
+  padding: .5em;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 15px;
 }
 
-.rhs-ui {
-  left: auto;
-  right: -2em;
+.news-gui input:focus {
+  outline: none;
+  border: 1px solid #888888;
+}
+
+#newsfeed {
+  margin-top: 2em;
 }
 
 .unselectable {
@@ -914,8 +851,4 @@ textarea:focus {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
-.inititally-hidden {
-  visibility: hidden;
 }

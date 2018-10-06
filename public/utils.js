@@ -52,22 +52,23 @@ function _request(method, url, headers, data, callback) {
   }
 }
 
-function _css_set(id, properties) {
-  let item = document.getElementById(id)
+function _css_set(element, properties) {
+  if (typeof element === 'string') {
+    element = document.getElementById(element)
+  }
 
   Object.keys(properties).forEach((key) => {
-    item.style[key] = properties[key]
+    element.style[key] = properties[key]
   })
 }
 
-function _css_get(id, property) {
-  const element = document.getElementById(id)
+function _css_get(element, property) {
   const style = window.getComputedStyle(element)
   return style.getPropertyValue(property)
 }
 
-function _get_dim(id) {
-  const rect = document.getElementById(id).getBoundingClientRect()
+function _get_dim(element) {
+  const rect = element.getBoundingClientRect()
   return {'width': Math.round(rect.width), 'height': Math.round(rect.height)}
 }
 

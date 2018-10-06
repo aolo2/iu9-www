@@ -15,12 +15,10 @@
     <img src="img/zondicons/user.svg" height="13px" id="login-icon-img">
     <a href="#" onclick="login_button_action(); return false;" id="login-button">Войти</a>
     <div id="login-dropdown">
-      <form id="login-form">
-        <input id="login-value" type="text" placeholder="Логин" required>
-        <input id="password-value" type="password" placeholder="Пароль" required>
-        <div id="server-message-div">
-          <span id="server-message"></span>
-        </div>
+      <form id="login-form" onsubmit="login(this)">
+        <input type="text" placeholder="Логин" required>
+        <input type="password" placeholder="Пароль" required>
+        <div id="server-message"></div>
         <input id="login-submit" type="submit" value="Вход">
         <div class="register">
           <a href="signup.html">Регистрация</a>

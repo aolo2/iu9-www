@@ -1,72 +1,7 @@
-const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
-const SERVER = 'http://localhost:3000/'
-let COOKIES = {}
-
 const UI_HTML = '<div class="edit-ui lhs initially-disabled">\n<img src="img/zondicons/edit-pencil.svg" class="icon" onclick="EditBox.toggleMode(this.parentNode)">\n<img src="img/zondicons/save-disk.svg" class="icon" onclick="EditBox.submitUpdate(this.parentNode.parentNode)">\n</div>',
 MARDKOWN_HTML = '<div class="markdown" onclick="EditBox.toggleUi(this.parentNode)">',
 AREA_HTML = '<textarea class="edit-area initially-disabled"></textarea>',
 LOADING_HTML = ' <div class="loading initially-disabled">Загрузка...</div>'
-
-// TODO(aolo2): убрать
-function cl(a) {
-  console.log(a)
-}
-
-// TODO(aolo2): убрать
-function _css_set(element, properties) {
-  Object.keys(properties).forEach((key) => {
-    element.style[key] = properties[key]
-  })
-}
-
-// TODO(aolo2): убрать
-function _css_get(element, property) {
-  const style = window.getComputedStyle(element)
-  return style.getPropertyValue(property)
-}
-
-// TODO(aolo2): убрать
-function _get_dim(item) {
-  const rect = item.getBoundingClientRect()
-  return {'width': Math.round(rect.width), 'height': Math.round(rect.height)}
-}
-
-// TODO(aolo2): убрать
-function _request(method, url, headers, data, callback) {
-  if (METHODS.indexOf(method) != -1) {
-    let xhttp = new XMLHttpRequest()
-
-    xhttp.onreadystatechange = () => {
-      if (xhttp.readyState === 4) {
-        callback(xhttp.status, xhttp.responseText)
-      }
-    }
-
-    if (method === 'GET' && data !== null) {
-      let keys = Object.keys(data)
-      url += ('?' + keys[0] + '=' + data[keys[0]])
-      for (let i = 1; i < keys.length; ++i) {
-        url += ('&' + keys[i] + '=' + data[keys[i]])
-      }
-    }
-
-    xhttp.open(method, SERVER + url, true)
-
-    if (headers !== null) {
-      Object.keys(headers).forEach((key) => {
-        xhttp.setRequestHeader(key, headers[key]);
-      })
-    }
-
-    if (method == 'GET' || data === null) {
-      xhttp.send();
-    } else {
-      xhttp.send(JSON.stringify(data))
-    }
-  } else {
-    callback(400, 'unknown method: ' + method)
-  }
-}
 
 const EditBox = {
   converter: new showdown.Converter(),
@@ -144,25 +79,27 @@ const EditBox = {
     areaClasses = area.classList,
     loadingClasses = editbox.children[3].classList
 
-    renderedClasses.add('initially-disabled')
-    areaClasses.add('initially-disabled')
-    loadingClasses.remove('initially-disabled')
-    editUi.classList.add('initially-disabled')
+    if (area.value.length > 0) {
+      renderedClasses.add('initially-disabled')
+      areaClasses.add('initially-disabled')
+      loadingClasses.remove('initially-disabled')
+      editUi.classList.add('initially-disabled')
 
-    _request('POST', 'editbox/source', {'Content-type': 'application/json'}, {'boxId': btoa(editbox.id), 'md': area.value}, (status, response) => {
-      if (status === 200) {
+      _request('POST', 'editbox/source', {'Content-type': 'application/json'}, {'boxId': btoa(editbox.id), 'md': area.value}, (status, response) => {
+        if (status === 200) {
 
-        icon.src = 'img/zondicons/edit-pencil.svg'
-        loadingClasses.add('initially-disabled')
-        areaClasses.add('initially-disabled')
-        renderedClasses.remove('initially-disabled')
+          icon.src = 'img/zondicons/edit-pencil.svg'
+          loadingClasses.add('initially-disabled')
+          areaClasses.add('initially-disabled')
+          renderedClasses.remove('initially-disabled')
 
-        rendered.innerHTML = EditBox.converter.makeHtml(area.value)
-        EditBox.ACTIVE_EDITS[editbox.id].status = EditBox.EDIT_STATUS.UI_HIDDEN
-      } else {
-        // TODO(aolo2): error handling
-      }
-    })
+          rendered.innerHTML = EditBox.converter.makeHtml(area.value)
+          EditBox.ACTIVE_EDITS[editbox.id].status = EditBox.EDIT_STATUS.UI_HIDDEN
+        } else {
+          // TODO(aolo2): error handling
+        }
+      })
+    }
   },
 
   toggleUi: (editbox) => {

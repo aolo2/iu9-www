@@ -133,14 +133,13 @@ window.addEventListener('load', () => {
         news_array.forEach((article) => {
           newsfeed.innerHTML += (
             '<div class="article">'
-            + '<h2>' + article.header.toLocaleString()
-            + gen_edit_button(article._id)
-            + gen_delete_button(article._id) + '</h2>'
+            + '<h2>' + article.header + '</h2>'
             + '<div class="footnote">'
             + ('author' in article ? article.author + ' | ' : '')
             + new Date(article.timestamp).toLocaleString() + '</div>'
+            + '<div class="markdown no-edit">'
             + article.html
-            + '</div>'
+            + '</div></div>'
             )
         })
       } else if (status === 401) {
@@ -152,18 +151,14 @@ window.addEventListener('load', () => {
   let textarea_body = document.getElementById('textarea-body')
   let is_public_checkbox = document.getElementById('is-public')
   let news_publish_gui = document.getElementById('news-publish-gui')
-
-  if (_logged_in_as('admin')) {
-    news_publish_gui.style.display = 'block'
-  }
-
+/*
   textarea_header.addEventListener('input', () => {
     update_submit_button_action(textarea_header.value.length > 0 && textarea_body.value.length > 0)
   })
 
   textarea_body.addEventListener('input', () => {
     update_submit_button_action(textarea_header.value.length > 0 && textarea_body.value.length > 0)
-  })
+  })*/
 
-  is_public_checkbox.onclick = handle_ispublic_checkbox
+  // is_public_checkbox.onclick = handle_ispublic_checkbox
 })
