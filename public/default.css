@@ -92,6 +92,11 @@ a:visited {
 .grid .page .super-title.manage h1 {
   color: #222222;
   text-shadow: none;
+  border: 1px solid #888;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center
 }
 
 .grid .page .super-title.main {
@@ -439,8 +444,14 @@ textarea:focus {
 
 #programs {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   margin-top: 2em;
+}
+
+#programs .span2 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin-bottom: .5em;
 }
 
 #programs div.program {
@@ -842,17 +853,6 @@ textarea:focus {
   margin-top: 2em;
 }
 
-#edbox_10 {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  margin-bottom: 0;
-}
-
-#edbox_11 {
-  grid-column-start: 2;
-  grid-column-end: 4;
-}
-
 #plan {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -888,6 +888,11 @@ textarea:focus {
   display: flex;
   align-items: center;
   justify-content: center
+}
+
+#manage-page {
+  margin-top: 2em;
+  border: 1px solid #888;
 }
 
 .unselectable {
