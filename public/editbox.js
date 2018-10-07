@@ -1,5 +1,8 @@
 const UI_HTML = '<div class="edit-ui lhs initially-disabled">\n<img src="img/zondicons/edit-pencil.svg" class="icon" onclick="EditBox.toggleMode(this.parentNode)">\n<img src="img/zondicons/save-disk.svg" class="icon" onclick="EditBox.submitUpdate(this.parentNode.parentNode)">\n</div>',
-MARDKOWN_HTML = '<div class="markdown" onclick="EditBox.toggleUi(this.parentNode)">',
+MARDKOWN_HTML = '<div class="markdown"'
++ ' onmouseover="EditBox.onmouseover(this)"'
++ ' onclick="EditBox.onclick(this)"'
++ ' onmouseout="EditBox.onmouseout(this)">',
 AREA_HTML = '<textarea class="edit-area initially-disabled"></textarea>',
 LOADING_HTML = ' <div class="loading initially-disabled">Загрузка...</div>'
 
@@ -11,6 +14,24 @@ const EditBox = {
     'UI_SHOWN': 1,
     'EDIT_IN_PROGRESS': 2
   }),
+
+  onmouseover: (element) => {
+    if (_logged_in_as('admin')) {
+      _css_set(element, {'background': '#eeeeee', 'cursor': 'pointer'})
+    }
+  },
+
+  onmouseout: (element) => {
+    if (_logged_in_as('admin')) {
+      _css_set(element, {'background': 'none', 'cursor': 'inherit'})
+    }
+  },
+
+  onclick: (element) => {
+    if (_logged_in_as('admin')) {
+      EditBox.toggleUi(element.parentNode)
+    }
+  },
 
   toggleMode: (editUi) => {
     let editbox = editUi.parentNode,
@@ -133,7 +154,6 @@ function htmlToElement(html) {
 
 window.addEventListener('load', () => {
   EditBox.converter.setOption('noHeaderId', true)
-
 
   let boxes = document.getElementsByClassName('editbox')
   Array.prototype.forEach.call(boxes, (box) => {

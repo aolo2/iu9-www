@@ -2,7 +2,7 @@ const ws = require('ws')
 const cookie = require('cookie')
 const uuidv4 = require('uuid/v4')
 
-const db = require('./db')
+const db = require('../lib/db')
 
 // TODO(aolo2, later): send an error if the server is being used before being initialised
 let wsServer = null
@@ -88,22 +88,26 @@ function sendMessageToChatroom(user, roomId, message) {
 
   db.saveToHistoty(roomId, message, (err) => {})
 }
-/*
 
-function createChatroom(options) {
-  const roomName = options.name
-  const createdAt = new Date()
-  const users = options.users
+function createChatroom(req, res) {
+  const room = {
+    'name': req.body.name,
+    'createdAt': new Date(),
+    'users': req.body.users
 
-  db.createChatroom(roomName, createdAt, users, (err, roomId) => {
+  }
+
+  db.createChatroom(room, (err, roomId) => {
+    console.log(roomId)
     if (err) {
-
+      common.prepare_error_response(res, err.message)
     } else {
-
+      common.send_text_response(res, 200, roomId)
     }
   })
 }
 
+/*
 function deleteChatroom(roomId) {
   db.createChatroom(roomId, (err) => {
     if (err) {
@@ -148,3 +152,4 @@ function init(httpServer) {
 }
 
 module.exports.init = init
+module.exports.createChatroom = createChatroom

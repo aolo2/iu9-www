@@ -7,7 +7,7 @@ const fs = require('fs')
 const path = require('path')
 
 const routes = require('./routes/routes')
-const websocket = require('./lib/websocket')
+const websocket = require('./handlers/websocket')
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs/access.log'))
 const app = express()

@@ -6,6 +6,7 @@ const roles = require('../handlers/roles')
 const events = require('../handlers/events')
 const editbox = require('../handlers/editbox')
 const messages = require('../handlers/messages')
+const websocket = require('../handlers/websocket')
 
 const router = express.Router()
 const router_auth = express.Router({mergeParams: true})
@@ -46,8 +47,11 @@ router_auth.delete('/events', events.delete_event)
 
 /* Редактирование текста */
 router.get('/editbox', editbox.getHTML)
-router.get('/editbox/source', editbox.getSource)
-router.post('/editbox/source', editbox.updateSource)
+router_auth.get('/editbox/source', editbox.getSource)
+router_auth.post('/editbox/source', editbox.updateSource)
+
+/* Чат */
+router_auth.post('/chat/new', websocket.createChatroom)
 
 router.use('/', router_auth)
 

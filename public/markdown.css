@@ -1,13 +1,3 @@
-.markdown:hover {
-  background: #eeeeee;
-  cursor: pointer;
-}
-
-.markdown.no-edit:hover {
-  background: inherit;
-  cursor: inherit;
-}
-
 .markdown h1 {
   font-family: 'Bebas Neue';
   text-transform: uppercase;
