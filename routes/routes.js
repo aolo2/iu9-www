@@ -51,7 +51,7 @@ router_auth.get('/editbox/source', editbox.getSource)
 router_auth.post('/editbox/source', editbox.updateSource)
 
 /* Чат */
-router_auth.post('/chat/new', websocket.createChatroom)
+router.post('/chat/new', websocket.createChatroom)
 
 router.use('/', router_auth)
 

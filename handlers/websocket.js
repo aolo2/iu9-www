@@ -2,8 +2,14 @@ const ws = require('ws')
 const cookie = require('cookie')
 const uuidv4 = require('uuid/v4')
 
+const common = require('./common')
 const db = require('../lib/db')
 
+const MESSAGE_TYPE = {
+ 'SINGLE_MESSAGE': 0,
+ 'MESSAGE_HISTORY': 1,
+ 'YOU_KICKED': 2
+}
 // TODO(aolo2, later): send an error if the server is being used before being initialised
 let wsServer = null
 
@@ -11,10 +17,6 @@ let Local = {
   ROOMS: {},
   USERS: {}
 }
-
-/// ws.on('request', (req) => {
-  // req.cookies
-// })
 
 function sessionCheckMiddleware(websocket, req, callback) {
   let cookies = null
@@ -40,9 +42,42 @@ function sessionCheckMiddleware(websocket, req, callback) {
   })
 }
 
+
+function sendMessage(user, type, payload) {
+  let message = {}
+
+  switch (type) {
+    case MESSAGE_TYPE.SINGLE_MESSAGE:
+    {
+      message.text = payload
+      break
+    }
+    case MESSAGE_TYPE.MESSAGE_HISTORY:
+    {
+      message.roomId = payload.roomId
+      message.history = payload.messages
+      break
+    }
+    case MESSAGE_TYPE.YOU_KICKED:
+    {
+
+      break
+    }
+    default:
+    {
+      // TODO(aolo2): bad message type
+    }
+  }
+
+  message.type = type
+  Local.USERS[user].send(JSON.stringify(message))
+}
+
+
 function onConnection(websocket, req) {
   websocket.on('message', (data) => {
     const message = JSON.parse(data)
+    console.log(message.roomId, message.text)
     sendMessageToChatroom(req.user_db, message.roomId, message.text)
   })
 
@@ -52,12 +87,10 @@ function onConnection(websocket, req) {
   if ('chatRooms' in req.user_db) {
     // NOTE(aolo2): history of all rooms
     db.getAllRoomHistory(req.user_db.chatRooms, (err, history) => {
-      let response = {}
       for (let i = 0; i < history.length; i++) {
         const doc = history[i]
-        response[doc.roomId] = doc.messages
+        sendMessage(req.user_db.login, MESSAGE_TYPE.MESSAGE_HISTORY, {'roomId': doc.roomId, 'messages': doc.messages})
       }
-      websocket.send(JSON.stringify(response))
     })
   }
 }
@@ -67,7 +100,7 @@ function broadCast(users, message) {
     const login = users[i]
     // NOTE(aolo2): if user is online
     if (login in Local.USERS) {
-      Local.USERS[users[i]].send(message)
+      sendMessage(users[i], MESSAGE_TYPE.SINGLE_MESSAGE, message)
     }
   }
 }
@@ -94,15 +127,13 @@ function createChatroom(req, res) {
     'name': req.body.name,
     'createdAt': new Date(),
     'users': req.body.users
-
   }
 
-  db.createChatroom(room, (err, roomId) => {
-    console.log(roomId)
+  db.createChatroom(room, (err, result) => {
     if (err) {
       common.prepare_error_response(res, err.message)
     } else {
-      common.send_text_response(res, 200, roomId)
+      common.send_text_response(res, 200, result.insertedId)
     }
   })
 }
@@ -141,9 +172,6 @@ function removeUserFromChatroom(room, user) {
     }
   })
 }
-
-function getMessageHistory(room) {
-
 }*/
 
 function init(httpServer) {

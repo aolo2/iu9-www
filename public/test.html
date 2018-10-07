@@ -6,9 +6,16 @@
   <script type="text/javascript" src="editbox.js"></script>
   <script type="text/javascript" src="ws.js"></script>
   <link rel="stylesheet" href="markdown.css">
+  <link rel="stylesheet" href="chat.css">
   <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 </head>
 <body>
   <div class="editbox" id="edbox_1"></div>
+  <div class="message-history" id="history"></div>
+  <div class="message-ui">
+      <input type="text" id="input">
+      <input type="submit" onclick="sendMessage(this.parentNode)">
+  </div>
+
 </body>
 </html>
