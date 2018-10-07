@@ -48,6 +48,14 @@ html, body {
   text-decoration: underline;
 }
 
+#login-button {
+  cursor: pointer;
+}
+
+#login-button:hover {
+   color: #666666;
+}
+
 .grid .title div:first-child {
   /*background: white;*/
 }
@@ -799,7 +807,7 @@ textarea:focus {
 
 .news-gui .send-gui {
   position: relative;
-  padding-top: 1em;
+  padding-top: .25em;
 }
 
 .news-gui .send-gui,
