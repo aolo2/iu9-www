@@ -1,9 +1,46 @@
+.chat {
+    width: 250px;
+}
+
 .message-history {
-    height: auto;
+    height: 500px;
     width: 250px;
     border: 1px solid #bbb;
+    font-family: 'Arial';
+    letter-spacing: 1.2;
+    font-size: 14px;
+    /*line-height: 1.5;*/
+    overflow-y: scroll;
+}
+
+.message-history .message {
+    padding: .5em;
+}
+
+.message-history .message:nth-child(2n) {
+    background: #eee;
 }
 
 .message-ui {
+    margin-top: .5em;
+    height: 50px;
+    position: relative;
+}
 
+.message-ui .message-box {
+    height: 2em;
+    padding: .5em;
+    width: 215px;
+}
+
+.message-ui .send-message img {
+    position: absolute;
+    right: 0;
+    top: .05em;
+    height: 1.4em;
+}
+
+.message-ui .send-message img:hover {
+    filter: brightness(50%);
+    cursor: pointer;
 }

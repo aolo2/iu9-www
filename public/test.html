@@ -11,10 +11,14 @@
 </head>
 <body>
   <div class="editbox" id="edbox_1"></div>
-  <div class="message-history" id="history"></div>
-  <div class="message-ui">
-      <input type="text" id="input">
-      <input type="submit" onclick="sendMessage(this.parentNode)">
+  <div class="chat">
+      <div class="message-history" id="history"></div>
+      <div class="message-ui">
+          <input type="text" class="message-box" id="input">
+          <div class="send-message" onclick="sendMessage(this.parentNode)">
+            <img src="img/zondicons/send.svg">
+          </div>
+      </div>
   </div>
 
 </body>

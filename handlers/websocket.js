@@ -49,7 +49,7 @@ function sendMessage(user, type, payload) {
   switch (type) {
     case MESSAGE_TYPE.SINGLE_MESSAGE:
     {
-      message.text = payload
+      message = payload
       break
     }
     case MESSAGE_TYPE.MESSAGE_HISTORY:
@@ -70,6 +70,8 @@ function sendMessage(user, type, payload) {
   }
 
   message.type = type
+
+  // TODO(aolo2, important!): if socket is closed - do not panic
   Local.USERS[user].send(JSON.stringify(message))
 }
 
@@ -77,8 +79,7 @@ function sendMessage(user, type, payload) {
 function onConnection(websocket, req) {
   websocket.on('message', (data) => {
     const message = JSON.parse(data)
-    console.log(message.roomId, message.text)
-    sendMessageToChatroom(req.user_db, message.roomId, message.text)
+    sendMessageToChatroom(req.user_db, message.roomId, message)
   })
 
   // NOTE(aolo2): assosiate session with websocket object
@@ -106,6 +107,7 @@ function broadCast(users, message) {
 }
 
 function sendMessageToChatroom(user, roomId, message) {
+  message.from = user.login
   if (roomId in Local.ROOMS) {
     broadCast(Local.ROOMS[roomId], message)
   } else {

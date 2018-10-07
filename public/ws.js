@@ -1,5 +1,5 @@
 const socket = new WebSocket("ws://localhost:3000/")
-const messagePrefix = '<div class="message">'
+const messagePrefix = '<div class="message"><em>'
 const messagePostfix = '</div>'
 const MESSAGE_TYPE = {
   'SINGLE_MESSAGE': 0,
@@ -7,24 +7,47 @@ const MESSAGE_TYPE = {
   'YOU_KICKED': 2
 }
 
-function addOneMessage(text) {
-  document.getElementById('history').innerHTML += (messagePrefix + text + messagePostfix)
+function getAbsoluteHeight(element) {
+  element = (typeof element === 'string') ? document.querySelector(element) : element
+
+  const style = window.getComputedStyle(element);
+  const margin = parseFloat(style['marginTop']) + parseFloat(style['marginBottom'])
+
+  return Math.ceil(element.offsetHeight + margin)
+}
+
+function addOneMessage(text, user) {
+  let history = document.getElementById('history'),
+  scrolled = Math.abs(history.scrollTop - (history.scrollHeight - history.offsetHeight)) < 5
+  console.log(Math.abs(history.scrollTop - (history.scrollHeight - history.offsetHeight)))
+
+  history.innerHTML += (messagePrefix + user + '</em>: ' + text + messagePostfix)
+
+  // NOTE(aolo2): if already scrolled to bottom (do not disturb user scrolling)
+  if (scrolled) {
+    history.scrollTop = history.scrollHeight
+  }
 }
 
 function drawMessages(messages) {
   for (let i = 0; i < messages.length; i++) {
-    addOneMessage(messages[i])
+    addOneMessage(messages[i].text, messages[i].from)
   }
 }
 
 function sendMessage(ui) {
-  let input = ui.children[0]
+  let input = ui.children[0],
+  history = ui.parentNode.children[0]
+
   const message = {
-    text: input.value,
+    text: input.value.trim(),
     roomId: 1
   }
 
-  socket.send(JSON.stringify(message))
+  if (message.text.length > 0) {
+    socket.send(JSON.stringify(message))
+    history.scrollTop = history.scrollHeight
+  }
   input.value = ''
 }
 
@@ -34,7 +57,7 @@ socket.onmessage = (event) => {
   switch (message.type) {
     case MESSAGE_TYPE.SINGLE_MESSAGE:
     {
-      drawMessages([message.text])
+      drawMessages([message])
       break
     }
     case MESSAGE_TYPE.MESSAGE_HISTORY:
@@ -47,4 +70,10 @@ socket.onmessage = (event) => {
 }
 
 window.addEventListener('load', () => {
+  let input = document.getElementById('input')
+  input.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+      sendMessage(input.parentNode)
+    }
+  })
 })
