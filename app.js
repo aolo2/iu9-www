@@ -7,6 +7,7 @@ const fs = require('fs')
 const path = require('path')
 
 const routes = require('./routes/routes')
+const websocket = require('./lib/websocket')
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs/access.log'))
 const app = express()
@@ -24,10 +25,12 @@ app.use('/', routes)
 //     next(err)
 // })
 
+// NOTE(aolo2): Production error handler: do not leak the stacktrace to the client
 // app.use((err, req, res, next) => {
 //     res.status(err.status || 500)
 //       .set('Content-Type', 'text/plain')
 //       .send("Internal exception: " + err.message)
 // })
 
-app.listen(3000)
+const httpServer = app.listen(3000)
+websocket.init(httpServer)

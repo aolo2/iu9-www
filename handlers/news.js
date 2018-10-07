@@ -1,6 +1,8 @@
+const marked = require('marked')
+
 const common = require('./common')
 const db = require('../lib/db')
-const marked = require('marked')
+
 
 function get_news(req, res) {
   db.get_news(req, (err, news) => {
@@ -78,7 +80,7 @@ function post_article(req, res) {
 }
 
 function edit_article(req, res) {
-  common.send_text_response(res, 200)  
+  common.send_text_response(res, 200)
 }
 
 function delete_article(req, res) {

@@ -111,6 +111,7 @@ function access_check_middleware(req, res, next) {
   }
 
   db.get_session(session_id, (err, user_db) => {
+
     if (err) {
       common.send_unauthorized_response(res, 'could not validate session: ' + err.message)
       return

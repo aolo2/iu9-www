@@ -8,7 +8,7 @@ const editbox = require('../handlers/editbox')
 const messages = require('../handlers/messages')
 
 const router = express.Router()
-const router_auth = express.Router({mergeParams : true})
+const router_auth = express.Router({mergeParams: true})
 
 router_auth.use(users.access_check_middleware)
 

@@ -24,6 +24,15 @@ function logout() {
     (status, response) => { if (status === 200) location.reload() })
 }
 
+function toggle_login_dropdown() {
+  if (_css_get('login-dropdown', 'display') !== 'block') {
+    _css_set('login-dropdown', {'display': 'block'})
+    _css_set('prom-dropdown', {'display': 'none'})
+  } else {
+    _css_set('login-dropdown', {'display': 'none'})
+  }
+}
+
 window.addEventListener('load', () => {
   let page_grid = document.getElementById('page-grid')
 
@@ -32,23 +41,34 @@ window.addEventListener('load', () => {
     if (status !== 200) {
       document.write('something went wrong :(')
     } else {
-      setTimeout(() => page_grid.innerHTML = text + page_grid.innerHTML, 1000) // TODO: объединить клиентский js
+      setTimeout(() => {
+        page_grid.innerHTML = text + page_grid.innerHTML
+        let login_button = document.getElementById('login-button')
+
+        if (_logged_in()) {
+          login_button.innerHTML = 'Выйти'
+          login_button.onclick = () => {
+            return logout()
+          }
+
+          _css_set('login-icon-img', {'visibility': 'hidden'})
+        } else {
+          login_button.innerHTML = 'Войти'
+
+          login_button.onclick = () => {
+            toggle_login_dropdown()
+          }
+
+          _css_set('login-icon-img', {'visibility': 'visible'})
+        }
+      }, 1000) // TODO: объединить клиентский js
 /*
-      let login_button = document.getElementById('login-button')
       let login_form = document.getElementById('login-form')
       let login_dropdown = document.getElementById('login-dropdown')
       let news_publish_gui = document.getElementById('news-publish-gui')
 
 
       // Login button
-      if (_logged_in()) {
-        login_button.innerHTML = 'Выйти'
-        _css_set('login-icon-img', {'visibility': 'hidden'})
-        login_button_action = logout
-      } else {
-        login_button.innerHTML = 'Войти'
-        _css_set('login-icon-img', {'visibility': 'visible'})
-
         login_button_action = () => {
           if (_css_get('login-dropdown', 'display') !== 'block') {
             _css_set('login-dropdown', {'display': 'block'})

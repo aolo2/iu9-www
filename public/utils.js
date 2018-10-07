@@ -63,6 +63,10 @@ function _css_set(element, properties) {
 }
 
 function _css_get(element, property) {
+  if (typeof element === 'string') {
+    element = document.getElementById(element)
+  }
+
   const style = window.getComputedStyle(element)
   return style.getPropertyValue(property)
 }
