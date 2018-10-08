@@ -5,16 +5,63 @@
   <script type="text/javascript" src="utils.js"></script>
   <script type="text/javascript" src="editbox.js"></script>
   <script type="text/javascript" src="upload.js"></script>
+  <script type="text/javascript" src="event.js"></script>
   <script type="text/javascript" src="ws.js"></script>
   <link rel="stylesheet" href="markdown.css">
   <link rel="stylesheet" href="chat.css">
+  <link rel="stylesheet" href="event.css">
   <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 </head>
 <body style="max-width: 1100px; margin: 2em auto;">
+  <div class="create-event">
+    <label>
+      Тип
+      <select id="event-type">
+        <option value="1">Лабораторная работа</option>
+        <option value="2">Лекция</option>
+      </select>
+    </label><br>
 
+    <label>
+      Номер
+      <input type="number" min="1" step="1" id="lab-number">
+    </label><br>
 
-  <div class="event markdown">
+    <label>
+      Предмет
+      <select id="event-subject">
+        <option value="1">Языки и методы программирования</option>
+        <option value="2">Объектно-функиональное программирование</option>
+        <option value="3">Конструирование компиляторов</option>
+      </select>
+    </label><br>
 
+    <label>
+      Название
+      <input type="text" id="event-name">
+    </label><br>
+
+    <label>
+      Дата проведения
+      <input type="date" id="event-date">
+    </label><br>
+
+    <label>
+      Участники
+    </label><br>
+
+    <div id="event-attachments">
+      Описание
+      <form onsubmit="uploadFile(this, addAttachment); return false">
+        <input type="file">
+        <input type="submit">
+      </form>
+    </div>
+
+    <input type="submit" onclick="addEvent()">
+  </div>
+
+  <div class="event">
     <div class="event-title">
       Лабораторная работа<br>
       Номер: 5<br>
@@ -34,17 +81,13 @@
     <div class="event-description">
       Название: «Монады в языке Java»<br>
       Дата и время: 12 Апр. 2016, <b>12:00-13:35</b><br>
-      Описание: <a href="#">lab6.pdf</a>
       <!-- <div class="editbox lhs" id="edbox_1"></div> -->
       <div class="date"></div>
       <div class="description"></div>
-      <div class="materials"></div>
+      <div class="materials" id="materials">
+        Файлы:
+      </div>
     </div>
-
-    <form onsubmit="uploadFile(this); return false">
-      <input type="file">
-      <input type="submit">
-    </form>
 
     <div class="event-chat">
       <div class="chat">
@@ -57,8 +100,8 @@
         </div>
       </div>
     </div>
-
   </div>
+</div>
 
 </body>
 </html>
