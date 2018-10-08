@@ -13,6 +13,37 @@
   <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 </head>
 <body style="max-width: 1100px; margin: 2em auto;">
+  <div class="add-user">
+    <form onsubmit="addUser(); return false">
+      <input type="text" id="user-fn" placeholder="Фамилия"><br>
+      <input type="text" id="user-ln" placeholder="Имя"><br>
+      <input type="text" id="user-login" placeholder="Логин"><br>
+      <input type="text" id="user-pass" placeholder="Пароль"><br>
+      <select id="user-roles">
+        <option value="1">Студент</option>
+        <option value="2">Преподаватель</option>
+      </select><br>
+      <select id="user-group">
+        <option value="11">ИУ9-11</option>
+        <option value="12">ИУ9-12</option>
+        <option value="21">ИУ9-21</option>
+        <option value="22">ИУ9-22</option>
+        <option value="31">ИУ9-31</option>
+        <option value="32">ИУ9-32</option>
+        <option value="41">ИУ9-41</option>
+        <option value="42">ИУ9-42</option>
+        <option value="51">ИУ9-51</option>
+        <option value="52">ИУ9-52</option>
+        <option value="61">ИУ9-61</option>
+        <option value="62">ИУ9-62</option>
+        <option value="71">ИУ9-71</option>
+        <option value="72">ИУ9-72</option>
+        <option value="81">ИУ9-81</option>
+        <option value="82">ИУ9-82</option>
+      </select><br>
+      <input type="submit">
+    </form>
+  </div>
   <div class="create-event">
     <label>
       Тип
@@ -22,10 +53,10 @@
       </select>
     </label><br>
 
-    <label>
+    <!-- <label>
       Номер
       <input type="number" min="1" step="1" id="lab-number">
-    </label><br>
+    </label><br> -->
 
     <label>
       Предмет

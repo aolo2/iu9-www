@@ -10,6 +10,7 @@ const MESSAGE_TYPE = {
  'MESSAGE_HISTORY': 1,
  'YOU_KICKED': 2
 }
+
 // TODO(aolo2, later): send an error if the server is being used before being initialised
 let wsServer = null
 

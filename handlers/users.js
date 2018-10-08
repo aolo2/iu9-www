@@ -2,12 +2,38 @@ const common = require('./common')
 const db = require('../lib/db')
 const security = require('../lib/security')
 const validation = require('../lib/validation')
+const config = require('../config/config.json')
 
 const uuid = require('uuid/v4')
 const basic_auth = require('basic-auth')
 
+function add(req, res) {
+  const pass = security.saltHashPassword(req.body.pass, config.saltLength)
+  let user = {
+    'first_name': req.body.first_name,
+    'last_name': req.body.last_name,
+    'login': req.body.login,
+    'roles': req.body.roles, // NOTE(aolo2): this is a trusted request
+    'passwordHash': pass.hash,
+    'passwordSalt': pass.salt
+  }
+
+  if ('group' in req.body) {
+    user.group = req.body.group
+  }
+
+  db.addUser(user, (err) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else {
+      common.send_text_response(res, 200)
+    }
+  })
+}
+
+
 function signup(req, res) {
-  const pass = security.saltHashPassword(req.body.pass, 10)
+  const pass = security.saltHashPassword(req.body.pass, config.saltLength)
   const user = {
     'first_name': req.body.first_name,
     'last_name': req.body.last_name,
@@ -133,6 +159,7 @@ function access_check_middleware(req, res, next) {
 module.exports.signup = signup
 module.exports.login = login
 module.exports.logout = logout
+module.exports.add = add
 module.exports.get_applications = get_applications
 module.exports.approve_application = approve_application
 module.exports.edit_profile = edit_profile

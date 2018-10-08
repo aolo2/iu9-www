@@ -10,5 +10,5 @@
     "directory": "files",
     "maxFileSize": 209715200
   },
-  "salt_length": 10
+  "saltLength": 50
 }
