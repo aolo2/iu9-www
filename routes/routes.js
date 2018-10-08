@@ -5,7 +5,6 @@ const users = require('../handlers/users')
 const roles = require('../handlers/roles')
 const events = require('../handlers/events')
 const editbox = require('../handlers/editbox')
-const messages = require('../handlers/messages')
 const websocket = require('../handlers/websocket')
 
 const router = express.Router()
@@ -31,24 +30,20 @@ router_auth.delete('/roles', roles.delete_role)
 router.get('/news/public', news.get_public_news)
 router_auth.get('/news', news.get_news)
 router.get('/news/edit', news.get_source)
-router_auth.post('/news', news.post_article)
+router_auth.post('/news', news.post_article) // NOTE(aolo2, important): unsanitized!
 router_auth.delete('/news', news.delete_article)
-
-/* Диалоги */
-router_auth.post('/messages/im', messages.send_message)
-router_auth.post('/messages/dialog', messages.create_dialog)
-router_auth.delete('/messages/dialog', messages.delete_dialog)
 
 /* События */
 router_auth.post('/events/create', events.create_event)
 router_auth.post('/events/start', events.start_event)
 router_auth.patch('/events', events.edit_event)
 router_auth.delete('/events', events.delete_event)
+router_auth.post('/events/file', events.attachFile)
 
 /* Редактирование текста */
 router.get('/editbox', editbox.getHTML)
 router_auth.get('/editbox/source', editbox.getSource)
-router_auth.post('/editbox/source', editbox.updateSource)
+router_auth.patch('/editbox/source', editbox.updateSource) // NOTE(aolo2, important): unsanitized!
 
 /* Чат */
 router.post('/chat/new', websocket.createChatroom)

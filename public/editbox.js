@@ -106,7 +106,7 @@ const EditBox = {
       loadingClasses.remove('initially-disabled')
       editUi.classList.add('initially-disabled')
 
-      _request('POST', 'editbox/source', {'Content-type': 'application/json'}, {'boxId': btoa(editbox.id), 'md': area.value}, (status, response) => {
+      _request('PATCH', 'editbox/source', {'Content-type': 'application/json'}, {'boxId': btoa(editbox.id), 'md': area.value}, (status, response) => {
         if (status === 200) {
 
           icon.src = 'img/zondicons/edit-pencil.svg'

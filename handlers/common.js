@@ -33,6 +33,17 @@ function send_error_response(res, msg) {
   send_text_response(res, 500, message)
 }
 
+function sanitize(str) {
+  return (str.replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\//g, '&#x2F;')
+    .replace(/\\/g, '&#x5C;')
+    .replace(/`/g, '&#96;'))
+}
+
 module.exports.send_text_response = send_text_response
 module.exports.send_json_response = send_json_response
 module.exports.send_unauthorized_response = send_unauthorized_response
@@ -40,3 +51,4 @@ module.exports.send_forbidden_response = send_forbidden_response
 module.exports.send_not_found_response = send_not_found_response
 module.exports.send_bad_request_response = send_bad_request_response
 module.exports.send_error_response = send_error_response
+module.exports.sanitize = sanitize

@@ -34,7 +34,14 @@
 }
 
 .markdown h4 {
-
+  font-family: 'Bebas Neue Thin';
+  font-size: 18px;
+  letter-spacing: 1.2;
+  word-spacing: .3em;
+  color: #222222;
+  margin: 0;
+  margin-bottom: .125em;
+  line-height: 1.125;
 }
 
 .markdown p {

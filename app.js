@@ -17,6 +17,7 @@ app.use(morgan('dev', {stream: accessLogStream}))
 app.use(cookieParser())
 app.use(bodyParser.json({limit: '5mb'}))
 app.use(express.static('public'))
+app.use('/files', express.static('files'))
 app.use('/', routes)
 
 // app.use((req, res, next) => {

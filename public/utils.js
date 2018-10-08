@@ -16,7 +16,7 @@ function _get_cookies() {
   return cookies
 }
 
-function _request(method, url, headers, data, callback) {
+function _request(method, url, headers, data, callback, isFile) {
   if (METHODS.indexOf(method) != -1) {
     let xhttp = new XMLHttpRequest()
 
@@ -45,7 +45,7 @@ function _request(method, url, headers, data, callback) {
     if (method == 'GET' || data === null) {
       xhttp.send();
     } else {
-      xhttp.send(JSON.stringify(data))
+      xhttp.send(isFile ? data : JSON.stringify(data))
     }
   } else {
     callback(400, 'unknown method: ' + method)

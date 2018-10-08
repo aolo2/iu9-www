@@ -7,9 +7,8 @@
     width: 250px;
     border: 1px solid #bbb;
     font-family: 'Arial';
-    letter-spacing: 1.2;
     font-size: 14px;
-    /*line-height: 1.5;*/
+    line-height: 1.5;
     overflow-y: scroll;
 }
 
@@ -18,7 +17,7 @@
 }
 
 .message-history .message:nth-child(2n) {
-    background: #eee;
+    background: #f1f1f1;
 }
 
 .message-ui {
@@ -31,12 +30,18 @@
     height: 2em;
     padding: .5em;
     width: 215px;
+    border: 1px solid #ccc;
+}
+
+.message-ui .message-box:focus {
+    outline: none;
+    border: 1px solid #888;
 }
 
 .message-ui .send-message img {
     position: absolute;
     right: 0;
-    top: .05em;
+    top: .12em;
     height: 1.4em;
 }
 

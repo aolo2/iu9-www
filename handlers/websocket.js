@@ -50,6 +50,7 @@ function sendMessage(user, type, payload) {
     case MESSAGE_TYPE.SINGLE_MESSAGE:
     {
       message = payload
+      delete message['roomId']
       break
     }
     case MESSAGE_TYPE.MESSAGE_HISTORY:
@@ -78,7 +79,7 @@ function sendMessage(user, type, payload) {
 
 function onConnection(websocket, req) {
   websocket.on('message', (data) => {
-    const message = JSON.parse(data)
+    const message = JSON.parse(data) // TODO(aolo2): validate scheme (text, roomId)
     sendMessageToChatroom(req.user_db, message.roomId, message)
   })
 
@@ -107,6 +108,7 @@ function broadCast(users, message) {
 }
 
 function sendMessageToChatroom(user, roomId, message) {
+  message.text = common.sanitize(message.text)
   message.from = user.login
   if (roomId in Local.ROOMS) {
     broadCast(Local.ROOMS[roomId], message)

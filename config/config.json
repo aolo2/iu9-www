@@ -6,5 +6,9 @@
     "url": "mongodb://localhost:27017",
     "db_name": "iu"
   },
+  "formidable": {
+    "directory": "files",
+    "maxFileSize": 209715200
+  },
   "salt_length": 10
 }

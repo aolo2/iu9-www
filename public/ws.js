@@ -9,7 +9,6 @@ const MESSAGE_TYPE = {
 
 function getAbsoluteHeight(element) {
   element = (typeof element === 'string') ? document.querySelector(element) : element
-
   const style = window.getComputedStyle(element);
   const margin = parseFloat(style['marginTop']) + parseFloat(style['marginBottom'])
 
@@ -19,8 +18,6 @@ function getAbsoluteHeight(element) {
 function addOneMessage(text, user) {
   let history = document.getElementById('history'),
   scrolled = Math.abs(history.scrollTop - (history.scrollHeight - history.offsetHeight)) < 5
-  console.log(Math.abs(history.scrollTop - (history.scrollHeight - history.offsetHeight)))
-
   history.innerHTML += (messagePrefix + user + '</em>: ' + text + messagePostfix)
 
   // NOTE(aolo2): if already scrolled to bottom (do not disturb user scrolling)
@@ -62,9 +59,12 @@ socket.onmessage = (event) => {
     }
     case MESSAGE_TYPE.MESSAGE_HISTORY:
     {
-      // console.log(message.history)
       drawMessages(message.history)
       break
+    }
+    default:
+    {
+      // TODO(aolo2): unknown message type
     }
   }
 }

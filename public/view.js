@@ -41,27 +41,29 @@ window.addEventListener('load', () => {
     if (status !== 200) {
       document.write('something went wrong :(')
     } else {
-      setTimeout(() => {
-        page_grid.innerHTML = text + page_grid.innerHTML
-        let login_button = document.getElementById('login-button')
+      document.getElementById('menu').innerHTML = text
+      let login_button = document.getElementById('login-button')
 
-        if (_logged_in()) {
-          login_button.innerHTML = 'Выйти'
-          login_button.onclick = () => {
-            return logout()
-          }
-
-          _css_set('login-icon-img', {'visibility': 'hidden'})
-        } else {
-          login_button.innerHTML = 'Войти'
-
-          login_button.onclick = () => {
-            toggle_login_dropdown()
-          }
-
-          _css_set('login-icon-img', {'visibility': 'visible'})
+      if (_logged_in()) {
+        login_button.innerHTML = 'Выйти'
+        login_button.onclick = () => {
+          return logout()
         }
-      }, 1000) // TODO: объединить клиентский js
+
+        _css_set('login-icon-img', {'visibility': 'hidden'})
+      } else {
+        login_button.innerHTML = 'Войти'
+
+        login_button.onclick = () => {
+          toggle_login_dropdown()
+        }
+
+        _css_set('login-icon-img', {'visibility': 'visible'})
+      }
+    }
+  })
+})
+
 /*
       let login_form = document.getElementById('login-form')
       let login_dropdown = document.getElementById('login-dropdown')
@@ -90,6 +92,3 @@ window.addEventListener('load', () => {
           _css_set('prom-dropdown', {'display': 'none'})
         }
       })*/
-    }
-  })
-})
