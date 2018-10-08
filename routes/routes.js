@@ -16,11 +16,13 @@ router_auth.use(users.access_check_middleware)
 /* Пользователи */
 router.post('/users/signup', users.signup)
 router.post('/users/login', users.login)
+router_auth.get('/users', users.get)
 router_auth.post('/users/add', users.add)
 router_auth.post('/users/logout', users.logout)
 router_auth.get('/users/applications', users.get_applications)
 router_auth.post('/users/approve', users.approve_application)
 router_auth.patch('/users/info', users.edit_profile)
+router_auth.get('/users/groups', users.getGroups)
 
 /* Роли */
 router_auth.get('/roles', roles.get_roles)

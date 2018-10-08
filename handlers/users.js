@@ -124,6 +124,44 @@ function approve_application(req, res) {
   })
 }
 
+function get(req, res) {
+  let matchQuery = {}
+
+  if ('group' in req.query) {
+    matchQuery.group = req.query.group
+  }
+
+  if ('role' in req.query) {
+    matchQuery.roles = req.query.role
+  }
+
+  db.getUsers(matchQuery, (err, users) => {
+
+    users.forEach((doc) => {
+      delete doc['_id']
+      delete doc['passwordSalt']
+      delete doc['passwordHash']
+      delete doc['roles']
+    })
+
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else {
+      common.send_json_response(res, users)
+    }
+  })
+}
+
+function getGroups(req, res) {
+  db.getGroups((err, groups) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else {
+      common.send_json_response(res, groups)
+    }
+  })
+}
+
 function edit_profile(req, res) {
   common.send_text_response(res, 200)
 }
@@ -163,4 +201,6 @@ module.exports.add = add
 module.exports.get_applications = get_applications
 module.exports.approve_application = approve_application
 module.exports.edit_profile = edit_profile
+module.exports.get = get
 module.exports.access_check_middleware = access_check_middleware
+module.exports.getGroups = getGroups

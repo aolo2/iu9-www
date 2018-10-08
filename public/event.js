@@ -37,6 +37,14 @@ function addAttachment(status, info) {
   }
 }
 
+function addTutor() {
+
+}
+
+function addStudent() {
+
+}
+
 function addEvent() {
   const event = {
     'type': document.getElementById('event-type').value,
@@ -57,7 +65,32 @@ function addEvent() {
 }
 
 window.addEventListener('load', () => {
-  // _request('GET', 'events', null, {'eventId': ''}, (status, response) => {
+  _request('GET', 'users', null, {'role': 'tutor'}, (status, response) => {
+    if (status === 200) {
+      const users = JSON.parse(response)
+      users.forEach((tutor) => {
+        addOptionToSelect('tutors-select', tutor.login, tutor.last_name + ' ' + tutor.first_name)
+      })
+    } else {
+      // TODO(aolo2): error handling
+    }
+  })
 
-  // })
-})
+  _request('GET', 'users/groups', null, null, (status, response) => {
+    if (status === 200) {
+      const groups = JSON.parse(response)
+      groups.forEach((group) => {
+        addOptionToSelect('students-select', group._id, 'ИУ9-' + group._id + ' (' + group.count + ' чел.)')
+      })
+    } else {
+      // TODO(aolo2): error handling
+    }
+  })
+
+
+
+  /*document.createElement('option');
+    opt.value = i;
+    opt.innerHTML = i;
+    select.appendChild(opt);*/
+  })

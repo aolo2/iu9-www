@@ -79,6 +79,18 @@
 
     <label>
       Участники
+      <div id="event-tutors"></div>
+      <div id="event-students"></div>
+      <form onsubmit="addTutor()">
+        <select id="tutors-select">
+        </select>
+        <input type="submit" value="Добавить">
+      </form>
+      <form onsubmit="addStudents()">
+        <select id="students-select">
+        </select>
+        <input type="submit" value="Добавить">
+      </form>
     </label><br>
 
     <div id="event-attachments">

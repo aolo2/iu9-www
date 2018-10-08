@@ -98,6 +98,17 @@ function _logged_in_as(role) {
   return ui_view.indexOf(role) != -1
 }
 
+function addOptionToSelect(select, optionValue, optionHTML) {
+  if (typeof select === 'string') {
+    select = document.getElementById(select)
+  }
+
+  let opt = document.createElement('option')
+  opt.value = optionValue
+  opt.innerHTML = optionHTML
+  select.appendChild(opt)
+}
+
 window.addEventListener('load', () => {
   COOKIES = _get_cookies()
   console.log('\"Мы не готовим кодировщиков и специалистов по интерфейсам.Наша цель — подготовка элитных программистов для решения сложных задач для высокотехнологичных областей науки и техники.\"')
