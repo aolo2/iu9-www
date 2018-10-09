@@ -47,20 +47,15 @@
   <div class="create-event">
     <label>
       Тип
-      <select id="event-type">
-        <option value="1">Лабораторная работа</option>
-        <option value="2">Лекция</option>
+      <select id="event-type" onchange="subjectChange(this, 'custom-type')">
       </select>
-    </label><br>
-
-    <!-- <label>
-      Номер
-      <input type="number" min="1" step="1" id="lab-number">
-    </label><br> -->
+    </label>
+    <input type="text" id="custom-type" class="initially-disabled">
+    <br>
 
     <label>
       Предмет
-      <select id="event-subject" onchange="subjectChange(this)">
+      <select id="event-subject" onchange="subjectChange(this, 'custom-subject')">
       </select>
     </label>
     <input type="text" id="custom-subject" class="initially-disabled">

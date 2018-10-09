@@ -1,7 +1,7 @@
 const db = require('../lib/db')
 const common = require('./common')
 
-function _addEvent(res, event) {
+function __addEvent(res, event) {
   let rules = []
   if ('tutors' in event.participants) {
     rules.push({'login': {'$in': event.participants.tutors}})
@@ -16,6 +16,7 @@ function _addEvent(res, event) {
     event.users = users
     delete event['subjectName']
     delete event['participants']
+    delete event['typeName']
 
     db.createEvent(event, (err, result) => {
       if (err) {
@@ -33,8 +34,27 @@ function _addEvent(res, event) {
   })
 }
 
+function _addEvent(res, event) {
+  db.getEventType(event.type, (err, type) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else if (!type) {
+      db.addEventType(event.typeName, (err, typeId) => {
+        event.type = typeId
+        if (err) {
+          common.send_error_response(res, err.message)
+        } else {
+          __addEvent(res, event)
+        }
+      })
+    } else {
+      __addEvent(res, event)
+    }
+  })
+}
+
 function create(req, res) {
-  db.getSubject(req.body.event.subject, (err, subject) => {
+  db.getEventSubject(req.body.event.subject, (err, subject) => {
     if (err) {
       common.send_error_response(res, err.message)
       return
@@ -54,11 +74,21 @@ function create(req, res) {
 }
 
 function getSubjects(req, res) {
-  db.getSubjects((err, subjects) => {
+  db.getEventSubjects((err, subjects) => {
     if (err) {
       common.send_error_response(res, err.message)
     } else {
       common.send_json_response(res, subjects)
+    }
+  })
+}
+
+function getTypes(req, res) {
+  db.getEventTypes((err, types) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else {
+      common.send_json_response(res, types)
     }
   })
 }
@@ -96,3 +126,4 @@ module.exports.edit_event = edit_event
 module.exports.delete_event = delete_event
 module.exports.getEvent = getEvent
 module.exports.getSubjects = getSubjects
+module.exports.getTypes = getTypes

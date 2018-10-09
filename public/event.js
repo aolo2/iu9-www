@@ -40,11 +40,25 @@ function addAttachment(status, info) {
 }
 
 function addTutor() {
-  eventTutors.add(document.getElementById('tutors-select').value)
+  const tutorSelect = document.getElementById('tutors-select')
+  const tutorLogin = tutorSelect.value
+  const tutorFullname = tutorSelect.options[tutorSelect.selectedIndex].text
+
+  if (!eventTutors.has(tutorLogin)) {
+    document.getElementById('event-tutors').innerHTML += (tutorFullname + '<br>')
+    eventTutors.add(tutorLogin)
+  }
 }
 
 function addStudents() {
-  eventGroups.add(document.getElementById('students-select').value)
+  const studentSelect = document.getElementById('students-select')
+  const studentGroup = studentSelect.value
+  const studentGroupName = studentSelect.options[studentSelect.selectedIndex].text
+
+  if (!eventGroups.has(studentGroup)) {
+    document.getElementById('event-students').innerHTML += (studentGroupName + '<br>')
+    eventGroups.add(studentGroup)
+  }
 }
 
 function addEvent() {
@@ -73,6 +87,13 @@ function addEvent() {
     event.subjectName = eventSelect.options[eventSelect.selectedIndex].text
   }
 
+  if (event.type === '0') {
+    event.typeName = document.getElementById('custom-type').value
+  } else {
+    const eventSelect = document.getElementById('event-type')
+    event.typeName = eventSelect.options[eventSelect.selectedIndex].text
+  }
+
   _request('POST', 'events/create', {'Content-type': 'application/json'}, {'event': event}, (status, response) => {
     if (status === 200) {
       location.reload()
@@ -82,13 +103,15 @@ function addEvent() {
   })
 }
 
-function subjectChange(select) {
+function subjectChange(select, inputId) {
   if (select.value === '0') {
-    document.getElementById('custom-subject').classList.remove('initially-disabled')
+    document.getElementById(inputId).classList.remove('initially-disabled')
   } else {
-    document.getElementById('custom-subject').classList.add('initially-disabled')
+    document.getElementById(inputId).classList.add('initially-disabled')
   }
 }
+
+
 
 window.addEventListener('load', () => {
   _request('GET', 'users', null, {'role': 'tutor'}, (status, response) => {
@@ -120,11 +143,24 @@ window.addEventListener('load', () => {
         addOptionToSelect('event-subject', subject.id, subject.name)
       })
       addOptionToSelect('event-subject', 0, 'Другой')
+      subjectChange(document.getElementById('event-subject'), 'custom-subject')
     } else {
       // TODO(aolo2): error handling
     }
   })
 
+  _request('GET', 'events/types', null, null, (status, response) => {
+    if (status === 200) {
+      const types = JSON.parse(response)
+      types.forEach((type) => {
+        addOptionToSelect('event-type', type.id, type.name)
+      })
+      addOptionToSelect('event-type', 0, 'Другой')
+      subjectChange(document.getElementById('event-type'), 'custom-type')
+    } else {
+      // TODO(aolo2): error handling
+    }
+  })
 
   /*document.createElement('option');
     opt.value = i;
