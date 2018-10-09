@@ -80,12 +80,12 @@
       Участники
       <div id="event-tutors"></div>
       <div id="event-students"></div>
-      <form onsubmit="addTutor()">
+      <form onsubmit="addTutor(); return false;">
         <select id="tutors-select">
         </select>
         <input type="submit" value="Добавить">
       </form>
-      <form onsubmit="addStudents()">
+      <form onsubmit="addStudents(); return false;">
         <select id="students-select">
         </select>
         <input type="submit" value="Добавить">

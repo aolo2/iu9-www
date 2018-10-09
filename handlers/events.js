@@ -2,12 +2,34 @@ const db = require('../lib/db')
 const common = require('./common')
 
 function _addEvent(res, event) {
-  db.createEvent(event, (err, result) => {
-    if (err) {
-      common.send_error_response(res, err.message)
-    } else {
-      common.send_json_response(res, {'eventId': result.insertedId})
-    }
+  let rules = []
+  if ('tutors' in event.participants) {
+    rules.push({'login': {'$in': event.participants.tutors}})
+  }
+
+  if ('students' in event.participants) {
+    rules.push({'group': {'$in': event.participants.students}})
+  }
+
+  db.unwindRules(rules, (err, users) => {
+
+    event.users = users
+    delete event['subjectName']
+    delete event['participants']
+
+    db.createEvent(event, (err, result) => {
+      if (err) {
+        common.send_error_response(res, err.message)
+      } else {
+        db.addEventToUsers(users, result.insertedId, (err) => {
+          if (err) {
+            common.send_error_response(res, err.message)
+          } else {
+            common.send_json_response(res, {'eventId': result.insertedId})
+          }
+        })
+      }
+    })
   })
 }
 
@@ -17,12 +39,11 @@ function create(req, res) {
       common.send_error_response(res, err.message)
       return
     } else if (!subject) {
-      db.addSubject(req.body.event.subjectName, (err, subjResult) => {
+      db.addSubject(req.body.event.subjectName, (err, id) => {
         if (err) {
           common.send_error_response(res, err.message)
         } else {
-          console.log(subjResult)
-          // req.body.event.subject = subjResult.
+          req.body.event.subject = id
           _addEvent(res, req.body.event)
         }
       })

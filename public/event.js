@@ -1,4 +1,6 @@
 let filesInfo = {}
+let eventTutors = new Set()
+let eventGroups = new Set()
 
 function addUser() {
   let user = {
@@ -38,11 +40,11 @@ function addAttachment(status, info) {
 }
 
 function addTutor() {
-
+  eventTutors.add(document.getElementById('tutors-select').value)
 }
 
-function addStudent() {
-
+function addStudents() {
+  eventGroups.add(document.getElementById('students-select').value)
 }
 
 function addEvent() {
@@ -52,8 +54,17 @@ function addEvent() {
     'subject': document.getElementById('event-subject').value,
     'title': document.getElementById('event-name').value,
     'date': document.getElementById('event-date').valueAsDate,
-    'files': filesInfo
+    'files': filesInfo,
+    'participants': {'tutors': [], 'students': []}
   }
+
+  eventTutors.forEach((tutorLogin) => {
+    event.participants['tutors'].push(tutorLogin)
+  })
+
+  eventGroups.forEach((studentGroup) => {
+    event.participants['students'].push(studentGroup)
+  })
 
   if (event.subject === '0') {
     event.subjectName = document.getElementById('custom-subject').value
