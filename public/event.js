@@ -162,6 +162,15 @@ window.addEventListener('load', () => {
     }
   })
 
+  _request('GET', 'users/events', null, null, (status, response) => {
+    if (status === 200) {
+      const data = JSON.parse(response)
+      console.log(data)
+    } else {
+      // TODO(aolo2): error handling
+    }
+  })
+
   /*document.createElement('option');
     opt.value = i;
     opt.innerHTML = i;

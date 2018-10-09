@@ -23,6 +23,7 @@ router_auth.get('/users/applications', users.get_applications)
 router_auth.post('/users/approve', users.approve_application)
 router_auth.patch('/users/info', users.edit_profile)
 router_auth.get('/users/groups', users.getGroups)
+router_auth.get('/users/events', users.getEvents)
 
 /* Роли */
 router_auth.get('/roles', roles.get_roles)

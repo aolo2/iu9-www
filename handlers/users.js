@@ -194,6 +194,17 @@ function access_check_middleware(req, res, next) {
   })
 }
 
+function getEvents(req, res) {
+  db.getUserEvents(req.user_db.login, (err, user) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else {
+      const events = ('events' in user ? user['events'] : [])
+      common.send_json_response(res, {'events': events})
+    }
+  })
+}
+
 module.exports.signup = signup
 module.exports.login = login
 module.exports.logout = logout
@@ -204,3 +215,4 @@ module.exports.edit_profile = edit_profile
 module.exports.get = get
 module.exports.access_check_middleware = access_check_middleware
 module.exports.getGroups = getGroups
+module.exports.getEvents = getEvents
