@@ -1,12 +1,43 @@
 const db = require('../lib/db')
 const common = require('./common')
 
-function create(req, res) {
-  db.createEvent(req.body.event, (err, result) => {
+function _addEvent(res, event) {
+  db.createEvent(event, (err, result) => {
     if (err) {
       common.send_error_response(res, err.message)
     } else {
       common.send_json_response(res, {'eventId': result.insertedId})
+    }
+  })
+}
+
+function create(req, res) {
+  db.getSubject(req.body.event.subject, (err, subject) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+      return
+    } else if (!subject) {
+      db.addSubject(req.body.event.subjectName, (err, subjResult) => {
+        if (err) {
+          common.send_error_response(res, err.message)
+        } else {
+          console.log(subjResult)
+          // req.body.event.subject = subjResult.
+          _addEvent(res, req.body.event)
+        }
+      })
+    } else {
+      _addEvent(res, req.body.event)
+    }
+  })
+}
+
+function getSubjects(req, res) {
+  db.getSubjects((err, subjects) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else {
+      common.send_json_response(res, subjects)
     }
   })
 }
@@ -43,3 +74,4 @@ module.exports.start_event = start_event
 module.exports.edit_event = edit_event
 module.exports.delete_event = delete_event
 module.exports.getEvent = getEvent
+module.exports.getSubjects = getSubjects

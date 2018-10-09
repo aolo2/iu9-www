@@ -46,13 +46,20 @@ function addStudent() {
 }
 
 function addEvent() {
-  const event = {
+  let event = {
     'type': document.getElementById('event-type').value,
     // 'number': document.getElementById('lab-number').value,
     'subject': document.getElementById('event-subject').value,
     'title': document.getElementById('event-name').value,
     'date': document.getElementById('event-date').valueAsDate,
     'files': filesInfo
+  }
+
+  if (event.subject === '0') {
+    event.subjectName = document.getElementById('custom-subject').value
+  } else {
+    const eventSelect = document.getElementById('event-subject')
+    event.subjectName = eventSelect.options[eventSelect.selectedIndex].text
   }
 
   _request('POST', 'events/create', {'Content-type': 'application/json'}, {'event': event}, (status, response) => {
@@ -62,6 +69,14 @@ function addEvent() {
       // TODO(aolo2): error handling
     }
   })
+}
+
+function subjectChange(select) {
+  if (select.value === '0') {
+    document.getElementById('custom-subject').classList.remove('initially-disabled')
+  } else {
+    document.getElementById('custom-subject').classList.add('initially-disabled')
+  }
 }
 
 window.addEventListener('load', () => {
@@ -87,6 +102,17 @@ window.addEventListener('load', () => {
     }
   })
 
+  _request('GET', 'events/subjects', null, null, (status, response) => {
+    if (status === 200) {
+      const subjects = JSON.parse(response)
+      subjects.forEach((subject) => {
+        addOptionToSelect('event-subject', subject.id, subject.name)
+      })
+      addOptionToSelect('event-subject', 0, 'Другой')
+    } else {
+      // TODO(aolo2): error handling
+    }
+  })
 
 
   /*document.createElement('option');

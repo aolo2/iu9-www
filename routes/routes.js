@@ -43,6 +43,7 @@ router_auth.post('/events/start', events.start_event)
 router_auth.patch('/events', events.edit_event)
 router_auth.delete('/events', events.delete_event)
 router_auth.get('/events', events.getEvent)
+router_auth.get('/events/subjects', events.getSubjects)
 
 /* Редактирование текста */
 router.get('/editbox', editbox.getHTML)

@@ -60,12 +60,11 @@
 
     <label>
       Предмет
-      <select id="event-subject">
-        <option value="1">Языки и методы программирования</option>
-        <option value="2">Объектно-функиональное программирование</option>
-        <option value="3">Конструирование компиляторов</option>
+      <select id="event-subject" onchange="subjectChange(this)">
       </select>
-    </label><br>
+    </label>
+    <input type="text" id="custom-subject" class="initially-disabled">
+    <br>
 
     <label>
       Название
