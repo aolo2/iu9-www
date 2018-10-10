@@ -1,6 +1,5 @@
 .add-user {
   width: 225px;
-  text-align: center;
 }
 
 .add-user form {
@@ -23,9 +22,10 @@
 .manage input[type=text] {
   font-family: 'Ubuntu Mono', monospace;
   font-size: 14px;
-  padding: .5em;
+  padding: .25em;
   border: 1px solid #ccc;
   margin-bottom: .5em;
+  width: 100%;
 }
 
 .manage .add-user input[type=text] {
@@ -34,7 +34,6 @@
 
 .manage input[type=submit] {
   width: 80px;
-  margin-top: 1em;
   padding: .125em;
 }
 
@@ -64,10 +63,6 @@
   border-top: 1px solid #ccc;
 }
 
-.manage .user-app:last-child {
-  border-bottom: 1px solid #ccc;
-}
-
 .manage .user-app .user-app-desc {
   max-width: 300px
 }
@@ -77,12 +72,31 @@
   margin-right: .5em;
 }
 
+.manage input[type=date] {
+  border: 1px solid #ccc;
+}
+
 .manage input[type=text]:focus,
 .manage input[type=password]:focus,
 .manage input[type=submit]:focus,
+.manage input[type=date]:focus,
+.manage input[type=file]:focus,
 .manage select:focus {
   outline: none;
   border: 1px solid #888;
+}
+
+.manage input[type=file] {
+  max-width: 230px;
+}
+
+.manage input[type=file]:focus,
+.manage input[type=checkbox]:focus {
+  outline: none;
+}
+
+.manage input[type=date] {
+  font-family: 'Arial';
 }
 
 .manage select {
@@ -100,8 +114,73 @@
   -moz-appearance: none;
   appearance: none;
   margin-bottom: .5em;
+  max-width: 200px;
 }
 
-.force-wrap {
-  word-wrap: break-word; /* Internet Explorer 5.5+ */
+.manage .create-event {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.manage .create-event form {
+  margin: 0;
+  padding: 0;
+}
+
+.manage .create-event .create-event-cell  {
+  padding-right: 1em;
+  padding-left: 1em;
+  border-right: 1px solid #ccc;
+}
+
+.manage .create-event .create-event-cell:nth-child(4) {
+  border-right: none;
+}
+
+.manage .create-event .span3 {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  border: none;
+}
+
+.manage .create-event .top-margin {
+  margin-top: 2em;
+}
+
+.manage .create-event .underline {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 2em;
+  padding-bottom: .5em;
+}
+
+.manage .create-event label {
+  display: block;
+}
+
+.manage .create-event .event-setting {
+  margin-top: 1em;
+}
+
+.manage .create-event #event-name {
+  max-width: 510px;
+  font-size: 16px;
+  padding: .25em;
+}
+
+.manage #event-participants {
+  left: -2em;
+}
+
+.manage .create-event input[type=checkbox] {
+  position: relative;
+  top: 2px;
+}
+
+.manage #event-attachments {
+  font-family: 'Ubuntu Mono', monospace;
+  margin-bottom: .5em;
+}
+
+.center {
+  text-align: center;
 }

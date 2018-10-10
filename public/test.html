@@ -48,7 +48,9 @@
           <option value="82">ИУ9-82</option>
         </select>
       </div>
-      <input type="submit" value="Добавить">
+      <div style="width: 100%; text-align: center;">
+        <input type="submit" value="Добавить">
+      </div>
     </form>
   </div>
 
@@ -62,58 +64,76 @@
   </div>
 
   <div class="create-event">
-    <h2>Создать событие</h2>
-    <label>
-      Тип
-      <select id="event-type" onchange="subjectChange(this, 'custom-type')">
-      </select>
-    </label>
-    <input type="text" id="custom-type" class="initially-disabled">
-    <br>
-
-    <label>
-      Предмет
-      <select id="event-subject" onchange="subjectChange(this, 'custom-subject')">
-      </select>
-    </label>
-    <input type="text" id="custom-subject" class="initially-disabled">
-    <br>
-
-    <label>
-      Название
-      <input type="text" id="event-name">
-    </label><br>
-
-    <label>
-      Дата проведения
-      <input type="date" id="event-date">
-    </label><br>
-
-    <label>
-      Участники
-      <div id="event-tutors"></div>
-      <div id="event-students"></div>
-      <form onsubmit="addTutor(); return false;">
-        <select id="tutors-select">
-        </select>
-        <input type="submit" value="Добавить">
-      </form>
-      <form onsubmit="addStudents(); return false;">
-        <select id="students-select">
-        </select>
-        <input type="submit" value="Добавить">
-      </form>
-    </label><br>
-
-    <div id="event-attachments">
-      Описание
-      <form onsubmit="uploadFile(this, addAttachment); return false">
-        <input type="file">
-        <input type="submit">
-      </form>
+    <div class="span3 underline">
+      <h2>Создать событие</h2>
+      <input type="text" id="event-name" placeholder="Название">
     </div>
 
-    <input type="submit" onclick="addEvent()">
+    <div class="create-event-cell">
+      <h3>Описание</h3>
+
+      <div class="event-setting">
+        <label>
+          Тип
+          <select id="event-type" onchange="subjectChange(this, 'custom-type')">
+          </select>
+        </label>
+        <input type="text" id="custom-type" class="initially-disabled">
+        <label>
+          Предмет
+          <select id="event-subject" onchange="subjectChange(this, 'custom-subject')">
+          </select>
+        </label>
+        <input type="text" id="custom-subject" class="initially-disabled">
+        <label>
+          Дата проведения
+          <input type="date" id="event-date">
+        </label>
+      </div>
+    </div>
+
+
+
+    <div  class="create-event-cell">
+      <label>
+        <h3>Участники</h3>
+        <ul id="event-participants"></ul>
+
+
+        <div class="event-setting">
+          <form onsubmit="addParticipants('tutor'); return false;">
+            <select id="tutors-select">
+            </select>
+            <input type="submit" value="Добавить">
+          </form>
+          <form onsubmit="addParticipants('student'); return false;">
+            <select id="students-select">
+            </select>
+            <input type="submit" value="Добавить">
+          </form>
+        </div>
+
+        <label>
+          Отправить участникам уведомление
+          <input type="checkbox" id="notify">
+        </label>
+      </label>
+    </div>
+
+    <div  class="create-event-cell">
+      <h3>Приложения</h3>
+      <div class="event-setting">
+        <div id="event-attachments"></div>
+        <form onsubmit="uploadFile(this, addAttachment); return false">
+          <input type="file">
+          <input type="submit" value="Добавить">
+        </form>
+      </div>
+    </div>
+
+    <div class="span3 center top-margin">
+      <input type="submit" onclick="addEvent()" value="Создать">
+    </div>
   </div>
 
   <div class="event">

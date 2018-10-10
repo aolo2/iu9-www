@@ -61,26 +61,27 @@ function addAttachment(status, info) {
   }
 }
 
-function addTutor() {
-  const tutorSelect = document.getElementById('tutors-select')
-  const tutorLogin = tutorSelect.value
-  const tutorFullname = tutorSelect.options[tutorSelect.selectedIndex].text
-
-  if (!eventTutors.has(tutorLogin)) {
-    document.getElementById('event-tutors').innerHTML += (tutorFullname + '<br>')
-    eventTutors.add(tutorLogin)
+function addParticipants(role) {
+  let selectNode = null
+  let set = null
+  if (role === 'student') {
+    selectNode = document.getElementById('students-select')
+    set = eventGroups
+  } else if (role === 'tutor') {
+    selectNode = document.getElementById('tutors-select')
+    set = eventTutors
   }
-}
 
-function addStudents() {
-  const studentSelect = document.getElementById('students-select')
-  const studentGroup = studentSelect.value
-  const studentGroupName = studentSelect.options[studentSelect.selectedIndex].text
+  const login = selectNode.value
+  const fullName = selectNode.options[selectNode.selectedIndex].text
 
-  if (!eventGroups.has(studentGroup)) {
-    document.getElementById('event-students').innerHTML += (studentGroupName + '<br>')
-    eventGroups.add(studentGroup)
-  }
+  if (!set.has(login)) {
+   let list = document.getElementById('event-participants')
+   let entry = document.createElement('li')
+   entry.appendChild(document.createTextNode(fullName))
+   list.appendChild(entry)
+   set.add(login)
+ }
 }
 
 function onUserRoleChange(select) {
@@ -100,6 +101,7 @@ function addEvent() {
     'title': document.getElementById('event-name').value,
     'date': document.getElementById('event-date').valueAsDate,
     'files': filesInfo,
+    'notify': document.getElementById('notify').checked,
     'participants': {'tutors': [], 'students': []}
   }
 
