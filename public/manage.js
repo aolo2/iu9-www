@@ -1,58 +1,36 @@
-let app_data = []
+const approveButton = '<input type="submit" onclick="" value="Принять">'
+const denyButton = '<input type="submit" onclick="" value="Отклонить">'
 
-function approve_application(idx, approve) {
-  let xhttp = new XMLHttpRequest()
-
-  xhttp.onreadystatechange = () => {
-    if (xhttp.readyState === 4) {
-      if (xhttp.status === 200) {
-        location.reload()
-      } else if (xhttp.status === 400) {
-        // document.getElementById('server-message').innerHTML = 'Поля заполнены неверно'
+function closeApplication(id, approve) {
+  _request('POST', 'users/approve',
+    {'Content-type': 'application/json'},
+    {'id': id, 'approve': approve}, (status, response) => {
+      if (status === 200) {
+        document.getElementById(id).outerHTML = ''
       } else {
-        // document.getElementById('server-message').innerHTML = 'Ошибка сервиса регистрации'
+        // TODO: error handling
       }
-    }
-  }
-
-  xhttp.open('POST', server + 'users/approve', true)
-  xhttp.setRequestHeader('Content-type', 'application/json')
-  let payload = app_data[idx]
-  payload['approve'] = approve
-  xhttp.send(JSON.stringify(payload))
+    })
 }
 
 window.addEventListener('load', () => {
-  let applications = document.getElementById('applications')
-  
-  if (applications) {
-    let xhttp = new XMLHttpRequest()
+  _request('GET', 'users/applications', null, null, (status, response) => {
+    if (status === 200) {
+      const apps = JSON.parse(response)
+      let appList = document.getElementById('app-list')
 
-    xhttp.onreadystatechange = () => {
-      if (xhttp.readyState === 4) {
-        if (xhttp.status === 200) {
-          const applications_array = JSON.parse(xhttp.responseText)
-          applications_array.forEach((app, idx) => {
-            app_data.push(app)
-            applications.innerHTML += (idx +
-              '<div class="content">' +
-              '<div class="field">Имя:</div><div class="value">' + app.first_name + '</div><br>' +
-              '<div class="field">Фамилия:</div><div class="value">' + app.last_name + '</div><br>' +
-              '<div class="field">Логин:</div><div class="value">' + app.login + '</div><br>' + 
-              '<input type="submit" value="Принять" onclick="approve_application(' + idx + ', true)"> \
-              <input type="submit" value="Отклонить" onclick="approve_application(' + idx + ', false)">' +
-              '</div>')
-          })
-        } else if (xhttp.status === 400) {
-          // document.getElementById('server-message').innerHTML = 'Поля заполнены неверно'
-        } else {
-          // document.getElementById('server-message').innerHTML = 'Ошибка сервиса регистрации'
-        }
-      }
+      apps.forEach((app) => {
+        let userAppDiv = createDiv(['user-app'], app._id),
+        userAppDescDiv = createDiv(['user-app-desc'])
+
+        userAppDescDiv.innerHTML = JSON.stringify(app)
+        userAppDiv.appendChild(userAppDescDiv)
+        userAppDiv.appendChild(createSubmit('Принять', () => { closeApplication(app._id, true) }))
+        userAppDiv.appendChild(createSubmit('Отклонить', () => { closeApplication(app._id, false) }))
+        appList.appendChild(userAppDiv)
+      })
+    } else {
+      // TODO: error handling
     }
-
-    xhttp.open('GET', server + 'users/applications', true)
-    // xhttp.setRequestHeader('Content-type', 'application/json')
-    xhttp.send()
-  }
+  })
 })

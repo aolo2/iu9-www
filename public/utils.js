@@ -109,6 +109,26 @@ function addOptionToSelect(select, optionValue, optionHTML) {
   select.appendChild(opt)
 }
 
+function createDiv(classes, id) {
+  let appDiv = document.createElement('div')
+  appDiv.id = id
+
+  classes.forEach((className) => {
+    appDiv.classList.add(className)
+  })
+
+  return appDiv
+}
+
+function createSubmit(value, onclick) {
+  let submit = document.createElement('input')
+  submit.type = 'submit'
+  submit.value = value
+  submit.onclick = onclick
+
+  return submit
+}
+
 window.addEventListener('load', () => {
   COOKIES = _get_cookies()
   console.log('\"Мы не готовим кодировщиков и специалистов по интерфейсам. Наша цель — подготовка элитных программистов для решения сложных задач для высокотехнологичных областей науки и техники.\"')

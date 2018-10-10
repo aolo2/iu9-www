@@ -107,11 +107,11 @@ function get_applications(req, res) {
 }
 
 function approve_application(req, res) {
-  db.approve_application(req.body['_id'], (err) => {
+  db.approveApplication(req.body['id'], (err, result) => {
     if (err) {
       common.send_error_response(res, err.message)
     } else if (req.body.approve) {
-      db.add_user(req.body, (err) => {
+      db.addUser(result.value, (err) => {
         if (err) {
           common.send_error_response(res, err.message)
         } else {
