@@ -1,0 +1,64 @@
+.add-user {
+  width: 225px;
+  text-align: center;
+}
+
+.add-user form {
+  margin-bottom: 0;
+}
+
+.manage input[type=text] {
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  padding: .5em;
+  border: 1px solid #ccc;
+  margin-bottom: .5em;
+
+}
+
+.manage .add-user input[type=text] {
+  width: 100%;
+}
+
+.manage input[type=submit] {
+  width: 80px;
+  margin-top: 1em;
+  padding: .125em;
+}
+
+.manage input[type=text]:focus,
+.manage input[type=submit]:focus,
+.manage select:focus  {
+  outline: none;
+  border: 1px solid #888;
+}
+
+.manage .left {
+  text-align: left;
+}
+
+.manage select {
+  background: none;
+  border: 1px solid #ccc;
+  font-family: 'Arial';
+  padding: .125em;
+  padding-left: .5em;
+  padding-right: 2em;
+  background-image: url(img/zondicons/cheveron-down.svg);
+  background-repeat: no-repeat;
+  background-position: right center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin-bottom: .5em;
+}
+
+.manage label {
+  font-family: 'Arial';
+  font-size: 14px;
+}
+
+.manage input[type=submit] {
+  background: none;
+  border: 1px solid #ccc;
+}

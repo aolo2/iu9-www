@@ -14,7 +14,7 @@
     <img src="img/zondicons/user.svg" height="13px" id="login-icon-img">
     <a id="login-button">Войти</a>
     <div id="login-dropdown">
-      <form id="login-form" onsubmit="login(this)">
+      <form id="login-form" onsubmit="login(this); return false;">
         <input type="text" placeholder="Логин" required>
         <input type="password" placeholder="Пароль" required>
         <div id="server-message"></div>

@@ -13,6 +13,9 @@ function __addEvent(res, event) {
 
   db.unwindRules(rules, (err, users) => {
 
+    const eventSubjectName = event['subjectName']
+    const eventTypeName = event['typeName']
+
     event.users = users
     delete event['subjectName']
     delete event['participants']
@@ -22,11 +25,16 @@ function __addEvent(res, event) {
       if (err) {
         common.send_error_response(res, err.message)
       } else {
-        db.addEventToUsers(users, result.insertedId, (err) => {
+        db.addEventToUsers(users,
+        {
+          'subject': eventSubjectName,
+          'type': eventTypeName,
+          '_id': result.insertedId
+        }, (err) => {
           if (err) {
             common.send_error_response(res, err.message)
           } else {
-            common.send_json_response(res, {'eventId': result.insertedId})
+            common.send_text_response(res, 200)
           }
         })
       }

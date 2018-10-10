@@ -708,6 +708,7 @@ textarea:focus {
   text-transform: none;
   letter-spacing: 0;
   font-size: 12px;
+  text-align: center;
 }
 
 #login-submit {

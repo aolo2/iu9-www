@@ -7,8 +7,30 @@ function addUser() {
     'last_name': document.getElementById('user-ln').value,
     'first_name': document.getElementById('user-fn').value,
     'login': document.getElementById('user-login').value,
-    'pass': document.getElementById('user-pass').value,
-    'roles': (document.getElementById('user-roles').value === '1' ? ['student'] : ['tutor']),
+    'pass': document.getElementById('user-pass').value
+  }
+
+  switch (document.getElementById('user-roles').value) {
+    case '1':
+    {
+      user.roles = ['tutor']
+      break
+    }
+    case '2':
+    {
+      user.roles = ['student']
+      break
+    }
+    case '3':
+    {
+      user.roles = ['editor']
+      break
+    }
+    case '4':
+    {
+      user.roles = ['admin']
+      break
+    }
   }
 
   if (user.roles.indexOf('student') !== -1) {
@@ -58,6 +80,15 @@ function addStudents() {
   if (!eventGroups.has(studentGroup)) {
     document.getElementById('event-students').innerHTML += (studentGroupName + '<br>')
     eventGroups.add(studentGroup)
+  }
+}
+
+function onUserRoleChange(select) {
+  console.log(select.value)
+  if (select.value === '2') {
+    document.getElementById('user-group').classList.remove('initially-disabled')
+  } else {
+    document.getElementById('user-group').classList.add('initially-disabled')
   }
 }
 
