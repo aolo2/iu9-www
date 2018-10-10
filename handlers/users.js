@@ -35,12 +35,28 @@ function add(req, res) {
 function signup(req, res) {
   const pass = security.saltHashPassword(req.body.pass, config.saltLength)
   const user = {
-    'first_name': req.body.first_name,
-    'last_name': req.body.last_name,
-    'login': req.body.login,
-    'roles': ['user'], // TODO(aolo2): derive from request
+    'first_name': req.body.first_name.trim(),
+    'last_name': req.body.last_name.trim(),
+    'login': req.body.login.trim(),
+    'group': req.body.group,
+    'roles': ['student'],
     'passwordHash': pass.hash,
     'passwordSalt': pass.salt
+  }
+
+  if (user.first_name.length > config.maxFirstnameLength) {
+    common.send_bad_request_response(res, 'first name too long')
+    return
+  }
+
+  if( user.last_name.length > config.maxLastnameLength) {
+    common.send_bad_request_response(res, 'last name too long')
+    return
+  }
+
+  if (user.login.length > config.maxLoginLength) {
+    common.send_bad_request_response(res, 'login too long')
+    return
   }
 
   db.add_user_application(user, (err) => {

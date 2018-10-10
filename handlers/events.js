@@ -67,7 +67,7 @@ function create(req, res) {
       common.send_error_response(res, err.message)
       return
     } else if (!subject) {
-      db.addSubject(req.body.event.subjectName, (err, id) => {
+      db.addEventSubject(req.body.event.subjectName, (err, id) => {
         if (err) {
           common.send_error_response(res, err.message)
         } else {

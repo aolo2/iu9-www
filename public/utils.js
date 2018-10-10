@@ -111,7 +111,9 @@ function addOptionToSelect(select, optionValue, optionHTML) {
 
 function createDiv(classes, id) {
   let appDiv = document.createElement('div')
-  appDiv.id = id
+  if (typeof id !== 'undefined') {
+    appDiv.id = id
+  }
 
   classes.forEach((className) => {
     appDiv.classList.add(className)

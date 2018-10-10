@@ -1,16 +1,10 @@
 function apply_for_registration() {
-  const first_name = document.getElementById('register-firstname').value
-  const last_name = document.getElementById('register-lastname').value
-  const login = document.getElementById('register-login').value
-  const pass = document.getElementById('register-password').value
-  const roles = ['admin']
-
   const data = {
-    'login': login,
-    'pass': pass,
-    'first_name': first_name,
-    'last_name': last_name,
-    'roles': roles
+    'login': document.getElementById('register-login').value.trim(),
+    'pass': document.getElementById('register-password').value,
+    'first_name': document.getElementById('register-firstname').value.trim(),
+    'last_name': document.getElementById('register-lastname').value.trim(),
+    'group': document.getElementById('group-select').value
   }
 
   _request('POST', 'users/signup', {'Content-type': 'application/json'}, data,
@@ -18,7 +12,7 @@ function apply_for_registration() {
       if (status === 200) {
         window.location.href = SERVER
       } else if (status === 400) {
-        document.getElementById('server-message').innerHTML = 'Поля заполнены неверно'
+        document.getElementById('server-message').innerHTML = 'Поля заполнены неверно (' + response + ')'
       } else {
         document.getElementById('server-message').innerHTML = 'Ошибка сервиса регистрации'
       }

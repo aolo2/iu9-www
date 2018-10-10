@@ -5,32 +5,55 @@
   <script type="text/javascript" src="include/showdownjs/showdown.js"></script>
   <script type="text/javascript" src="utils.js"></script>
   <script type="text/javascript" src="signup.js"></script>
-  <link rel="stylesheet" href="default.css">
   <link rel="stylesheet" href="markdown.css">
+  <link rel="stylesheet" href="default.css">
   <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 </head>
 <body>
   <div class="register">
     <form id="register-form" action="#" onsubmit="apply_for_registration()">
       <div class="register-textfield">
-        <label for="register-lastname"><h3>Фамилия</h3></label>
+        <label for="register-lastname">Фамилия</label>
         <input id="register-lastname" placeholder="Иванов" type="text" required>
       </div>
       <div class="register-textfield">
-        <label for="register-firstname"><h3>Имя</h3></label>
+        <label for="register-firstname">Имя</label>
         <input id="register-firstname" placeholder="Иван" type="text" required>
       </div>
       <div class="register-textfield">
-        <label for="register-login"><h3>Логин</h3></label>
+        <label for="register-login">Логин</label>
         <input id="register-login" placeholder="ivanovHacker2001" type="text" required>
       </div>
       <div class="register-textfield">
-        <label for="register-password"><h3>Пароль</h3></label>
+        <label for="register-password">Пароль</label>
         <input id="register-password" type="password" required>
       </div>
-      <input type="submit" value="Оставить заявку">
-    </form>
-  </div>
+      <div class="register-textfield">
+        <label>Группа
+          <select id="group-select">
+           <option value="11">ИУ9-11</option>
+           <option value="12">ИУ9-12</option>
+           <option value="21">ИУ9-21</option>
+           <option value="22">ИУ9-22</option>
+           <option value="31">ИУ9-31</option>
+           <option value="32">ИУ9-32</option>
+           <option value="41">ИУ9-41</option>
+           <option value="42">ИУ9-42</option>
+           <option value="51">ИУ9-51</option>
+           <option value="52">ИУ9-52</option>
+           <option value="61">ИУ9-61</option>
+           <option value="62">ИУ9-62</option>
+           <option value="71">ИУ9-71</option>
+           <option value="72">ИУ9-72</option>
+           <option value="81">ИУ9-81</option>
+           <option value="82">ИУ9-82</option>
+         </select>
+       </label>
+     </div>
+     <input type="submit" value="Оставить заявку">
+     <div id="server-message"></div>
+   </form>
+ </div>
 </div>
 </body>
 </html>

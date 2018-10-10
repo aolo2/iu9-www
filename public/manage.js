@@ -33,12 +33,19 @@ window.addEventListener('load', () => {
 
       apps.forEach((app) => {
         let userAppDiv = createDiv(['user-app'], app._id),
-        userAppDescDiv = createDiv(['user-app-desc'])
+        userAppDescDiv = createDiv(['user-app-desc', 'force-wrap'])
 
-        userAppDescDiv.innerHTML = JSON.stringify(app)
+        userAppDescDiv.innerHTML =  app.last_name + ' ' + app.first_name +
+        '<br>' + 'ИУ9-' + app.group +
+        '<br><i>' + app.login + '</i>'
         userAppDiv.appendChild(userAppDescDiv)
-        userAppDiv.appendChild(createSubmit('Принять', () => { closeApplication(app._id, true) }))
-        userAppDiv.appendChild(createSubmit('Отклонить', () => { closeApplication(app._id, false) }))
+
+        let buttonsDiv = document.createElement('div')
+        _css_set(buttonsDiv, {'text-align': 'right'})
+        buttonsDiv.appendChild(createSubmit('Отклонить', () => { closeApplication(app._id, false) }))
+        buttonsDiv.appendChild(createSubmit('Принять', () => { closeApplication(app._id, true) }))
+        userAppDiv.appendChild(buttonsDiv)
+
         appList.appendChild(userAppDiv)
       })
 

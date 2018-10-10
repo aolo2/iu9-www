@@ -10,5 +10,8 @@
     "directory": "files",
     "maxFileSize": 209715200
   },
+  "maxFirstnameLength": 100,
+  "maxLastnameLength": 100,
+  "maxLoginLength": 36,
   "saltLength": 50
 }

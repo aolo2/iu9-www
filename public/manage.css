@@ -10,8 +10,14 @@
 .applications {
   padding: 1em;
   border: 1px solid #ccc;
-  width: 300px;
+  width: 510px;
   margin-bottom: 2em;
+}
+
+.manage {
+  font-family: 'Arial';
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .manage input[type=text] {
@@ -20,7 +26,6 @@
   padding: .5em;
   border: 1px solid #ccc;
   margin-bottom: .5em;
-
 }
 
 .manage .add-user input[type=text] {
@@ -33,15 +38,51 @@
   padding: .125em;
 }
 
-.manage input[type=text]:focus,
-.manage input[type=submit]:focus,
-.manage select:focus  {
-  outline: none;
-  border: 1px solid #888;
+.manage input[type=submit]:hover {
+  background: #eee;
+  cursor: pointer;
 }
 
 .manage .left {
   text-align: left;
+}
+
+.manage input[type=submit] {
+  background: none;
+  border: 1px solid #ccc;
+}
+
+.manage #no-apps-message {
+  width: 100%;
+  text-align: center;
+}
+
+.manage .user-app {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  padding: 1em;
+  border-top: 1px solid #ccc;
+}
+
+.manage .user-app:last-child {
+  border-bottom: 1px solid #ccc;
+}
+
+.manage .user-app .user-app-desc {
+  max-width: 300px
+}
+
+.manage .user-app input[type=submit] {
+  margin-top: 0;
+  margin-right: .5em;
+}
+
+.manage input[type=text]:focus,
+.manage input[type=password]:focus,
+.manage input[type=submit]:focus,
+.manage select:focus {
+  outline: none;
+  border: 1px solid #888;
 }
 
 .manage select {
@@ -61,17 +102,6 @@
   margin-bottom: .5em;
 }
 
-.manage label {
-  font-family: 'Arial';
-  font-size: 14px;
-}
-
-.manage input[type=submit] {
-  background: none;
-  border: 1px solid #ccc;
-}
-
-.manage #no-apps-message {
-  width: 100%;
-  text-align: center;
+.force-wrap {
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
