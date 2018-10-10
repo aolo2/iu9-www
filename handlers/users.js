@@ -113,7 +113,20 @@ function approve_application(req, res) {
     } else if (req.body.approve) {
       db.addUser(result.value, (err) => {
         if (err) {
-          common.send_error_response(res, err.message)
+
+          if (err.code === 11000) {
+            err.message = 'user exists'
+          }
+
+          db.add_user_application(result.value, (errReadd) => {
+            if (errReadd) {
+              common.send_error_response(res, err.message + ' AND ' + errReadd.meessage)
+            } else {
+              common.send_error_response(res, err.message)
+            }
+          })
+
+
         } else {
           common.send_text_response(res, 200)
         }

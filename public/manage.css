@@ -70,3 +70,8 @@
   background: none;
   border: 1px solid #ccc;
 }
+
+.manage #no-apps-message {
+  width: 100%;
+  text-align: center;
+}
