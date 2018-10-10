@@ -955,7 +955,6 @@ textarea:focus {
 
 #manage-page {
   margin-top: 2em;
-  border: 1px solid #888;
 }
 
 select {
@@ -981,6 +980,10 @@ input[type=submit]:focus,
 select:focus {
   outline: none;
   border: 1px solid #888;
+}
+
+#my-events {
+  margin-top: 2em;
 }
 
 .unselectable {

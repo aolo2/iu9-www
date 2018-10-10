@@ -87,7 +87,7 @@
 }
 
 .manage input[type=file] {
-  max-width: 230px;
+  max-width: 200px;
 }
 
 .manage input[type=file]:focus,
@@ -168,7 +168,12 @@
 }
 
 .manage #event-participants {
-  left: -2em;
+  left: 0;
+}
+
+.manage #event-participants li:hover {
+  text-decoration: line-through;
+  cursor: pointer;
 }
 
 .manage .create-event input[type=checkbox] {
@@ -179,6 +184,11 @@
 .manage #event-attachments {
   font-family: 'Ubuntu Mono', monospace;
   margin-bottom: .5em;
+}
+
+.manage ol li {
+  margin-left: 1.8em;
+  padding: 0;
 }
 
 .center {

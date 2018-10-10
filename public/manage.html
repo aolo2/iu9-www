@@ -5,8 +5,14 @@
   <script type="text/javascript" src="include/showdownjs/showdown.js"></script>
   <script type="text/javascript" src="utils.js"></script>
   <script type="text/javascript" src="view.js"></script>
+  <script type="text/javascript" src="upload.js"></script>
+  <script type="text/javascript" src="event.js"></script>
+  <script type="text/javascript" src="manage.js"></script>
   <link rel="stylesheet" href="default.css">
   <link rel="stylesheet" href="markdown.css">
+  <link rel="stylesheet" href="chat.css">
+  <link rel="stylesheet" href="manage.css">
+  <link rel="stylesheet" href="event.css">
   <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 </head>
 <body>
@@ -19,10 +25,125 @@
       <div class="super-title manage">
         <h1>Управление</h1>
       </div>
-      <div id="manage-page">
-        <h2>Заявки</h2>
-        <h2>Пользователи</h2>
-        <h2>События</h2>
+      <div id="manage-page" class="markdown manage">
+
+
+        <div class="create-event">
+          <div class="span3 underline">
+            <h2>Создать событие</h2>
+            <input type="text" id="event-name" placeholder="Название">
+          </div>
+
+          <div class="create-event-cell">
+            <h3>Описание</h3>
+
+            <div class="event-setting">
+              <label>
+                Тип
+                <select id="event-type" onchange="subjectChange(this, 'custom-type')">
+                </select>
+              </label>
+              <input type="text" id="custom-type" class="initially-disabled">
+              <label>
+                Предмет
+                <select id="event-subject" onchange="subjectChange(this, 'custom-subject')">
+                </select>
+              </label>
+              <input type="text" id="custom-subject" class="initially-disabled">
+              <label>
+                Дата проведения
+                <input type="date" id="event-date">
+              </label>
+            </div>
+          </div>
+
+
+
+          <div  class="create-event-cell">
+            <label>
+              <h3>Участники</h3>
+              <ol id="event-participants"></ol>
+
+
+              <div class="event-setting">
+                <form onsubmit="addParticipants('tutor'); return false;">
+                  <select id="tutors-select">
+                  </select>
+                  <input type="submit" value="Добавить">
+                </form>
+                <form onsubmit="addParticipants('student'); return false;">
+                  <select id="students-select">
+                  </select>
+                  <input type="submit" value="Добавить">
+                </form>
+              </div>
+            </label>
+          </div>
+
+          <div  class="create-event-cell">
+            <h3>Приложения</h3>
+            <div class="event-setting">
+              <div id="event-attachments"></div>
+              <form onsubmit="uploadFile(this, addAttachment); return false">
+                <input type="file">
+                <input type="submit" value="Добавить">
+              </form>
+            </div>
+          </div>
+
+          <div class="span3 center top-margin">
+            <input type="submit" onclick="addEvent()" value="Создать">
+          </div>
+        </div>
+
+        <div class="add-user">
+          <h2>Добавить пользователя</h2>
+          <form onsubmit="addUser(); return false">
+            <input type="text" id="user-fn" placeholder="Фамилия" required><br>
+            <input type="text" id="user-ln" placeholder="Имя" required><br>
+            <input type="text" id="user-login" placeholder="Логин" required><br>
+            <input type="text" id="user-pass" placeholder="Пароль" required><br>
+            <div class="left">
+              <select id="user-roles" onchange="onUserRoleChange(this)">
+                <option value="1">Преподаватель</option>
+                <option value="2">Студент</option>
+                <option value="3">Редактор</option>
+                <option value="4">Администратор</option>
+              </select>
+              <select id="user-group" class="initially-disabled">
+                <option value="11">ИУ9-11</option>
+                <option value="12">ИУ9-12</option>
+                <option value="21">ИУ9-21</option>
+                <option value="22">ИУ9-22</option>
+                <option value="31">ИУ9-31</option>
+                <option value="32">ИУ9-32</option>
+                <option value="41">ИУ9-41</option>
+                <option value="42">ИУ9-42</option>
+                <option value="51">ИУ9-51</option>
+                <option value="52">ИУ9-52</option>
+                <option value="61">ИУ9-61</option>
+                <option value="62">ИУ9-62</option>
+                <option value="71">ИУ9-71</option>
+                <option value="72">ИУ9-72</option>
+                <option value="81">ИУ9-81</option>
+                <option value="82">ИУ9-82</option>
+              </select>
+            </div>
+            <div style="width: 100%; text-align: center;">
+              <input type="submit" value="Добавить">
+            </div>
+          </form>
+        </div>
+
+        <div class="applications">
+          <h2>Заявки на регистрацию</h2>
+          <div id="no-apps-message" class="initially-disabled">
+            Заявок нет
+          </div>
+          <div id="app-list">
+          </div>
+        </div>
+
       </div>
     </div>
     <div><!-- pad --></div>

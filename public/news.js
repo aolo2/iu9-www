@@ -122,6 +122,13 @@ function gen_delete_button(article_id) {
   return ''
 }
 
+function addEventLink(parent, event) {
+  let eventElement = document.createElement('div')
+  eventElement.innerHTML = '<a href="event.html?id=' + event._id + '">' +
+  event.subject +  ' - ' + event.type + '</a>'
+  parent.appendChild(eventElement)
+}
+
 window.addEventListener('load', () => {
   _request('GET', 'news/public', null, null,
     (status, response) => {
@@ -147,10 +154,31 @@ window.addEventListener('load', () => {
       }
     })
 
-  let textarea_header = document.getElementById('textarea-header')
-  let textarea_body = document.getElementById('textarea-body')
-  let is_public_checkbox = document.getElementById('is-public')
-  let news_publish_gui = document.getElementById('news-publish-gui')
+  _request('GET', 'users/events', null, null, (status, response) => {
+    if (status === 200) {
+      const events = JSON.parse(response).events
+      let myEvents = document.getElementById('my-events')
+
+      events.forEach((event) => {
+        addEventLink(myEvents, event)
+      })
+
+      if (events.length > 0) {
+        myEvents.classList.remove('initially-disabled')
+      }
+    } else {
+      // TODO(aolo2): error handling
+    }
+  })
+
+  if (_logged_in_as('admin') || _logged_in_as('editor')) {
+    document.getElementById('news-gui').classList.remove('initially-disabled')
+  }
+
+  // let textarea_header = document.getElementById('textarea-header')
+  // let textarea_body = document.getElementById('textarea-body')
+  // let is_public_checkbox = document.getElementById('is-public')
+  // let news_publish_gui = document.getElementById('news-publish-gui')
 /*
   textarea_header.addEventListener('input', () => {
     update_submit_button_action(textarea_header.value.length > 0 && textarea_body.value.length > 0)

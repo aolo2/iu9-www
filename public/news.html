@@ -22,7 +22,7 @@
         <h1 style="margin-top: 22px">Новости</h1>
       </div>
       <!-- <img id="show-hide-newsform" src="img/zondicons/compose.svg" height="20"> -->
-      <div class="news-gui">
+      <div id="news-gui" class="news-gui initially-disabled">
         <input type="text" class="news-header" placeholder="Заголовок">
         <div class="news-text">
           <textarea placeholder="Текст новости"></textarea>
@@ -36,6 +36,9 @@
           </select>
           <input type="submit" value="Отправить">
         </div>
+      </div>
+      <div id="my-events" class="initially-disabled">
+        <h2>События</h2>
       </div>
       <div id="newsfeed"></div>
       <!-- <div class="page-list">

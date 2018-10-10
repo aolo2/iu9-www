@@ -1,7 +1,13 @@
-.event,
 .add-user,
-.create-event {
+.create-event
+{
+  margin-bottom: 2em;
+}
+
+.create-event,
+.applications,
+.add-user
+ {
   padding: 1em;
   border: 1px solid #ccc;
-  margin-bottom: 2em;
 }

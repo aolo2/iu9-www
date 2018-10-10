@@ -61,6 +61,12 @@ function addAttachment(status, info) {
   }
 }
 
+function deleteParticipant(login) {
+  eventTutors.delete(login)
+  eventGroups.delete(login)
+  document.getElementById('event-participants').removeChild(document.getElementById(login))
+}
+
 function addParticipants(role) {
   let selectNode = null
   let set = null
@@ -78,6 +84,10 @@ function addParticipants(role) {
   if (!set.has(login)) {
    let list = document.getElementById('event-participants')
    let entry = document.createElement('li')
+
+   entry.id = login
+   entry.onclick = () => { deleteParticipant(login) }
+
    entry.appendChild(document.createTextNode(fullName))
    list.appendChild(entry)
    set.add(login)
@@ -101,7 +111,6 @@ function addEvent() {
     'title': document.getElementById('event-name').value,
     'date': document.getElementById('event-date').valueAsDate,
     'files': filesInfo,
-    'notify': document.getElementById('notify').checked,
     'participants': {'tutors': [], 'students': []}
   }
 
@@ -190,15 +199,6 @@ window.addEventListener('load', () => {
       })
       addOptionToSelect('event-type', 0, 'Другой')
       subjectChange(document.getElementById('event-type'), 'custom-type')
-    } else {
-      // TODO(aolo2): error handling
-    }
-  })
-
-  _request('GET', 'users/events', null, null, (status, response) => {
-    if (status === 200) {
-      const data = JSON.parse(response)
-      console.log(data)
     } else {
       // TODO(aolo2): error handling
     }
