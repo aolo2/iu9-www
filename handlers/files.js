@@ -19,14 +19,7 @@ function upload(req, res) {
       Object.keys(files).forEach((key) => {
         fileInfo.push({'name': files[key].name, 'path': files[key].path})
       })
-
-      db.saveFilenames(fileInfo, (errDb) => {
-        if (errDb) {
-            common.send_error_response(res, errDb.message)
-          } else {
-            common.send_json_response(res, fileInfo)
-          }
-      })
+      common.send_json_response(res, fileInfo)
     }
   })
 }

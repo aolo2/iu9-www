@@ -1,5 +1,5 @@
 .add-user {
-  width: 225px;
+  width: 250px;
 }
 
 .add-user form {
@@ -97,6 +97,8 @@
 
 .manage input[type=date] {
   font-family: 'Arial';
+  padding: .125em;
+  padding-left: .5em;
 }
 
 .manage select {

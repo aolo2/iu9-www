@@ -23,18 +23,36 @@
       </div>
       <!-- <img id="show-hide-newsform" src="img/zondicons/compose.svg" height="20"> -->
       <div id="news-gui" class="news-gui initially-disabled">
-        <input type="text" class="news-header" placeholder="Заголовок">
-        <div class="news-text">
-          <textarea placeholder="Текст новости"></textarea>
+        <input type="text" class="news-header" id="article-header" placeholder="Заголовок">
+        <div class="news-text" >
+          <textarea placeholder="Текст новости" id="article-body"></textarea>
         </div>
         <div class="send-gui">
           Кто увидит эту новость:
-          <select>
-            <option>преподаватели</option>
-            <option>студенты</option>
-            <option>все</option>
+          <select onchange="onTargetChange()" id="target-audience">
+            <option value="1">все</option>
+            <option value="2">студенты</option>
+            <option value="3">преподаватели</option>
           </select>
-          <input type="submit" value="Отправить">
+          <select id="user-group" class="initially-disabled">
+            <option value="11">ИУ9-11</option>
+            <option value="12">ИУ9-12</option>
+            <option value="21">ИУ9-21</option>
+            <option value="22">ИУ9-22</option>
+            <option value="31">ИУ9-31</option>
+            <option value="32">ИУ9-32</option>
+            <option value="41">ИУ9-41</option>
+            <option value="42">ИУ9-42</option>
+            <option value="51">ИУ9-51</option>
+            <option value="52">ИУ9-52</option>
+            <option value="61">ИУ9-61</option>
+            <option value="62">ИУ9-62</option>
+            <option value="71">ИУ9-71</option>
+            <option value="72">ИУ9-72</option>
+            <option value="81">ИУ9-81</option>
+            <option value="82">ИУ9-82</option>
+          </select>
+          <input type="submit" value="Отправить" id="submit-news" class="inactive">
         </div>
       </div>
       <div id="my-events" class="initially-disabled">

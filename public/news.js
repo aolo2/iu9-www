@@ -11,46 +11,49 @@ function get_article_source(article_id, callback) {
     })
 }
 
-function submit_news() {
-  const header = document.getElementById('textarea-header').value
-  const body = document.getElementById('textarea-body').value
-  const is_public = document.getElementById('is-public').checked
-
+function submitArticle() {
   let data = {
-    'header': header,
-    'source': body,
-    'public': is_public
+    'header': document.getElementById('article-header').value.trim(),
+    'body': document.getElementById('article-body').value.trim()
   }
 
-  if (current_edit_id)
-    data.article_id = current_edit_id
+  if (data.header.length === 0 || data.body.length === 0) {
+    return
+  }
+
+  let target = document.getElementById('target-audience').value
+
+  if (target === '1') {
+    data.target = 'public'
+  } else if (target === '3') {
+    data.target = 'tutors'
+  } else {
+    data.target = 'students'
+    data.studentGroup = document.getElementById('user-group').value
+  }
 
   _request('POST', 'news', {'Content-type': 'application/json'}, data,
     (status, text) => {
       if (status === 200) {
         location.reload()
+      } else if (status === 400) {
+
       } else {
         // TODO(aolo2): error, parse
       }
     })
-
-  current_edit_id = null
 }
 
-function update_submit_button_action(available) {
-  let submit_button = document.getElementById('submit-news')
-  let submit_news_icon = document.getElementById('submit-news-icon')
-
-  if (available) {
-    submit_button.style.color = '#222222'
-    submit_button.style.cursor = 'pointer'
-    submit_news_icon.src = 'img/zondicons/send222.svg'
-    submit_button.onclick = submit_news
+function updateSubmitStatus(headerText, bodyText) {
+  let sButton = document.getElementById('submit-news')
+  if (headerText.trim().length > 0 && bodyText.trim().length > 0) {
+    sButton.classList.remove('inactive')
+    sButton.classList.add('active')
+    sButton.onclick = submitArticle
   } else {
-    submit_button.style.color = '#888888'
-    submit_button.style.cursor = 'default'
-    submit_news_icon.src = 'img/zondicons/sendAAA.svg'
-    submit_button.onclick = () => {}
+    sButton.classList.remove('active')
+    sButton.classList.add('inactive')
+    sButton.onclick = null
   }
 }
 
@@ -122,6 +125,17 @@ function gen_delete_button(article_id) {
   return ''
 }
 
+function onTargetChange() {
+  let val = document.getElementById('target-audience').value
+  let groupSelectClasses = document.getElementById('user-group').classList
+  console.log(val)
+  if (val === '2') {
+    groupSelectClasses.remove('initially-disabled')
+  } else {
+    groupSelectClasses.add('initially-disabled')
+  }
+}
+
 function addEventLink(parent, event) {
   let eventElement = document.createElement('div')
   eventElement.innerHTML = '<a href="event.html?id=' + event._id + '">' +
@@ -175,18 +189,17 @@ window.addEventListener('load', () => {
     document.getElementById('news-gui').classList.remove('initially-disabled')
   }
 
-  // let textarea_header = document.getElementById('textarea-header')
-  // let textarea_body = document.getElementById('textarea-body')
-  // let is_public_checkbox = document.getElementById('is-public')
-  // let news_publish_gui = document.getElementById('news-publish-gui')
-/*
-  textarea_header.addEventListener('input', () => {
-    update_submit_button_action(textarea_header.value.length > 0 && textarea_body.value.length > 0)
+
+  let aHeader = document.getElementById('article-header')
+  let aBody = document.getElementById('article-body')
+
+  aHeader.addEventListener('input', () => {
+    updateSubmitStatus(aHeader.value, aBody.value)
   })
 
-  textarea_body.addEventListener('input', () => {
-    update_submit_button_action(textarea_header.value.length > 0 && textarea_body.value.length > 0)
-  })*/
+  aBody.addEventListener('input', () => {
+    updateSubmitStatus(aHeader.value, aBody.value)
+  })
 
   // is_public_checkbox.onclick = handle_ispublic_checkbox
 })
