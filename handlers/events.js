@@ -47,8 +47,8 @@ function _addEvent(res, event) {
     if (err) {
       common.send_error_response(res, err.message)
     } else if (!type) {
+      event.type = event.typeName
       db.addEventType(event.typeName, (err, typeId) => {
-        event.type = typeId
         if (err) {
           common.send_error_response(res, err.message)
         } else {
@@ -56,6 +56,7 @@ function _addEvent(res, event) {
         }
       })
     } else {
+      event.type = event.typeName
       __addEvent(res, event)
     }
   })
@@ -65,17 +66,17 @@ function create(req, res) {
   db.getEventSubject(req.body.event.subject, (err, subject) => {
     if (err) {
       common.send_error_response(res, err.message)
-      return
     } else if (!subject) {
+      req.body.event.subject = req.body.event.subjectName
       db.addEventSubject(req.body.event.subjectName, (err, id) => {
         if (err) {
           common.send_error_response(res, err.message)
         } else {
-          req.body.event.subject = id
           _addEvent(res, req.body.event)
         }
       })
     } else {
+      req.body.event.subject = req.body.event.subjectName
       _addEvent(res, req.body.event)
     }
   })
@@ -111,9 +112,20 @@ function edit_event(req, res) {
   common.send_text_response(res, 200)
 }
 
-function delete_event(req, res) {
-  // just changes status = canceled
-  common.send_text_response(res, 200)
+function finishEvent(req, res) {
+  db.finishEvent(req.body.eventId, (err) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else {
+      db.removeEventFromUsers(req.body.eventId, (err) => {
+        if (err) {
+          common.send_error_response(res, err.message)
+        } else {
+          common.send_text_response(res, 200)
+        }
+      })
+    }
+  })
 }
 
 function getEvent(req, res) {
@@ -131,7 +143,7 @@ function getEvent(req, res) {
 module.exports.create = create
 module.exports.start_event = start_event
 module.exports.edit_event = edit_event
-module.exports.delete_event = delete_event
+module.exports.finishEvent = finishEvent
 module.exports.getEvent = getEvent
 module.exports.getSubjects = getSubjects
 module.exports.getTypes = getTypes

@@ -39,11 +39,11 @@ router_auth.post('/news', news.post_article) // NOTE(aolo2, important): unsaniti
 router_auth.delete('/news', news.delete_article)
 
 /* События */
-router_auth.post('/events/create', events.create)
-router_auth.post('/events/start', events.start_event)
-router_auth.patch('/events', events.edit_event)
-router_auth.delete('/events', events.delete_event)
-router_auth.get('/events', events.getEvent)
+router_auth.post('/event/create', events.create)
+// router_auth.post('/event/start', events.start_event)
+// router_auth.patch('/event', events.edit_event)
+router_auth.delete('/event', events.finishEvent)
+router_auth.get('/event', events.getEvent)
 router_auth.get('/events/subjects', events.getSubjects)
 router_auth.get('/events/types', events.getTypes)
 

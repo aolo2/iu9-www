@@ -5,10 +5,13 @@
   <script type="text/javascript" src="include/showdownjs/showdown.js"></script>
   <script type="text/javascript" src="utils.js"></script>
   <script type="text/javascript" src="view.js"></script>
-  <script type="text/javascript" src="ws.js"></script>
+  <!-- <script type="text/javascript" src="ws.js"></script> -->
+  <script type="text/javascript" src="eventView.js"></script>
   <script type="text/javascript" src="show.js"></script>
   <link rel="stylesheet" href="default.css">
   <link rel="stylesheet" href="markdown.css">
+  <link rel="stylesheet" href="chat.css">
+  <link rel="stylesheet" href="event.css">
   <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 </head>
 <body>
@@ -18,7 +21,30 @@
     <div><!-- title pad right --></div>
     <div><!-- pad --></div>
     <div class="page markdown" style="margin-top: 2em">
-      <h2>Лабораторная работа</h2>
+      <div class="event">
+        <h2 id="event-type"></h2>
+        <div style="width: 100%" class="right"><a id="finish-event" href="/" onclick="return finishEvent()" class="initially-hidden">завершить событие</a></div>
+        <div class="event-description">
+          <div>Предмет: <span id="event-subject"></span></div>
+          <div>Дата и время: <span id="event-date"></span></div>
+          <div class="event-filelist">
+            Материалы <div id="event-files"></div>
+          </div>
+          <!-- Статус: происходит в настоящий момент<br> -->
+        </div>
+
+        <div class="event-chat">
+          <div class="chat">
+            <div class="message-history" id="history"></div>
+            <div class="message-ui">
+              <input type="text" class="message-box" id="input">
+              <div class="send-message" onclick="sendMessage(this.parentNode)">
+                <img src="img/zondicons/send.svg">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div><!-- pad --></div>
     <div><!-- footer pad left --></div>

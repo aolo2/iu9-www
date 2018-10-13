@@ -91,9 +91,9 @@ function onTargetChange() {
   }
 }
 
-function addEventLink(parent, event) {
+function addEventLink(parent, event, id) {
   let eventElement = document.createElement('div')
-  eventElement.innerHTML = '<a href="event.html?id=' + event._id + '">' +
+  eventElement.innerHTML = '<a href="event.html?id=' + id + '">' +
   event.subject +  ' - ' + event.type + '</a>'
   parent.appendChild(eventElement)
 }
@@ -152,11 +152,11 @@ function loadEvents() {
       const events = JSON.parse(response).events
       let myEvents = gelid('my-events')
 
-      events.forEach((event) => {
-        addEventLink(myEvents, event)
+      Object.keys(events).forEach((eventId) => {
+        addEventLink(myEvents, events[eventId], eventId)
       })
 
-      if (events.length > 0) {
+      if (Object.keys(events).length > 0) {
         myEvents.classList.remove('initially-disabled')
       }
     } else {

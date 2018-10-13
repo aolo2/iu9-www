@@ -16,7 +16,7 @@ function getAbsoluteHeight(element) {
 }
 
 function addOneMessage(text, user) {
-  let history = document.getElementById('history'),
+  let history = gelid('history'),
   scrolled = Math.abs(history.scrollTop - (history.scrollHeight - history.offsetHeight)) < 5
   history.innerHTML += (messagePrefix + user + '</em>: ' + text + messagePostfix)
 
@@ -70,7 +70,7 @@ socket.onmessage = (event) => {
 }
 
 window.addEventListener('load', () => {
-  let input = document.getElementById('input')
+  let input = gelid('ws-input')
   input.addEventListener("keyup", function(event) {
     if (event.key === "Enter") {
       sendMessage(input.parentNode)

@@ -76,10 +76,16 @@
   border: 1px solid #ccc;
 }
 
+.manage input[type=date],
+.manage input[type=time] {
+  margin-top: .5em;
+}
+
 .manage input[type=text]:focus,
 .manage input[type=password]:focus,
 .manage input[type=submit]:focus,
 .manage input[type=date]:focus,
+.manage input[type=time]:focus,
 .manage input[type=file]:focus,
 .manage select:focus {
   outline: none;
@@ -99,6 +105,7 @@
   font-family: 'Arial';
   padding: .125em;
   padding-left: .5em;
+  width: 135px;
 }
 
 .manage select {
@@ -195,4 +202,18 @@
 
 .center {
   text-align: center;
+}
+
+.manage .add-user,
+.manage .create-event
+{
+  margin-bottom: 2em;
+}
+
+.manage .create-event,
+.manage .applications,
+.manage .add-user
+{
+  padding: 1em;
+  border: 1px solid #ccc;
 }

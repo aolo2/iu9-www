@@ -4,13 +4,13 @@ let eventGroups = new Set()
 
 function addUser() {
   let user = {
-    'last_name': document.getElementById('user-ln').value,
-    'first_name': document.getElementById('user-fn').value,
-    'login': document.getElementById('user-login').value,
-    'pass': document.getElementById('user-pass').value
+    'last_name': gelid('user-ln').value,
+    'first_name': gelid('user-fn').value,
+    'login': gelid('user-login').value,
+    'pass': gelid('user-pass').value
   }
 
-  switch (document.getElementById('user-roles').value) {
+  switch (gelid('user-roles').value) {
     case '1':
     {
       user.roles = ['tutor']
@@ -34,15 +34,15 @@ function addUser() {
   }
 
   if (user.roles.indexOf('student') !== -1) {
-    user.group = document.getElementById('user-group').value
+    user.group = gelid('user-group').value
   }
 
   _request('POST', 'users/add', {'Content-type': 'application/json'}, user, (status, response) => {
     if (status === 200) {
-      document.getElementById('user-fn').value = ''
-      document.getElementById('user-ln').value = ''
-      document.getElementById('user-login').value = ''
-      document.getElementById('user-pass').value = ''
+      gelid('user-fn').value = ''
+      gelid('user-ln').value = ''
+      gelid('user-login').value = ''
+      gelid('user-pass').value = ''
     } else {
       // TODO(aolo2): error handling
     }
@@ -51,7 +51,7 @@ function addUser() {
 
 function addAttachment(status, info) {
   if (status === 200) {
-    let attachments = document.getElementById('event-attachments')
+    let attachments = gelid('event-attachments')
     for (let i = 0; i < info.length; i++) {
       attachments.innerHTML = '<a href="' + info[i].path + '">' + info[i].name + '</a><br>' + attachments.innerHTML
       filesInfo[info[i].name] = info[i].path
@@ -64,17 +64,17 @@ function addAttachment(status, info) {
 function deleteParticipant(login) {
   eventTutors.delete(login)
   eventGroups.delete(login)
-  document.getElementById('event-participants').removeChild(document.getElementById(login))
+  gelid('event-participants').removeChild(gelid(login))
 }
 
 function addParticipants(role) {
   let selectNode = null
   let set = null
   if (role === 'student') {
-    selectNode = document.getElementById('students-select')
+    selectNode = gelid('students-select')
     set = eventGroups
   } else if (role === 'tutor') {
-    selectNode = document.getElementById('tutors-select')
+    selectNode = gelid('tutors-select')
     set = eventTutors
   }
 
@@ -82,7 +82,7 @@ function addParticipants(role) {
   const fullName = selectNode.options[selectNode.selectedIndex].text
 
   if (!set.has(login)) {
-   let list = document.getElementById('event-participants')
+   let list = gelid('event-participants')
    let entry = document.createElement('li')
 
    entry.id = login
@@ -97,19 +97,19 @@ function addParticipants(role) {
 function onUserRoleChange(select) {
   console.log(select.value)
   if (select.value === '2') {
-    document.getElementById('user-group').classList.remove('initially-disabled')
+    gelid('user-group').classList.remove('initially-disabled')
   } else {
-    document.getElementById('user-group').classList.add('initially-disabled')
+    gelid('user-group').classList.add('initially-disabled')
   }
 }
 
 function addEvent() {
   let event = {
-    'type': document.getElementById('event-type').value,
-    // 'number': document.getElementById('lab-number').value,
-    'subject': document.getElementById('event-subject').value,
-    'title': document.getElementById('event-name').value,
-    'date': document.getElementById('event-date').valueAsDate,
+    'type': gelid('event-type').value,
+    // 'number': gelid('lab-number').value,
+    'subject': gelid('event-subject').value,
+    'title': gelid('event-name').value,
+    'datetime': new Date(gelid('event-date').value + 'T' + gelid('event-time').value + ':00'),
     'files': filesInfo,
     'participants': {'tutors': [], 'students': []}
   }
@@ -123,20 +123,20 @@ function addEvent() {
   })
 
   if (event.subject === '0') {
-    event.subjectName = document.getElementById('custom-subject').value
+    event.subjectName = gelid('custom-subject').value
   } else {
-    const eventSelect = document.getElementById('event-subject')
+    const eventSelect = gelid('event-subject')
     event.subjectName = eventSelect.options[eventSelect.selectedIndex].text
   }
 
   if (event.type === '0') {
-    event.typeName = document.getElementById('custom-type').value
+    event.typeName = gelid('custom-type').value
   } else {
-    const eventSelect = document.getElementById('event-type')
+    const eventSelect = gelid('event-type')
     event.typeName = eventSelect.options[eventSelect.selectedIndex].text
   }
 
-  _request('POST', 'events/create', {'Content-type': 'application/json'}, {'event': event}, (status, response) => {
+  _request('POST', 'event/create', {'Content-type': 'application/json'}, {'event': event}, (status, response) => {
     if (status === 200) {
       location.reload()
     } else {
@@ -147,9 +147,9 @@ function addEvent() {
 
 function subjectChange(select, inputId) {
   if (select.value === '0') {
-    document.getElementById(inputId).classList.remove('initially-disabled')
+    gelid(inputId).classList.remove('initially-disabled')
   } else {
-    document.getElementById(inputId).classList.add('initially-disabled')
+    gelid(inputId).classList.add('initially-disabled')
   }
 }
 
@@ -185,7 +185,7 @@ window.addEventListener('load', () => {
         addOptionToSelect('event-subject', subject.id, subject.name)
       })
       addOptionToSelect('event-subject', 0, 'Другой')
-      subjectChange(document.getElementById('event-subject'), 'custom-subject')
+      subjectChange(gelid('event-subject'), 'custom-subject')
     } else {
       // TODO(aolo2): error handling
     }
@@ -198,7 +198,7 @@ window.addEventListener('load', () => {
         addOptionToSelect('event-type', type.id, type.name)
       })
       addOptionToSelect('event-type', 0, 'Другой')
-      subjectChange(document.getElementById('event-type'), 'custom-type')
+      subjectChange(gelid('event-type'), 'custom-type')
     } else {
       // TODO(aolo2): error handling
     }
