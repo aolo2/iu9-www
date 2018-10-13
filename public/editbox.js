@@ -152,20 +152,18 @@ function htmlToElement(html) {
   return template.content.firstChild
 }
 
-window.addEventListener('load', () => {
-  EditBox.converter.setOption('noHeaderId', true)
+function loadEditboxes() {
+ let boxes = document.getElementsByClassName('editbox')
+ Array.prototype.forEach.call(boxes, (box) => {
+  box.appendChild(htmlToElement(UI_HTML))
+  box.appendChild(htmlToElement(MARDKOWN_HTML))
+  box.appendChild(htmlToElement(AREA_HTML))
+  box.appendChild(htmlToElement(LOADING_HTML))
 
-  let boxes = document.getElementsByClassName('editbox')
-  Array.prototype.forEach.call(boxes, (box) => {
-    box.appendChild(htmlToElement(UI_HTML))
-    box.appendChild(htmlToElement(MARDKOWN_HTML))
-    box.appendChild(htmlToElement(AREA_HTML))
-    box.appendChild(htmlToElement(LOADING_HTML))
-
-    let ui = box.children[0],
-    md = box.children[1],
-    area = box.children[2],
-    loading = box.children[3]
+  let ui = box.children[0],
+  md = box.children[1],
+  area = box.children[2],
+  loading = box.children[3]
 
     // NOTE(aolo2): hide md untill loaded
     md.classList.add('initially-disabled')
@@ -183,4 +181,9 @@ window.addEventListener('load', () => {
       }
     })
   })
+}
+
+window.addEventListener('load', () => {
+  EditBox.converter.setOption('noHeaderId', true)
+  loadEditboxes()
 })

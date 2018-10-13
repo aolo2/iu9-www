@@ -9,7 +9,6 @@ function get_news(req, res) {
     if (err) {
       common.send_error_response(res, err.message)
     } else {
-      news.forEach((article) => { article.html = marked(article.markdown) })
       common.send_json_response(res, news)
     }
   })
@@ -40,43 +39,33 @@ function post_article(req, res) {
     return
   }
 
-  if ('article_id' in req.body) {
-    /* Edit article */
-    let article = {
-      'markdown': req.body.source,
-      'header': req.body.header
-    }
-
-    if ('author' in req.body)
-      article.author = req.body.author
-    if ('public' in req.body)
-      article.public = req.body.public
-
-    db.update_article(req.body.article_id, article, (err) => {
-      if (err) {
-        common.send_error_response(res, err.message)
-      } else {
-        common.send_text_response(res, 200)
-      }
-    })
-  } else {
-    /* Submit article */
-    const article = {
-      'markdown': req.body.source,
-      'header': req.body.header,
-      'timestamp': new Date(),
-      'author': req.user_db.login,
-      'public': req.body.public
-    }
-
-    db.post_news_article(article, (err) => {
-      if (err) {
-        common.send_error_response(res, err.message)
-      } else {
-        common.send_text_response(res, 200)
-      }
-    })
+  /* Submit article */
+  const article = {
+    'header': req.body.header,
+    'timestamp': new Date(),
+    'author': req.user_db.login,
+    'public': req.body.public,
+    'target': req.body.target
   }
+
+  if (article.target === 'student') {
+    article.target = {'role': 'student', 'group': req.body.studentGroup}
+  }
+
+  db.addEditbox(req.body.source, (err, boxId) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else {
+      article.boxId = boxId
+      db.post_news_article(article, (err) => {
+        if (err) {
+          common.send_error_response(res, err.message)
+        } else {
+          common.send_text_response(res, 200)
+        }
+      })
+    }
+  })
 }
 
 function edit_article(req, res) {
