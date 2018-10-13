@@ -2,18 +2,18 @@
   <div><span><a href="index.html">Главная</a></span></div>
   <div><span><a href="science.html">Наука</a></span></div>
   <div><span><a href="news.html">Новости</a></span></div>
-  <div><span><a id="prom">Абитуриенту<img src="img/zondicons/cheveron-down.svg" height="14px"></a></span>
-    <div id="prom-dropdown">
+  <div><span onclick="toggleDropdown('prom-dropdown', true, 'login-dropdown')"><a id="prom" href="" onclick="return false;">Абитуриенту<img src="img/zondicons/cheveron-down.svg" height="14px"></a></span>
+    <div id="prom-dropdown" class="initially-disabled">
       <a href="enroll.html"><div>Поступление</div></a>
       <a href="work.html"><div>Наши выпускники</div></a>
       <a href="plan.html"><div>Учебный план</div></a>
     </div>
   </div>
-  <div><span><a href="manage.html">Управление</a></span></div>
+  <div id="manage-link" class="initially-hidden"><span><a href="manage.html">Управление</a></span></div>
   <div id="login-button-div">
     <img src="img/zondicons/user.svg" height="13px" id="login-icon-img">
-    <a id="login-button">Войти</a>
-    <div id="login-dropdown">
+    <a id="login-button" href="">Войти</a>
+    <div id="login-dropdown" class="initially-disabled">
       <form id="login-form" onsubmit="login(this); return false;">
         <input type="text" placeholder="Логин" required>
         <input type="password" placeholder="Пароль" required>

@@ -131,6 +131,10 @@ function createSubmit(value, onclick) {
   return submit
 }
 
+function gelid(id) {
+  return(document.getElementById(id))
+}
+
 window.addEventListener('load', () => {
   COOKIES = _get_cookies()
   console.log('\"Мы не готовим кодировщиков и специалистов по интерфейсам. Наша цель — подготовка элитных программистов для решения сложных задач для высокотехнологичных областей науки и техники.\"')

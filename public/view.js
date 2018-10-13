@@ -1,5 +1,5 @@
 function login(form) {
-  let serverMessage = document.getElementById('server-message'),
+  let serverMessage = gelid('server-message'),
   header = {'Authorization': 'Basic ' + btoa(form.children[0].value + ':' + form.children[1].value)}
 
   _request('POST', 'users/login', header, null,
@@ -24,71 +24,42 @@ function logout() {
     (status, response) => { if (status === 200) location.reload() })
 }
 
-function toggle_login_dropdown() {
-  if (_css_get('login-dropdown', 'display') !== 'block') {
-    _css_set('login-dropdown', {'display': 'block'})
-    _css_set('prom-dropdown', {'display': 'none'})
+function toggleDropdown(dropdown, hideOther, otherDropdown) {
+  if (typeof dropdown === 'string') { dropdown = gelid(dropdown) }
+  if (hideOther && typeof otherDropdown === 'string') { otherDropdown = gelid(otherDropdown) }
+
+  if (dropdown.classList.contains('initially-disabled')) {
+    dropdown.classList.remove('initially-disabled')
+    if (hideOther) { otherDropdown.classList.add('initially-disabled') }
   } else {
-    _css_set('login-dropdown', {'display': 'none'})
+    dropdown.classList.add('initially-disabled')
   }
 }
 
 window.addEventListener('load', () => {
-  let page_grid = document.getElementById('page-grid')
+  let page_grid = gelid('page-grid')
 
   /* Load menu */
   _request('GET', 'menu.html', null, null, (status, text) => {
     if (status !== 200) {
       document.write('something went wrong :(')
     } else {
-      document.getElementById('menu').innerHTML = text
-      let login_button = document.getElementById('login-button')
+      gelid('menu').innerHTML = text
 
+      let loginButton = gelid('login-button')
       if (_logged_in()) {
-        login_button.innerHTML = 'Выйти'
-        login_button.onclick = () => {
-          return logout()
-        }
-
+        loginButton.innerHTML = 'Выйти'
+        loginButton.onclick = () => { return logout(); return false }
         _css_set('login-icon-img', {'visibility': 'hidden'})
       } else {
-        login_button.innerHTML = 'Войти'
-
-        login_button.onclick = () => {
-          toggle_login_dropdown()
-        }
-
+        loginButton.innerHTML = 'Войти'
+        loginButton.onclick = () => { toggleDropdown('login-dropdown', true, 'prom-dropdown'); return false }
         _css_set('login-icon-img', {'visibility': 'visible'})
+      }
+
+      if(_logged_in_as('admin')) {
+        gelid('manage-link').classList.remove('initially-hidden')
       }
     }
   })
 })
-
-/*
-      let login_form = document.getElementById('login-form')
-      let login_dropdown = document.getElementById('login-dropdown')
-      let news_publish_gui = document.getElementById('news-publish-gui')
-
-
-      // Login button
-        login_button_action = () => {
-          if (_css_get('login-dropdown', 'display') !== 'block') {
-            _css_set('login-dropdown', {'display': 'block'})
-            _css_set('prom-dropdown', {'display': 'none'})
-          } else {
-            _css_set('login-dropdown', {'display': 'none'})
-          }
-        }
-
-      }
-
-      // Dropdowns
-      let prom_button = document.getElementById('prom')
-      prom_button.addEventListener('click', () => {
-        if (_css_get('prom-dropdown', 'display') !== 'block') {
-          _css_set('prom-dropdown', {'display': 'block'})
-          _css_set('login-dropdown', {'display': 'none'})
-        } else {
-          _css_set('prom-dropdown', {'display': 'none'})
-        }
-      })*/

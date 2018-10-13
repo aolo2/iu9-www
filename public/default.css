@@ -48,6 +48,11 @@ html, body {
   text-decoration: underline;
 }
 
+
+.grid .title div span a:active {
+  text-decoration: none;
+}
+
 #login-button {
   cursor: pointer;
 }
@@ -535,12 +540,15 @@ textarea:focus {
   /*filter: brightness(50%);*/
 }
 
+#prom:focus {
+  text-decoration: underline;
+}
+
 #prom-dropdown {
   top: 35px;
   position: absolute;
   background: white;
   z-index: 10;
-  display: none;
   padding: 0;
   margin-left: -3px;
   border: 2px solid #cccccc;
@@ -554,6 +562,11 @@ textarea:focus {
   padding-bottom: .3em;
   padding-top: .5em;
   text-align: left;
+}
+
+#prom-dropdown a:focus {
+  outline: none;
+  text-decoration: underline;
 }
 
 #prom-dropdown a {
@@ -572,7 +585,6 @@ textarea:focus {
   position: absolute;
   background: white;
   z-index: 10;
-  display: none;
   padding: .25em;
   margin-left: -35px;
   border: 2px solid #cccccc;
@@ -1017,6 +1029,10 @@ select:focus {
 
 #my-events {
   margin-top: 2em;
+}
+
+.initially-hidden {
+  visibility: hidden;
 }
 
 .unselectable {
