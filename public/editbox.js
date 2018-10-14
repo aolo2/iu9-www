@@ -16,19 +16,19 @@ const EditBox = {
   }),
 
   onmouseover: (element) => {
-    if (_logged_in_as('admin')) {
+    if (_logged_in_as('admin') || _logged_in_as('editor')) {
       _css_set(element, {'background': '#eeeeee', 'cursor': 'pointer'})
     }
   },
 
   onmouseout: (element) => {
-    if (_logged_in_as('admin')) {
+    if (_logged_in_as('admin') || _logged_in_as('editor')) {
       _css_set(element, {'background': 'none', 'cursor': 'inherit'})
     }
   },
 
   onclick: (element) => {
-    if (_logged_in_as('admin')) {
+    if (_logged_in_as('admin') || _logged_in_as('editor')) {
       EditBox.toggleUi(element.parentNode)
     }
   },

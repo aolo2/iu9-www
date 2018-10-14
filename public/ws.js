@@ -57,7 +57,6 @@ MESSAGE_ERROR: {text}
 */
 function onmessage(event) {
   const message = JSON.parse(event.data)
-  console.log(message)
   switch (message.type) {
     case MESSAGE_TYPE.SINGLE_MESSAGE:
     {

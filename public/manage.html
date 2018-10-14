@@ -106,7 +106,7 @@
           </div>
         </div>
 
-        <div class="add-user">
+        <div class="add-user initially-disabled" id="add-user-element">
           <h2>Добавить пользователя</h2>
           <form onsubmit="addUser(); return false">
             <input type="text" id="user-fn" placeholder="Фамилия" required><br>
@@ -145,7 +145,7 @@
           </form>
         </div>
 
-        <div class="applications">
+        <div class="applications initially-disabled" id="applications-element">
           <h2>Заявки на регистрацию</h2>
           <div id="no-apps-message" class="initially-disabled">
             Заявок нет

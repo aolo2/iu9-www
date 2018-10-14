@@ -191,10 +191,10 @@ function getGroups(req, res) {
   })
 }
 
-function edit_profile(req, res) {
+/*function edit_profile(req, res) {
   common.send_text_response(res, 200)
 }
-
+*/
 function access_check_middleware(req, res, next) {
   const session_id = req.cookies.SESSIONID
 
@@ -240,7 +240,7 @@ module.exports.logout = logout
 module.exports.add = add
 module.exports.get_applications = get_applications
 module.exports.approve_application = approve_application
-module.exports.edit_profile = edit_profile
+// module.exports.edit_profile = edit_profile
 module.exports.get = get
 module.exports.access_check_middleware = access_check_middleware
 module.exports.getGroups = getGroups

@@ -109,7 +109,7 @@ function create(req, res) {
 function getSubjects(req, res) {
   db.getEventSubjects((err, subjects) => {
     if (err) {
-      common.send_error_response(res, err.message)
+      common.send_error_response(res, errа.message)
     } else {
       common.send_json_response(res, subjects)
     }
@@ -124,16 +124,6 @@ function getTypes(req, res) {
       common.send_json_response(res, types)
     }
   })
-}
-
-function start_event(req, res) {
-  // change status
-  common.send_text_response(res, 200)
-}
-
-function edit_event(req, res) {
-  // change of status possible =
-  common.send_text_response(res, 200)
 }
 
 function finishEvent(req, res) {
@@ -166,8 +156,6 @@ function getEvent(req, res) {
 }
 
 module.exports.create = create
-module.exports.start_event = start_event
-module.exports.edit_event = edit_event
 module.exports.finishEvent = finishEvent
 module.exports.getEvent = getEvent
 module.exports.getSubjects = getSubjects

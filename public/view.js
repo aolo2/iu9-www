@@ -57,7 +57,7 @@ window.addEventListener('load', () => {
         _css_set('login-icon-img', {'visibility': 'visible'})
       }
 
-      if(_logged_in_as('admin')) {
+      if(_logged_in_as('admin') || _logged_in_as('tutor')) {
         gelid('manage-link').classList.remove('initially-hidden')
       }
     }

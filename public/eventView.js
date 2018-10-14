@@ -42,6 +42,7 @@ window.addEventListener('load', () => {
       drawEventData(data)
       if ('chatId' in data) {
         initSocket(new WebSocket('ws://localhost:3000/connect?roomId=' + data.chatId))
+        gelid('event-chat').classList.remove('initially-hidden')
       }
     } else if (status === 404) {
       drawError()
