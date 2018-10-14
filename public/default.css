@@ -69,6 +69,13 @@ html, body {
   text-align: right;
 }
 
+.page a {
+  font-family: Arial;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #222222;
+}
+
 a:link {
   color: #222222;
   color: black;

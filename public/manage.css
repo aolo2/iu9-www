@@ -101,6 +101,10 @@
   outline: none;
 }
 
+.manage input[type=checkbox]:focus {
+  outline: 1px solid #888;
+}
+
 .manage input[type=date] {
   font-family: 'Arial';
   padding: .125em;

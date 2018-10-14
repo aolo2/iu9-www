@@ -1,6 +1,7 @@
 const ws = require('ws')
 const cookie = require('cookie')
 const uuidv4 = require('uuid/v4')
+const url = require('url')
 
 const common = require('./common')
 const db = require('../lib/db')
@@ -8,7 +9,7 @@ const db = require('../lib/db')
 const MESSAGE_TYPE = {
  'SINGLE_MESSAGE': 0,
  'MESSAGE_HISTORY': 1,
- 'YOU_KICKED': 2
+ 'ERROR': 2
 }
 
 // TODO(aolo2, later): send an error if the server is being used before being initialised
@@ -43,26 +44,31 @@ function sessionCheckMiddleware(websocket, req, callback) {
   })
 }
 
+/* NOTE(aolo2):
 
+SINGLE_MESSAGE: {from, text}
+MESSAGE_HISTORY: {history: [SINGLE_MESSAGE...]}
+MESSAGE_ERROR: {text}
+
+*/
 function sendMessage(user, type, payload) {
   let message = {}
 
   switch (type) {
     case MESSAGE_TYPE.SINGLE_MESSAGE:
     {
-      message = payload
-      delete message['roomId']
+      message.from = payload.from
+      message.text = payload.text
       break
     }
     case MESSAGE_TYPE.MESSAGE_HISTORY:
     {
-      message.roomId = payload.roomId
-      message.history = payload.messages
+      message.history = payload
       break
     }
-    case MESSAGE_TYPE.YOU_KICKED:
+    case MESSAGE_TYPE.ERROR:
     {
-
+      message.text = payload
       break
     }
     default:
@@ -73,116 +79,79 @@ function sendMessage(user, type, payload) {
 
   message.type = type
 
-  // TODO(aolo2, important!): if socket is closed - do not panic
-  Local.USERS[user].send(JSON.stringify(message))
+  const clientSocket = Local.USERS[user].ws
+  if (clientSocket.readyState === clientSocket.OPEN) {
+    clientSocket.send(JSON.stringify(message))
+  } else {
+    delete Local.USERS[user]
+  }
 }
 
 
 function onConnection(websocket, req) {
+  // NOTE(aolo2): assosiate user with websocket object
+  const userLogin = req.user_db.login
+  const roomId = (new url.URL(req.headers.origin + req.url)).searchParams.get('roomId')
+
+  Local.USERS[userLogin] = {'ws': websocket}
+
   websocket.on('message', (data) => {
-    const message = JSON.parse(data) // TODO(aolo2): validate scheme (text, roomId)
-    sendMessageToChatroom(req.user_db, message.roomId, message)
+    let message = data // NOTE(aolo2): just text
+    sendMessageToChatroom(userLogin, roomId, message)
   })
 
-  // NOTE(aolo2): assosiate session with websocket object
-  Local.USERS[req.user_db.login] = websocket
-
-  if ('chatRooms' in req.user_db) {
-    // NOTE(aolo2): history of all rooms
-    db.getAllRoomHistory(req.user_db.chatRooms, (err, history) => {
-      for (let i = 0; i < history.length; i++) {
-        const doc = history[i]
-        sendMessage(req.user_db.login, MESSAGE_TYPE.MESSAGE_HISTORY, {'roomId': doc.roomId, 'messages': doc.messages})
+  db.getChatroom(roomId, (err, room) => {
+    if (err) {
+      sendMessage(userLogin, MESSAGE_TYPE.ERROR, err.message)
+      websocket.close()
+    } else if (!room) {
+      sendMessage(userLogin, MESSAGE_TYPE.ERROR, 'no such room')
+      websocket.close()
+    } else {
+      if (userLogin in room.users) {
+        Local.USERS[userLogin]['canSend'] = room[userLogin]
+        sendMessage(userLogin, MESSAGE_TYPE.MESSAGE_HISTORY, room.messages)
+      } else {
+        sendMessage(userLogin, MESSAGE_TYPE.ERROR, 'you are not a member of this chatroom')
+        websocket.close()
       }
-    })
-  }
+    }
+  })
 }
 
 function broadCast(users, message) {
-  for (let i = 0; i < users.length; i++) {
-    const login = users[i]
-    // NOTE(aolo2): if user is online
-    if (login in Local.USERS) {
-      sendMessage(users[i], MESSAGE_TYPE.SINGLE_MESSAGE, message)
+  Object.keys(users).forEach((login) => {
+    if (users[login] === 1 && login in Local.USERS) {
+      sendMessage(login, MESSAGE_TYPE.SINGLE_MESSAGE, message)
     }
-  }
+  })
 }
 
-function sendMessageToChatroom(user, roomId, message) {
-  message.text = common.sanitize(message.text)
-  message.from = user.login
+function sendMessageToChatroom(login, roomId, message) {
+  let payload = {
+    'text':  common.sanitize(message),
+    'from': login
+  }
+
   if (roomId in Local.ROOMS) {
-    broadCast(Local.ROOMS[roomId], message)
+    broadCast(Local.ROOMS[roomId], payload)
   } else {
     db.getChatroom(roomId, (err, room) => {
       if (err) {
-        broadCast(room.users, message)
+        broadCast(room.users, payload)
       } else {
         Local.ROOMS[roomId] = room.users
-        broadCast(room.users, message)
+        broadCast(room.users, payload)
       }
     })
   }
 
-  db.saveToHistoty(roomId, message, (err) => {})
+  db.saveToHistoty(roomId, payload, (err) => {}) // TODO(aolo2, later): message not sent
 }
-
-function createChatroom(req, res) {
-  const room = {
-    'name': req.body.name,
-    'createdAt': new Date(),
-    'users': req.body.users
-  }
-
-  db.createChatroom(room, (err, result) => {
-    if (err) {
-      common.prepare_error_response(res, err.message)
-    } else {
-      common.send_text_response(res, 200, result.insertedId)
-    }
-  })
-}
-
-/*
-function deleteChatroom(roomId) {
-  db.createChatroom(roomId, (err) => {
-    if (err) {
-
-    } else {
-
-    }
-  })
-}
-
-function addUserToChatroom(roomId, user) {
-  db.addUserToChatroom(roomId, user, (err) => {
-    if (err) {
-
-    } else if (roomId in Local.USERS) {
-      Local.USERS[roomId].
-    } else {
-
-    }
-  })
-}
-
-function removeUserFromChatroom(room, user) {
-  db.removeUserFromChatroom(roomId, user, (err) => {
-    if (err) {
-
-    } else if (roomId in Local.USERS) {
-      Local.USERS[roomId].
-    } else {
-
-    }
-  })
-}
-}*/
 
 function init(httpServer) {
-  wsServer = new ws.Server({server: httpServer})
+  wsServer = new ws.Server({server: httpServer, path: '/connect'})
   wsServer.on('connection', (ws, req) => sessionCheckMiddleware(ws, req, onConnection))
 }
 
 module.exports.init = init
-module.exports.createChatroom = createChatroom

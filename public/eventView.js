@@ -29,12 +29,22 @@ function finishEvent(e) {
   }
 }
 
+function drawError() {
+  gelid('event-type').innerHTML = 'Событие удалено'
+  gelid('finish-event').classList.add('initially-hidden')
+}
+
 window.addEventListener('load', () => {
   eventId = new URL(window.location.href).searchParams.get('id');
   _request('GET', 'event', null, {'eventId': eventId}, (status, response) => {
     if (status === 200) {
       const data = JSON.parse(response)
       drawEventData(data)
+      if ('chatId' in data) {
+        initSocket(new WebSocket('ws://localhost:3000/connect?roomId=' + data.chatId))
+      }
+    } else if (status === 404) {
+      drawError()
     } else {
       // TODO: error handling
     }

@@ -111,7 +111,8 @@ function addEvent() {
     'title': gelid('event-name').value,
     'datetime': new Date(gelid('event-date').value + 'T' + gelid('event-time').value + ':00'),
     'files': filesInfo,
-    'participants': {'tutors': [], 'students': []}
+    'participants': {'tutors': [], 'students': []},
+    'chat': gelid('create-chat').checked
   }
 
   eventTutors.forEach((tutorLogin) => {

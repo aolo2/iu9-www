@@ -55,9 +55,6 @@ router_auth.patch('/editbox/source', editbox.updateSource) // NOTE(aolo2, import
 /* Файлы */
 router_auth.post('/files/upload', files.upload)
 
-/* Чат */
-router_auth.post('/chat/new', websocket.createChatroom)
-
 router.use('/', router_auth)
 
 module.exports = router;

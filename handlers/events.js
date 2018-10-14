@@ -1,6 +1,29 @@
 const db = require('../lib/db')
 const common = require('./common')
 
+const uuidv4 = require('uuid/v4')
+
+function ___addEvent(res, event, users, eventSubjectName, eventTypeName) {
+  db.createEvent(event, (err, result) => {
+    if (err) {
+      common.send_error_response(res, err.message)
+    } else {
+      db.addEventToUsers(users,
+      {
+        'subject': eventSubjectName,
+        'type': eventTypeName,
+        '_id': result.insertedId
+      }, (err) => {
+        if (err) {
+          common.send_error_response(res, err.message)
+        } else {
+          common.send_text_response(res, 200)
+        }
+      })
+    }
+  })
+}
+
 function __addEvent(res, event) {
   let rules = []
   if ('tutors' in event.participants) {
@@ -16,29 +39,30 @@ function __addEvent(res, event) {
     const eventSubjectName = event['subjectName']
     const eventTypeName = event['typeName']
 
-    event.users = users
+    let logins = []
+    users.forEach((user) => {
+      logins.push(user.login)
+    })
+
+    event.users = logins
+
     delete event['subjectName']
     delete event['participants']
     delete event['typeName']
 
-    db.createEvent(event, (err, result) => {
-      if (err) {
-        common.send_error_response(res, err.message)
-      } else {
-        db.addEventToUsers(users,
-        {
-          'subject': eventSubjectName,
-          'type': eventTypeName,
-          '_id': result.insertedId
-        }, (err) => {
-          if (err) {
-            common.send_error_response(res, err.message)
-          } else {
-            common.send_text_response(res, 200)
-          }
-        })
-      }
-    })
+    if (event.chat) {
+      db.createChatroom(logins, (err, result) => {
+        if (err) {
+          common.send_error_response(res, err.message)
+        } else {
+          event.chatId = result.insertedId
+          delete event['chat']
+          ___addEvent(res, event, logins, eventSubjectName, eventTypeName)
+        }
+      })
+    } else {
+      ___addEvent(res, event, logins, eventSubjectName, eventTypeName)
+    }
   })
 }
 
@@ -113,10 +137,11 @@ function edit_event(req, res) {
 }
 
 function finishEvent(req, res) {
-  db.finishEvent(req.body.eventId, (err) => {
+  db.finishEvent(req.body.eventId, (err, event) => {
     if (err) {
       common.send_error_response(res, err.message)
     } else {
+      if ('chatId' in event) { db.closeChat(event.chatId, (err) => {}) } // NOTE(aolo2): async TODO(aolo2, later): err
       db.removeEventFromUsers(req.body.eventId, (err) => {
         if (err) {
           common.send_error_response(res, err.message)
