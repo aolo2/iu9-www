@@ -19,8 +19,8 @@ function get_public_news(req, res) {
 }
 
 function post_article(req, res) {
-  if (req.body.header.length > 80) {
-    common.send_bad_request_response(res, "max header length (80 chars) exceeded")
+  if (req.body.header.length > 200) {
+    common.send_bad_request_response(res, "max header length (200 chars) exceeded")
     return
   }
 
@@ -33,7 +33,7 @@ function post_article(req, res) {
   const article = {
     'header': req.body.header,
     'timestamp': new Date(),
-    'author': req.user_db.login,
+    'author': req.user_db.first_name[0] + '. ' + req.user_db.last_name,
     'public': req.body.public,
     'target': req.body.target
   }
